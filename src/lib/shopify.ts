@@ -1,20 +1,11 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client'
-import { Product } from '@/types/product'
+import { Product, Collection } from '@/types/product'
 
 const client = createStorefrontApiClient({
 	storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!,
 	apiVersion: '2024-10',
 	publicAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!
 })
-
-// Type for Collection
-export interface Collection {
-	id: string
-	title: string
-	handle: string
-	description: string | null
-}
-
 // Fetch all collections (categories)
 export async function getCollections(): Promise<Collection[]> {
 	const query = `
