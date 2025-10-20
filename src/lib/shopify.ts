@@ -188,3 +188,61 @@ export async function getProducts(): Promise<Product[]> {
 		return []
 	}
 }
+
+export async function getProduct(id: string): Promise<Product | null> {
+	const query = `
+    query GetProduct($id: ID!) {
+      product(id: $id) {
+        id
+        title
+        description
+        handle
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 10) {
+          edges {
+            node {
+              url
+              altText
+            }
+          }
+        }
+      }
+    }
+  `
+
+	try {
+		const response = await client.request(query, {
+			variables: { id }
+		})
+
+		if (!response.data?.product) {
+			return null
+		}
+
+		const node = response.data.product
+		return {
+			id: node.id,
+			title: node.title,
+			description: node.description || '',
+			handle: node.handle,
+			priceRange: {
+				minVariantPrice: {
+					amount: node.priceRange.minVariantPrice.amount,
+					currencyCode: node.priceRange.minVariantPrice.currencyCode
+				}
+			},
+			images: node.images.edges.map((imgEdge: any) => ({
+				url: imgEdge.node.url,
+				altText: imgEdge.node.altText
+			}))
+		}
+	} catch (error) {
+		console.error('Error fetching product:', error)
+		return null
+	}
+}
