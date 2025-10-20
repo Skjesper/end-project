@@ -3,7 +3,7 @@ import { Product, Collection } from '@/types/product'
 
 const client = createStorefrontApiClient({
 	storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!,
-	apiVersion: '2024-10',
+	apiVersion: '2025-01',
 	publicAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!
 })
 // Fetch all collections (categories)
