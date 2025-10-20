@@ -246,3 +246,64 @@ export async function getProduct(id: string): Promise<Product | null> {
 		return null
 	}
 }
+
+// ADD THIS NEW FUNCTION
+export async function getProductByHandle(
+	handle: string
+): Promise<Product | null> {
+	const query = `
+    query GetProductByHandle($handle: String!) {
+      product(handle: $handle) {
+        id
+        title
+        description
+        handle
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 10) {
+          edges {
+            node {
+              url
+              altText
+            }
+          }
+        }
+      }
+    }
+  `
+
+	try {
+		const response = await client.request(query, {
+			variables: { handle }
+		})
+
+		if (!response.data?.product) {
+			return null
+		}
+
+		const node = response.data.product
+		return {
+			id: node.id,
+			title: node.title,
+			description: node.description || '',
+			handle: node.handle,
+			priceRange: {
+				minVariantPrice: {
+					amount: node.priceRange.minVariantPrice.amount,
+					currencyCode: node.priceRange.minVariantPrice.currencyCode
+				}
+			},
+			images: node.images.edges.map((imgEdge: any) => ({
+				url: imgEdge.node.url,
+				altText: imgEdge.node.altText
+			}))
+		}
+	} catch (error) {
+		console.error('Error fetching product by handle:', error)
+		return null
+	}
+}
