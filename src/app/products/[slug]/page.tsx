@@ -4,9 +4,10 @@ import Link from 'next/link'
 export default async function ProductDetailPage({
 	params
 }: {
-	params: { slug: string }
+	params: Promise<{ slug: string }>
 }) {
-	const product = await getProductByHandle(params.slug)
+	const { slug } = await params
+	const product = await getProductByHandle(slug)
 
 	if (!product) {
 		return (
