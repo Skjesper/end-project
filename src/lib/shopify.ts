@@ -247,7 +247,6 @@ export async function getProduct(id: string): Promise<Product | null> {
 	}
 }
 
-// ADD THIS NEW FUNCTION
 export async function getProductByHandle(
 	handle: string
 ): Promise<Product | null> {
@@ -269,6 +268,13 @@ export async function getProductByHandle(
             node {
               url
               altText
+            }
+          }
+        }
+        variants(first: 1) {
+          edges {
+            node {
+              id
             }
           }
         }
@@ -300,7 +306,8 @@ export async function getProductByHandle(
 			images: node.images.edges.map((imgEdge: any) => ({
 				url: imgEdge.node.url,
 				altText: imgEdge.node.altText
-			}))
+			})),
+			variantId: node.variants.edges[0]?.node.id || node.id
 		}
 	} catch (error) {
 		console.error('Error fetching product by handle:', error)
