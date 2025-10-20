@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css'
+import Layout from '@/components/layout/Layout'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -30,7 +30,9 @@ export default function RootLayout({
 					href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
 				/>
 			</head>
-			<body>{children}</body>
+			<body>
+				<Layout>{children}</Layout>
+			</body>
 		</html>
 	)
 }

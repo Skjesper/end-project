@@ -18,3 +18,10 @@ export interface Product {
 	}
 	images: ProductImage[]
 }
+
+export interface Collection {
+	id: string
+	title: string
+	handle: string
+	description: string | null
+}
