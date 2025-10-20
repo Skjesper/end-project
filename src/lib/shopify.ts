@@ -3,7 +3,7 @@ import { Product, Collection } from '@/types/product'
 
 const client = createStorefrontApiClient({
 	storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!,
-	apiVersion: '2024-10',
+	apiVersion: '2025-01',
 	publicAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!
 })
 // Fetch all collections (categories)
@@ -186,5 +186,131 @@ export async function getProducts(): Promise<Product[]> {
 	} catch (error) {
 		console.error('Shopify Connection Error:', error)
 		return []
+	}
+}
+
+export async function getProduct(id: string): Promise<Product | null> {
+	const query = `
+    query GetProduct($id: ID!) {
+      product(id: $id) {
+        id
+        title
+        description
+        handle
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 10) {
+          edges {
+            node {
+              url
+              altText
+            }
+          }
+        }
+      }
+    }
+  `
+
+	try {
+		const response = await client.request(query, {
+			variables: { id }
+		})
+
+		if (!response.data?.product) {
+			return null
+		}
+
+		const node = response.data.product
+		return {
+			id: node.id,
+			title: node.title,
+			description: node.description || '',
+			handle: node.handle,
+			priceRange: {
+				minVariantPrice: {
+					amount: node.priceRange.minVariantPrice.amount,
+					currencyCode: node.priceRange.minVariantPrice.currencyCode
+				}
+			},
+			images: node.images.edges.map((imgEdge: any) => ({
+				url: imgEdge.node.url,
+				altText: imgEdge.node.altText
+			}))
+		}
+	} catch (error) {
+		console.error('Error fetching product:', error)
+		return null
+	}
+}
+
+export async function getProductByHandle(
+	handle: string
+): Promise<Product | null> {
+	const query = `
+    query GetProductByHandle($handle: String!) {
+      product(handle: $handle) {
+        id
+        title
+        description
+        handle
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 10) {
+          edges {
+            node {
+              url
+              altText
+            }
+          }
+        }
+        variants(first: 1) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+      }
+    }
+  `
+
+	try {
+		const response = await client.request(query, {
+			variables: { handle }
+		})
+
+		if (!response.data?.product) {
+			return null
+		}
+
+		const node = response.data.product
+		return {
+			id: node.id,
+			title: node.title,
+			description: node.description || '',
+			handle: node.handle,
+			priceRange: {
+				minVariantPrice: {
+					amount: node.priceRange.minVariantPrice.amount,
+					currencyCode: node.priceRange.minVariantPrice.currencyCode
+				}
+			},
+			images: node.images.edges.map((imgEdge: any) => ({
+				url: imgEdge.node.url,
+				altText: imgEdge.node.altText
+			})),
+			variantId: node.variants.edges[0]?.node.id || node.id
+		}
+	} catch (error) {
+		console.error('Error fetching product by handle:', error)
+		return null
 	}
 }

@@ -17,11 +17,5 @@ export interface Product {
 		minVariantPrice: ProductPrice
 	}
 	images: ProductImage[]
-}
-
-export interface Collection {
-	id: string
-	title: string
-	handle: string
-	description: string | null
+	variantId: string
 }
