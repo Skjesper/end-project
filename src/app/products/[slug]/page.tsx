@@ -26,7 +26,6 @@ export default async function ProductDetailPage({
 
 			<h1>{product.title}</h1>
 
-			{/* Image Gallery */}
 			<div>
 				<h2>Images</h2>
 				{product.images.length > 0 ? (
@@ -45,7 +44,6 @@ export default async function ProductDetailPage({
 				)}
 			</div>
 
-			{/* Product Info */}
 			<div>
 				<p>
 					Price: {price.toFixed(2)} {currency}

@@ -1,5 +1,5 @@
 export interface CartItem {
-	id: string
+	handle: string
 	productId: string
 	variantId: string
 	title: string
@@ -10,6 +10,4 @@ export interface CartItem {
 
 export interface Cart {
 	items: CartItem[]
-	totalItems: number
-	totalPrice: number
 }
