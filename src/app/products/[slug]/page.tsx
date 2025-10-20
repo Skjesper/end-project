@@ -1,3 +1,4 @@
+import AddToCartButton from '@/components/products/AddToCartButton'
 import { getProductByHandle } from '@/lib/shopify'
 import Link from 'next/link'
 
@@ -57,8 +58,15 @@ export default async function ProductDetailPage({
 					</div>
 				)}
 
-				{/* Placeholder Add to Cart Button */}
-				<button>Add to Cart</button>
+				<AddToCartButton
+					productId={product.id}
+					variantId={product.variantId}
+					handle={product.handle}
+					title={product.title}
+					price={price}
+					image={product.images[0]?.url || ''}
+					currency={currency}
+				/>
 			</div>
 		</div>
 	)
