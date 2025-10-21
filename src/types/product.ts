@@ -13,6 +13,7 @@ export interface Product {
 	title: string
 	description: string
 	handle: string
+	tags?: string[]
 	priceRange: {
 		minVariantPrice: ProductPrice
 	}
