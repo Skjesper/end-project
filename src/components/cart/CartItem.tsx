@@ -24,13 +24,13 @@ export default function CartItem({ item }: CartItemProps) {
 	return (
 		<div>
 			{/* Product Image */}
-			<Link href={`/products/${item.handle}`}>
+			<Link href={`/item/${item.handle}`}>
 				<img src={item.image} alt={item.title} width="100" height="100" />
 			</Link>
 
 			{/* Product Info */}
 			<div>
-				<Link href={`/products/${item.handle}`}>
+				<Link href={`/item/${item.handle}`}>
 					<h3>{item.title}</h3>
 				</Link>
 				<p>

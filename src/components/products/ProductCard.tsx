@@ -12,7 +12,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
 	return (
 		<article>
-			<Link href={`/products/${product.handle}`}>
+			<Link href={`/item/${product.handle}`}>
 				{' '}
 				<div>
 					{image ? (

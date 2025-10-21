@@ -14,7 +14,7 @@ export default async function ProductDetailPage({
 		return (
 			<div>
 				<h1>Product Not Found</h1>
-				<Link href="/products">Back to Products</Link>
+				<Link href="/item">Back to Products</Link>
 			</div>
 		)
 	}
@@ -24,7 +24,7 @@ export default async function ProductDetailPage({
 
 	return (
 		<div>
-			<Link href="/products">← Back to Products</Link>
+			<Link href="/item">← Back to Products</Link>
 
 			<h1>{product.title}</h1>
 
