@@ -4,6 +4,7 @@ import { use, useState, useEffect } from 'react'
 import ProductGrid from '@/components/products/ProductGrid'
 import { getProductsByCollection } from '@/lib/shopify'
 import { Product } from '@/types/product'
+import { extractUniqueTags, filterProductsByTag } from '@/utils/tagFilter'
 
 interface CategoryPageProps {
 	params: Promise<{ slug: string }>
@@ -14,30 +15,26 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 	const [collection, setCollection] = useState<any>(null)
 	const [allProducts, setAllProducts] = useState<Product[]>([])
 	const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
-	const [showSaleOnly, setShowSaleOnly] = useState(false)
+	const [selectedTag, setSelectedTag] = useState<string | null>(null)
+	const [availableTags, setAvailableTags] = useState<string[]>([])
 
 	useEffect(() => {
 		async function loadData() {
 			const data = await getProductsByCollection(slug)
-			console.log('All products loaded:', data.products)
 			setCollection(data.collection)
 			setAllProducts(data.products)
 			setFilteredProducts(data.products)
+
+			const tags = extractUniqueTags(data.products)
+			setAvailableTags(tags)
 		}
 		loadData()
 	}, [slug])
 
 	useEffect(() => {
-		if (showSaleOnly) {
-			const filtered = allProducts.filter((p) =>
-				p.tags?.some((tag) => tag.toLowerCase().trim() === 'sale')
-			)
-			console.log('Filtered products:', filtered)
-			setFilteredProducts(filtered)
-		} else {
-			setFilteredProducts(allProducts)
-		}
-	}, [showSaleOnly, allProducts])
+		const filtered = filterProductsByTag(allProducts, selectedTag)
+		setFilteredProducts(filtered)
+	}, [selectedTag, allProducts])
 
 	if (!collection) {
 		return <p>Category not found</p>
@@ -47,9 +44,16 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 		<div>
 			<h1>{collection.title}</h1>
 			<p>{collection.description}</p>
-			<button onClick={() => setShowSaleOnly(!showSaleOnly)}>
-				{showSaleOnly ? 'Show All' : 'Sale Only'}
-			</button>
+
+			<div>
+				<button onClick={() => setSelectedTag(null)}>All</button>
+				{availableTags.map((tag) => (
+					<button key={tag} onClick={() => setSelectedTag(tag)}>
+						{tag}
+					</button>
+				))}
+			</div>
+
 			<p>Showing {filteredProducts.length} products</p>
 			<ProductGrid products={filteredProducts} />
 		</div>
