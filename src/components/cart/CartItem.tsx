@@ -11,16 +11,26 @@ interface CartItemProps {
 export default function CartItem({ item }: CartItemProps) {
 	const { updateQuantity, removeFromCart } = useCart()
 
+	const handleDecrease = () => {
+		if (item.quantity > 1) {
+			updateQuantity(item.productId, item.quantity - 1)
+		}
+	}
+
+	const handleIncrease = () => {
+		updateQuantity(item.productId, item.quantity + 1)
+	}
+
 	return (
 		<div>
 			{/* Product Image */}
-			<Link href={`/products/${item.handle}`}>
+			<Link href={`/item/${item.handle}`}>
 				<img src={item.image} alt={item.title} width="100" height="100" />
 			</Link>
 
 			{/* Product Info */}
 			<div>
-				<Link href={`/products/${item.handle}`}>
+				<Link href={`/item/${item.handle}`}>
 					<h3>{item.title}</h3>
 				</Link>
 				<p>
@@ -30,15 +40,11 @@ export default function CartItem({ item }: CartItemProps) {
 
 			{/* Quantity Controls */}
 			<div>
-				<label>Quantity:</label>
-				<input
-					type="number"
-					min="1"
-					value={item.quantity}
-					onChange={(e) =>
-						updateQuantity(item.productId, parseInt(e.target.value))
-					}
-				/>
+				<button onClick={handleDecrease} disabled={item.quantity <= 1}>
+					-
+				</button>
+				<span>{item.quantity}</span>
+				<button onClick={handleIncrease}>+</button>
 			</div>
 
 			{/* Item Total */}

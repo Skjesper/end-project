@@ -1,5 +1,5 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client'
-import { Product, Collection } from '@/types/product'
+import { Product } from '@/types/product'
 
 const client = createStorefrontApiClient({
 	storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!,
