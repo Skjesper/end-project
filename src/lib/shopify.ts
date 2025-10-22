@@ -6,7 +6,7 @@ const client = createStorefrontApiClient({
 	apiVersion: '2025-01',
 	publicAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!
 })
-// Fetch all collections (categories)
+
 export async function getCollections(): Promise<Collection[]> {
 	const query = `
     query GetCollections {
@@ -39,7 +39,6 @@ export async function getCollections(): Promise<Collection[]> {
 	}
 }
 
-// Fetch products by collection handle
 export async function getProductsByCollection(
 	collectionHandle: string
 ): Promise<{ collection: Collection | null; products: Product[] }> {
@@ -128,7 +127,6 @@ export async function getProductsByCollection(
 	}
 }
 
-// Original function - kept for reference
 export async function getProducts(): Promise<Product[]> {
 	const query = `
     query GetProducts {
@@ -314,6 +312,69 @@ export async function getProductByHandle(
 		}
 	} catch (error) {
 		console.error('Error fetching product by handle:', error)
+		return null
+	}
+}
+
+export async function createCheckout(cartItems: any[]) {
+	const lines = cartItems.map((item) => ({
+		merchandiseId: item.variantId,
+		quantity: item.quantity
+	}))
+
+	// Step 1: Create cart
+	const createMutation = `
+    mutation cartCreate($lines: [CartLineInput!]!) {
+      cartCreate(input: { lines: $lines }) {
+        cart {
+          id
+          checkoutUrl
+        }
+        userErrors {
+          message
+          field
+        }
+      }
+    }
+  `
+
+	try {
+		const response = await client.request(createMutation, {
+			variables: { lines }
+		})
+
+		const cartId = response.data?.cartCreate?.cart?.id
+		const errors = response.data?.cartCreate?.userErrors
+
+		if (errors && errors.length > 0) {
+			console.error('Cart errors:', errors)
+			return null
+		}
+
+		if (!cartId) {
+			console.error('No cart ID returned')
+			return null
+		}
+
+		// Step 2: Get checkout URL
+		const cartQuery = `
+      query getCart($cartId: ID!) {
+        cart(id: $cartId) {
+          checkoutUrl
+        }
+      }
+    `
+
+		const cartResponse = await client.request(cartQuery, {
+			variables: { cartId }
+		})
+
+		const checkoutUrl = cartResponse.data?.cart?.checkoutUrl
+
+		console.log('Final checkout URL:', checkoutUrl)
+		return checkoutUrl || null
+	} catch (error) {
+		console.error('Checkout request failed:', error)
 		return null
 	}
 }
