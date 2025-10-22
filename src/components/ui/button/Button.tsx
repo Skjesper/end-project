@@ -1,3 +1,5 @@
+import styles from './Button.module.css'
+
 interface ButtonProps {
 	children: React.ReactNode
 	onClick?: () => void
@@ -19,6 +21,7 @@ export default function Button({
 }: ButtonProps) {
 	return (
 		<button
+			className={styles.button}
 			type={type}
 			onClick={onClick}
 			disabled={disabled}
