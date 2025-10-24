@@ -19,7 +19,7 @@ export default function Header() {
 
 				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
-					<Link href="/" className={styles.navItem}>
+					<Link href="/" className={`${styles.navItem} ${styles.priority2}`}>
 						<Button variant="nav">Explore</Button>
 					</Link>
 					<Link

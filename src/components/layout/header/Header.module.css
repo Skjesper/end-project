@@ -65,7 +65,7 @@
 }
 
 /* Mobile layout - hide left nav completely, show hamburger menu */
-@media (max-width: 800px) {
+@media (max-width: 850px) {
 	.leftNav {
 		display: none;
 	}
