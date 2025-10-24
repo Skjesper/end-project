@@ -1,0 +1,8 @@
+.headerContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6.25rem 2rem 1.5rem 2rem;
+	background-color: #f8f9fa;
+	gap: 3.5rem;
+}

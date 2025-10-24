@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import Layout from '@/components/layout/Layout'
 import { CartProvider } from '@/context/CartContext'
+import { futuraFont } from '@/lib/fonts'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -24,14 +25,17 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<html lang="en">
+		<html
+			lang="en"
+			className={`${futuraFont.variable} ${geistSans.variable} ${geistMono.variable}`}
+		>
 			<head>
-				<link
+				{/* <link
 					rel="stylesheet"
 					href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
-				/>
+				/> */}
 			</head>
-			<body>
+			<body className={futuraFont.className}>
 				<CartProvider>
 					<Layout>{children}</Layout>
 				</CartProvider>
