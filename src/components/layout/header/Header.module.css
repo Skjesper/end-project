@@ -1,0 +1,76 @@
+.header {
+	width: 100%;
+}
+
+.headerContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem;
+	container-type: inline-size;
+}
+
+.leftNav {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.rightNav {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.logoContainer {
+	flex-shrink: 0;
+}
+
+.navItem {
+	display: flex;
+	text-decoration: none;
+}
+
+/* Mobile menu hidden by default */
+.mobileMenu {
+	display: none;
+}
+
+/* Priority system - items hide based on available space */
+/* Lower priority numbers = hide later (more important) */
+/* No priority class = highest priority (always visible) */
+
+/* Hide priority 4 items first (least important) */
+@container (max-width: 1200px) {
+	.priority4 {
+		display: none;
+	}
+}
+
+/* Hide priority 3 items */
+@container (max-width: 1000px) {
+	.priority3 {
+		display: none;
+	}
+}
+
+/* Hide priority 2 items */
+@container (max-width: 800px) {
+	.priority2 {
+		display: none;
+	}
+}
+
+/* Mobile layout - hide left nav completely, show hamburger menu */
+@media (max-width: 850px) {
+	.leftNav {
+		display: none;
+	}
+
+	.mobileMenu {
+		display: block;
+	}
+}

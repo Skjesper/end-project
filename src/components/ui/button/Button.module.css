@@ -2,23 +2,29 @@
 	/* Base button styles */
 	border: none;
 	cursor: pointer;
-	padding: 0.5rem 1rem;
 	transition: all 0.2s ease;
 }
 
-/* Filter variant - not selected (default) */
-.button[data-variant='filter'] {
+.button[data-variant='nav'] {
+	color: #000000;
+	font-size: 1.25rem;
+	font-family: var(--font-futura), Arial, Helvetica, sans-serif;
+	font-weight: 500;
+	background-color: transparent;
+}
+
+/* .button[data-variant='filter'] {
 	background-color: rgba(255, 255, 255, 0.5);
 	color: inherit;
 }
 
-/* Filter variant - hover */
+
 .button[data-variant='filter']:hover {
 	background-color: rgba(255, 255, 255, 1);
 }
 
-/* Filter variant - active */
+
 .button[data-variant='filter'][data-active='true'] {
 	background-color: #000000;
 	color: #ffffff;
-}
+} */
