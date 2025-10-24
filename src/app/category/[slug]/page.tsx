@@ -2,6 +2,7 @@
 
 import { use, useState, useEffect } from 'react'
 import ProductGrid from '@/components/products/ProductGrid'
+import Button from '@/components/ui/button/Button'
 import { getProductsByCollection } from '@/lib/shopify'
 import { Product } from '@/types/product'
 import { extractUniqueTags, filterProductsByTag } from '@/utils/tagFilter'
@@ -46,11 +47,22 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 			<p>{collection.description}</p>
 
 			<div>
-				<button onClick={() => setSelectedTag(null)}>All</button>
+				<Button
+					variant="filter"
+					isActive={selectedTag === null}
+					onClick={() => setSelectedTag(null)}
+				>
+					All
+				</Button>
 				{availableTags.map((tag) => (
-					<button key={tag} onClick={() => setSelectedTag(tag)}>
+					<Button
+						key={tag}
+						variant="filter"
+						isActive={selectedTag === tag}
+						onClick={() => setSelectedTag(tag)}
+					>
 						{tag}
-					</button>
+					</Button>
 				))}
 			</div>
 
