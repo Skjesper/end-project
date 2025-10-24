@@ -10,23 +10,38 @@ export default function Header() {
 	const { getTotalItems } = useCart()
 
 	return (
-		<header>
+		<header className={styles.header}>
 			<div className={styles.headerContainer}>
-				{/* Left side - 4 items */}
+				{/* Mobile menu - hidden on desktop */}
+				<div className={styles.mobileMenu}>
+					<Button variant="nav">☰</Button>
+				</div>
+
+				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
-					<Link href="/">
-						<Button variant="nav">Home</Button>
+					<Link href="/" className={styles.navItem}>
+						<Button variant="nav">Explore</Button>
 					</Link>
-					<Link href="/category/glasses">
+					<Link
+						href="/category/glasses"
+						className={`${styles.navItem} ${styles.priority2}`}
+					>
 						<Button variant="nav">Glasses</Button>
 					</Link>
-					<Link href="/category/bags">
+					<Link
+						href="/category/bags"
+						className={`${styles.navItem} ${styles.priority3}`}
+					>
 						<Button variant="nav">Bags</Button>
 					</Link>
-					<Link href="/shop">
-						<Button variant="nav">Shop</Button>
+					<Link
+						href="/shop"
+						className={`${styles.navItem} ${styles.priority4}`}
+					>
+						<Button variant="nav">Collections</Button>
 					</Link>
 				</nav>
+
 				{/* Center - Logo */}
 				<div className={styles.logoContainer}>
 					<Link href="/">
@@ -39,33 +54,41 @@ export default function Header() {
 					</Link>
 				</div>
 
-				{/* Right side - 4 items */}
+				{/* Right side navigation */}
 				<nav className={styles.rightNav}>
-					<Link href="/account">
+					<Link
+						href="/account"
+						className={`${styles.navItem} ${styles.priority3}`}
+					>
 						<Button variant="nav">Login</Button>
 					</Link>
-					<Link href="/search">
+
+					<Link href="/search" className={styles.navItem}>
 						<Button variant="nav">
 							<Image
 								src="/assets/SearchIcon.svg"
-								alt="Cart"
+								alt="Search"
 								width={25}
 								height={25}
 							/>
 						</Button>
 					</Link>
 
-					<Link href="/favorites">
+					<Link
+						href="/favorites"
+						className={`${styles.navItem} ${styles.priority2}`}
+					>
 						<Button variant="nav">
 							<Image
 								src="/assets/HeartIcon.svg"
-								alt="Cart"
+								alt="Favorites"
 								width={25}
 								height={25}
 							/>
 						</Button>
 					</Link>
-					<Link href="/cart">
+
+					<Link href="/cart" className={styles.navItem}>
 						<Button variant="nav">
 							<div style={{ position: 'relative', display: 'inline-block' }}>
 								<Image
@@ -81,8 +104,7 @@ export default function Header() {
 										left: '50%',
 										transform: 'translate(-50%, -50%)',
 										fontSize: '10px',
-										fontWeight: 'bold',
-										height: 'inherit'
+										fontWeight: 'bold'
 									}}
 								>
 									{getTotalItems()}
