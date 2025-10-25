@@ -13,18 +13,19 @@
 	background-color: transparent;
 }
 
-/* .button[data-variant='filter'] {
+.button[data-variant='filter'] {
 	background-color: rgba(255, 255, 255, 0.5);
 	color: inherit;
+	border: 1px solid #000000;
+	padding: 0.75rem 0.75rem;
+	border-radius: 6px;
 }
-
 
 .button[data-variant='filter']:hover {
 	background-color: rgba(255, 255, 255, 1);
 }
 
-
 .button[data-variant='filter'][data-active='true'] {
 	background-color: #000000;
 	color: #ffffff;
-} */
+}
