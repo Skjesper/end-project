@@ -1,4 +1,3 @@
-// src/app/category/[slug]/components/TagFilter/TagFilter.tsx
 import Button from '@/components/ui/button/Button'
 import styles from './TagFilter.module.css'
 
