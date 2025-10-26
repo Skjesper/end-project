@@ -87,7 +87,7 @@
 	--max-width-full: 100%; /* Full width sections */
 
 	/* The magic variables that create your consistent margins */
-	--container-padding: 2rem; /* Left/right page margins */
+	--container-padding: 4rem; /* Left/right page margins */
 	--container-padding-sm: 1rem; /* Mobile left/right margins */
 
 	/* Vertical rhythm - spacing between major sections */
@@ -142,7 +142,7 @@
    all spacing and typography the same
    ============================================ */
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
 	:root {
 		--background: #0a0a0a;
 		--foreground: #ededed;

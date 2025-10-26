@@ -5,7 +5,6 @@ import { useCart } from '@/context/CartContext'
 import Button from '@/components/ui/button/Button'
 import styles from './Header.module.css'
 import Image from 'next/image'
-
 export default function Header() {
 	const { getTotalItems } = useCart()
 
