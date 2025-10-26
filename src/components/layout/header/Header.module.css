@@ -7,20 +7,25 @@
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	gap: 1rem;
-	padding: 1rem;
+	padding: 1rem var(--container-padding);
 	container-type: inline-size;
+}
+
+.leftNav,
+.rightNav {
+	gap: 0.75rem;
 }
 
 .leftNav {
 	display: flex;
-	gap: 0.5rem;
+
 	align-items: center;
 	justify-content: flex-start;
 }
 
 .rightNav {
 	display: flex;
-	gap: 0.5rem;
+
 	align-items: center;
 	justify-content: flex-end;
 }
