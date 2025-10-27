@@ -1,7 +1,7 @@
-import AddToCartButton from '@/components/products/AddToCartButton'
 import { getProductByHandle } from '@/lib/shopify'
 import Link from 'next/link'
 import styles from './page.module.css'
+import AddToCartButton from '@/components/ui/button/AddToCartButton'
 
 export default async function ProductDetailPage({
 	params
@@ -53,20 +53,24 @@ export default async function ProductDetailPage({
 
 						{product.description && (
 							<div>
-								<h2>Description</h2>
+								<h2>Details</h2>
 								<p>{product.description}</p>
 							</div>
 						)}
-
+					</div>
+					<div className={styles.addToCartButton}>
 						<AddToCartButton
 							productId={product.id}
-							variantId={product.variantId}
+							variantId={product.variantId || ''}
 							handle={product.handle}
 							title={product.title}
 							price={price}
 							image={product.images[0]?.url || ''}
 							currency={currency}
-						/>
+							variant="primary"
+						>
+							Add to Cart
+						</AddToCartButton>
 					</div>
 				</section>
 			</div>

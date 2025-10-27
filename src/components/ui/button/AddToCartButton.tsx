@@ -1,5 +1,6 @@
 'use client'
 
+import Button from '@/components/ui/button/Button'
 import { useCart } from '@/context/CartContext'
 
 interface AddToCartButtonProps {
@@ -10,6 +11,9 @@ interface AddToCartButtonProps {
 	price: number
 	image: string
 	currency: string
+	variant?: 'primary' | 'secondary' | 'danger' | 'nav'
+	disabled?: boolean
+	children?: React.ReactNode
 }
 
 export default function AddToCartButton({
@@ -19,11 +23,14 @@ export default function AddToCartButton({
 	title,
 	price,
 	image,
-	currency
+	currency,
+	variant = 'primary',
+	disabled = false,
+	children = 'Add to Cart'
 }: AddToCartButtonProps) {
 	const { addToCart } = useCart()
 
-	const handleClick = () => {
+	const handleAddToCart = () => {
 		addToCart({
 			productId,
 			variantId,
@@ -35,5 +42,9 @@ export default function AddToCartButton({
 		})
 	}
 
-	return <button onClick={handleClick}>Add to Cart</button>
+	return (
+		<Button variant={variant} disabled={disabled} onClick={handleAddToCart}>
+			{children}
+		</Button>
+	)
 }

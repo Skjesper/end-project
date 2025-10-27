@@ -12,12 +12,22 @@
 
 .productDetails {
 	display: flex;
+	height: 100vh;
 	flex-direction: column;
+	justify-content: center;
 	width: 50%;
+	padding: 0 var(--container-padding);
+	position: sticky;
+	top: 0;
 }
 
 .pageContainer {
 	display: flex;
 	flex-direction: row;
 	padding: 0 var(--container-padding);
+}
+
+.addToCartButton {
+	margin-top: 1.5rem;
+	width: 100%;
 }
