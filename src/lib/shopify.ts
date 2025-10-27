@@ -49,7 +49,7 @@ export async function getProductsByCollection(
         title
         handle
         description
-        products(first: 6) {
+        products(first: 30) {
           edges {
             node {
               id

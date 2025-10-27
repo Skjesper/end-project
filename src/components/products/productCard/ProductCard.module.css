@@ -4,8 +4,10 @@
 	text-decoration: none;
 	color: inherit;
 	gap: var(--content-gap);
+	border: solid 1px rgb(0, 255, 85);
 }
 .imageWrapper {
+	position: relative;
 	width: 100%;
 	aspect-ratio: 1 / 1; /* Square images - change to 4/3, 16/9, etc. */
 	overflow: hidden;
@@ -13,10 +15,14 @@
 }
 
 .image {
+	position: absolute; /* Both images positioned absolutely */
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
-	object-fit: cover; /* Keeps aspect ratio, crops if needed */
+	object-fit: cover;
 	display: block;
+	transition: opacity 0.3s ease;
 	border: solid 1px rgb(0, 255, 85);
 }
 .info {
@@ -24,4 +30,21 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--text-gap);
+}
+
+.primaryImage {
+	position: relative;
+	z-index: 1;
+}
+
+.hoverImage {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	opacity: 0;
+}
+
+.card:hover .hoverImage {
+	opacity: 1;
 }
