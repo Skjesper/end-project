@@ -41,6 +41,23 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 	return (
 		<article className={className}>
 			<Link href={`/item/${product.handle}`} className={styles.card}>
+				<div className={styles.cardHeader}>
+					<button
+						className={styles.favoriteButton}
+						onClick={(e) => {
+							e.preventDefault()
+							console.log('Favorite clicked for:', product.id)
+						}}
+						aria-label="Add to favorites"
+					>
+						<img
+							src="/assets/Favorites.svg"
+							alt="Favorite"
+							className={styles.favoriteIcon}
+						/>
+					</button>
+				</div>
+
 				<div className={styles.imageWrapper}>
 					{primaryImage ? (
 						<>

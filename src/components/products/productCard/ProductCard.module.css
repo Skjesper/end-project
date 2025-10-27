@@ -7,6 +7,38 @@
 	border: solid 1px rgb(0, 255, 85);
 }
 
+.cardHeader {
+	display: flex;
+	justify-content: flex-end;
+	padding: 8px;
+}
+
+.favoriteButton {
+	background: transparent;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.favoriteButton:hover {
+	transform: scale(1.1);
+}
+
+.favoriteIcon {
+	width: 24px;
+	height: 24px;
+	transition: filter 0.2s ease;
+}
+
+.favoriteButton:hover .favoriteIcon {
+	filter: brightness(0) saturate(100%) invert(35%) sepia(89%) saturate(2476%)
+		hue-rotate(342deg) brightness(95%) contrast(88%);
+}
+
 .imageWrapper {
 	position: relative;
 	width: 100%;
