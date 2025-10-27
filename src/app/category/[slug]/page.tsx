@@ -64,20 +64,20 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 						<p className={styles.descriptionText}>{collection.description}</p>
 					)}
 				</section>
-
-				<TagFilter
-					tags={availableTags}
-					selectedTag={selectedTag}
-					onTagChange={setSelectedTag}
-				/>
+				<section className={styles.filterSection}>
+					<TagFilter
+						tags={availableTags}
+						selectedTag={selectedTag}
+						onTagChange={setSelectedTag}
+					/>
+					<p className={styles.count}>
+						{filteredProducts.length}{' '}
+						{filteredProducts.length === 1 ? 'product' : 'products'}
+					</p>
+				</section>
 			</header>
 
 			<div className={styles.content}>
-				<p className={styles.count}>
-					Showing {filteredProducts.length}{' '}
-					{filteredProducts.length === 1 ? 'product' : 'products'}
-				</p>
-
 				<ProductGrid products={filteredProducts} />
 			</div>
 		</div>
