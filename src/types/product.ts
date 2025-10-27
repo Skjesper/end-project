@@ -8,6 +8,17 @@ export interface ProductPrice {
 	currencyCode: string
 }
 
+export interface ProductVariant {
+	id: string
+	title: string
+	availableForSale: boolean
+	price: ProductPrice
+	selectedOptions: {
+		name: string
+		value: string
+	}[]
+}
+
 export interface Product {
 	id: string
 	title: string
@@ -18,5 +29,6 @@ export interface Product {
 		minVariantPrice: ProductPrice
 	}
 	images: ProductImage[]
-	variantId: string
+	variants?: ProductVariant[]
+	variantId?: string
 }
