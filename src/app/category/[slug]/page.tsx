@@ -1,11 +1,11 @@
+// src/app/category/[slug]/page.tsx
 'use client'
 
 import { use, useState, useEffect } from 'react'
-import ProductGrid from '@/components/products/ProductGrid'
-import Button from '@/components/ui/button/Button'
+import CollectionContent from '@/components/collection/collectionContent/CollectionContent'
 import { getProductsByCollection } from '@/lib/shopify'
 import { Product } from '@/types/product'
-import { extractUniqueTags, filterProductsByTag } from '@/utils/tagFilter'
+import styles from './page.module.css'
 
 interface CategoryPageProps {
 	params: Promise<{ slug: string }>
@@ -14,60 +14,44 @@ interface CategoryPageProps {
 export default function CategoryPage({ params }: CategoryPageProps) {
 	const { slug } = use(params)
 	const [collection, setCollection] = useState<any>(null)
-	const [allProducts, setAllProducts] = useState<Product[]>([])
-	const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
-	const [selectedTag, setSelectedTag] = useState<string | null>(null)
-	const [availableTags, setAvailableTags] = useState<string[]>([])
+	const [products, setProducts] = useState<Product[]>([])
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		async function loadData() {
-			const data = await getProductsByCollection(slug)
-			setCollection(data.collection)
-			setAllProducts(data.products)
-			setFilteredProducts(data.products)
-
-			const tags = extractUniqueTags(data.products)
-			setAvailableTags(tags)
+			try {
+				const data = await getProductsByCollection(slug)
+				setCollection(data.collection)
+				setProducts(data.products)
+			} catch (error) {
+				console.error('Error loading collection:', error)
+			} finally {
+				setIsLoading(false)
+			}
 		}
 		loadData()
 	}, [slug])
 
-	useEffect(() => {
-		const filtered = filterProductsByTag(allProducts, selectedTag)
-		setFilteredProducts(filtered)
-	}, [selectedTag, allProducts])
+	if (isLoading) {
+		return <div>Loading...</div>
+	}
 
 	if (!collection) {
-		return <p>Category not found</p>
+		return <div>Collection not found</div>
 	}
 
 	return (
-		<div>
-			<h1>{collection.title}</h1>
-			<p>{collection.description}</p>
+		<div className={styles.pageContainer}>
+			<header>
+				<section className={styles.collectionSection}>
+					<h1 className={styles.collectionTitle}>{collection.title}</h1>
+					{collection.description && (
+						<p className={styles.descriptionText}>{collection.description}</p>
+					)}
+				</section>
+			</header>
 
-			<div>
-				<Button
-					variant="filter"
-					isActive={selectedTag === null}
-					onClick={() => setSelectedTag(null)}
-				>
-					All
-				</Button>
-				{availableTags.map((tag) => (
-					<Button
-						key={tag}
-						variant="filter"
-						isActive={selectedTag === tag}
-						onClick={() => setSelectedTag(tag)}
-					>
-						{tag}
-					</Button>
-				))}
-			</div>
-
-			<p>Showing {filteredProducts.length} products</p>
-			<ProductGrid products={filteredProducts} />
+			<CollectionContent products={products} />
 		</div>
 	)
 }

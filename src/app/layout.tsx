@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import Layout from '@/components/layout/Layout'
 import { CartProvider } from '@/context/CartContext'
 import { futuraFont } from '@/lib/fonts'
+import './globals.css'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
