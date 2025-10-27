@@ -1,0 +1,23 @@
+.imageGallery {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+}
+
+.imageGallery img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.productDetails {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+}
+
+.pageContainer {
+	display: flex;
+	flex-direction: row;
+	padding: 0 var(--container-padding);
+}
