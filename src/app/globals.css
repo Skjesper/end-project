@@ -98,6 +98,8 @@
 	--card-gap: 1.5rem; /* Space between cards in grids */
 	--content-gap: 1rem; /* Space within content blocks */
 
+	--text-gap: 0.5rem; /* Space between text elements */
+
 	/* ============================================
      BORDER SYSTEM
      ============================================ */

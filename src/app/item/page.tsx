@@ -1,4 +1,4 @@
-import ProductGrid from '@/components/products/ProductGrid'
+import ProductGrid from '@/components/products/productGrid/ProductGrid'
 import { getProducts } from '@/lib/shopify'
 
 export default async function ProductsPage() {

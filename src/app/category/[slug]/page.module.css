@@ -1,7 +1,7 @@
 .pageContainer {
 	display: flex;
 	flex-direction: column;
-	gap: 10rem;
+	gap: var(--section-gap);
 }
 
 .collectionSection {
@@ -12,13 +12,13 @@
 }
 
 .collectionTitle {
-	font-size: 5rem;
-	margin-bottom: 0.5rem;
+	font-size: var(--font-size-6xl);
+	/* margin-bottom: 0.5rem; */
 	font-family: var(--font-futura), Arial, Helvetica, sans-serif;
 	font-weight: 600;
 }
 
 .descriptionText {
-	font-size: 1.5rem;
+	font-size: var(--font-size-base);
 	color: var(--foreground);
 }
