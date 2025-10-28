@@ -1,0 +1,27 @@
+.cartItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--container-padding-sm);
+}
+
+.cartItemImage {
+	width: 40%;
+	aspect-ratio: 1 / 1; /* Square container */
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.cartItemImage img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain; /* Full image fits inside */
+	display: block;
+}
+
+.cartItemDetails {
+	display: flex;
+	align-items: center;
+	gap: var(--container-padding-sm);
+	flex: 1;
+}

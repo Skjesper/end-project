@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import { CartItem as CartItemType } from '@/types/cart'
+import styles from './CartItem.module.css'
 
 interface CartItemProps {
 	item: CartItemType
@@ -21,43 +22,69 @@ export default function CartItem({ item }: CartItemProps) {
 		updateQuantity(item.productId, item.quantity + 1)
 	}
 
+	const itemTotal = (item.price * item.quantity).toFixed(2)
+
 	return (
-		<div>
+		<article className={styles.cartItem} aria-label={`${item.title} in cart`}>
 			{/* Product Image */}
-			<Link href={`/item/${item.handle}`}>
-				<img src={item.image} alt={item.title} width="100" height="100" />
-			</Link>
-
-			{/* Product Info */}
-			<div>
-				<Link href={`/item/${item.handle}`}>
-					<h3>{item.title}</h3>
+			<div className={styles.cartItemImage}>
+				<Link
+					href={`/item/${item.handle}`}
+					aria-label={`View ${item.title} details`}
+				>
+					<img src={item.image} alt={item.title} width="100" height="100" />
 				</Link>
-				<p>
-					{item.price.toFixed(2)} {item.currency}
-				</p>
 			</div>
 
-			{/* Quantity Controls */}
-			<div>
-				<button onClick={handleDecrease} disabled={item.quantity <= 1}>
-					-
-				</button>
-				<span>{item.quantity}</span>
-				<button onClick={handleIncrease}>+</button>
-			</div>
+			{/* Product Info & Controls */}
+			<div className={styles.cartItemDetails}>
+				<div>
+					<Link href={`/item/${item.handle}`}>
+						<h3>{item.title}</h3>
+					</Link>
+					<p aria-label={`Price: ${item.price.toFixed(2)} ${item.currency}`}>
+						{item.price.toFixed(2)} {item.currency}
+					</p>
+				</div>
 
-			{/* Item Total */}
-			<div>
-				<p>
-					Total: {(item.price * item.quantity).toFixed(2)} {item.currency}
-				</p>
-			</div>
+				{/* Quantity Controls */}
+				<div
+					className={styles.quantityControls}
+					role="group"
+					aria-label="Quantity controls"
+				>
+					<button
+						onClick={handleDecrease}
+						disabled={item.quantity <= 1}
+						aria-label="Decrease quantity"
+					>
+						-
+					</button>
+					<span aria-live="polite" aria-atomic="true">
+						{item.quantity}
+					</span>
+					<button onClick={handleIncrease} aria-label="Increase quantity">
+						+
+					</button>
+				</div>
 
-			{/* Remove Button */}
-			<div>
-				<button onClick={() => removeFromCart(item.productId)}>Remove</button>
+				{/* Item Total */}
+				{/* <div>
+					<p aria-label={`Item total: ${itemTotal} ${item.currency}`}>
+						Total: {itemTotal} {item.currency}
+					</p>
+				</div> */}
+
+				{/* Remove Button */}
+				<div>
+					<button
+						onClick={() => removeFromCart(item.productId)}
+						aria-label={`Remove ${item.title} from cart`}
+					>
+						Remove
+					</button>
+				</div>
 			</div>
-		</div>
+		</article>
 	)
 }

@@ -4,6 +4,7 @@ import { useCart } from '@/context/CartContext'
 import CartItem from '@/components/cart/CartItem'
 import CartSummary from '@/components/cart/CartSummary'
 import Link from 'next/link'
+import styles from './page.module.css'
 
 export default function CartPage() {
 	const { cart } = useCart()
@@ -25,11 +26,11 @@ export default function CartPage() {
 			<h1>Shopping Cart</h1>
 
 			{/* Cart Items */}
-			<div>
+			<section className={styles.cartItemsWrapper}>
 				{cart.items.map((item) => (
 					<CartItem key={item.productId} item={item} />
 				))}
-			</div>
+			</section>
 
 			{/* Cart Summary */}
 			<CartSummary />

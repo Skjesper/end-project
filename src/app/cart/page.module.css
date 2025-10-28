@@ -1,0 +1,6 @@
+.cartItemsWrapper {
+	padding: 2rem var(--container-padding);
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
