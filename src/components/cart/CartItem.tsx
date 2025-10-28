@@ -38,7 +38,8 @@ export default function CartItem({ item }: CartItemProps) {
 
 			{/* Product Info & Controls */}
 			<div className={styles.cartItemDetails}>
-				<div>
+				{/* Product Info */}
+				<div className={styles.productInfo}>
 					<Link href={`/item/${item.handle}`}>
 						<h3>{item.title}</h3>
 					</Link>
@@ -47,36 +48,28 @@ export default function CartItem({ item }: CartItemProps) {
 					</p>
 				</div>
 
-				{/* Quantity Controls */}
-				<div
-					className={styles.quantityControls}
-					role="group"
-					aria-label="Quantity controls"
-				>
-					<button
-						onClick={handleDecrease}
-						disabled={item.quantity <= 1}
-						aria-label="Decrease quantity"
+				{/* Quantity Controls & Actions */}
+				<div className={styles.cartItemRight}>
+					<div
+						className={styles.quantityControls}
+						role="group"
+						aria-label="Quantity controls"
 					>
-						-
-					</button>
-					<span aria-live="polite" aria-atomic="true">
-						{item.quantity}
-					</span>
-					<button onClick={handleIncrease} aria-label="Increase quantity">
-						+
-					</button>
-				</div>
+						<button
+							onClick={handleDecrease}
+							disabled={item.quantity <= 1}
+							aria-label="Decrease quantity"
+						>
+							-
+						</button>
+						<span aria-live="polite" aria-atomic="true">
+							{item.quantity}
+						</span>
+						<button onClick={handleIncrease} aria-label="Increase quantity">
+							+
+						</button>
+					</div>
 
-				{/* Item Total */}
-				{/* <div>
-					<p aria-label={`Item total: ${itemTotal} ${item.currency}`}>
-						Total: {itemTotal} {item.currency}
-					</p>
-				</div> */}
-
-				{/* Remove Button */}
-				<div>
 					<button
 						onClick={() => removeFromCart(item.productId)}
 						aria-label={`Remove ${item.title} from cart`}
