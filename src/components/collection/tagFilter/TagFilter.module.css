@@ -1,5 +1,26 @@
+/* Mobile styles (default) */
 .filterContainer {
 	display: flex;
 	gap: 0.75rem;
 	padding-left: var(--container-padding);
+	padding-right: var(--container-padding);
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.filterContainer::-webkit-scrollbar {
+	display: none;
+}
+
+.filterContainer > * {
+	flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+	.filterContainer {
+		padding-right: 0;
+	}
 }
