@@ -31,3 +31,20 @@
 	margin-top: 1.5rem;
 	width: 100%;
 }
+
+/* @media (max-width: 768px) {
+	.pageContainer {
+		flex-direction: column;
+	}
+
+	.imageGallery,
+	.productDetails {
+		width: 100%;
+	}
+
+	.productDetails {
+		padding: 1rem var(--container-padding);
+		position: static;
+		height: auto;
+	}
+} */
