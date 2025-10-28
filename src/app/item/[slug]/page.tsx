@@ -3,8 +3,7 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import AddToCartButton from '@/components/ui/button/AddToCartButton'
 import ProductImageGallery from '@/components/products/productImageGallery/ProductImageGallery'
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ProductAccordions from '@/components/products/productAccordions/ProductAccordions'
 
 export default async function ProductDetailPage({
 	params
@@ -57,46 +56,12 @@ export default async function ProductDetailPage({
 								Add to Cart
 							</AddToCartButton>
 						</div>
-						<section className={styles.productDescription}>
-							<Accordion>
-								<AccordionSummary
-									expandIcon={<ExpandMoreIcon />}
-									aria-controls="size-fit-content"
-									id="size-fit-header"
-								>
-									<h3>Size & Fit</h3>
-								</AccordionSummary>
-								<AccordionDetails>
-									{product.sizeAndFit && <p>{product.sizeAndFit}</p>}
-								</AccordionDetails>
-							</Accordion>
 
-							<Accordion>
-								<AccordionSummary
-									expandIcon={<ExpandMoreIcon />}
-									aria-controls="details-content"
-									id="details-header"
-								>
-									<h3>Details</h3>
-								</AccordionSummary>
-								<AccordionDetails>
-									{product.description && <p>{product.description}</p>}
-								</AccordionDetails>
-							</Accordion>
-
-							<Accordion>
-								<AccordionSummary
-									expandIcon={<ExpandMoreIcon />}
-									aria-controls="shipping-content"
-									id="shipping-header"
-								>
-									<h3>Shipping</h3>
-								</AccordionSummary>
-								<AccordionDetails>
-									{product.shipping && <p>{product.shipping}</p>}
-								</AccordionDetails>
-							</Accordion>
-						</section>
+						<ProductAccordions
+							sizeAndFit={product.sizeAndFit}
+							description={product.description}
+							shipping={product.shipping}
+						/>
 					</div>
 				</section>
 			</div>
