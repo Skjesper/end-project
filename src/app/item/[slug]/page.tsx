@@ -2,6 +2,9 @@ import { getProductByHandle } from '@/lib/shopify'
 import Link from 'next/link'
 import styles from './page.module.css'
 import AddToCartButton from '@/components/ui/button/AddToCartButton'
+import ProductImageGallery from '@/components/products/productImageGallery/ProductImageGallery'
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export default async function ProductDetailPage({
 	params
@@ -27,50 +30,73 @@ export default async function ProductDetailPage({
 		<div>
 			<Link href="/item">← Back to Products</Link>
 			<div className={styles.pageContainer}>
-				<section className={styles.imageGallery}>
-					{product.images.length > 0 ? (
-						product.images.map((image, index) => (
-							<div key={index}>
-								<img
-									src={image.url}
-									alt={image.altText || product.title}
-									width="400"
-									height="400"
-								/>
-							</div>
-						))
-					) : (
-						<p>No images available</p>
-					)}
-				</section>
+				<ProductImageGallery
+					images={product.images}
+					productTitle={product.title}
+				/>
+
 				<section className={styles.productDetails}>
-					<h1>{product.title}</h1>
+					<h3>{product.title}</h3>
 
 					<div>
 						<p>
 							Price: {price.toFixed(2)} {currency}
 						</p>
 
-						{product.description && (
-							<div>
-								<h2>Details</h2>
-								<p>{product.description}</p>
-							</div>
-						)}
-					</div>
-					<div className={styles.addToCartButton}>
-						<AddToCartButton
-							productId={product.id}
-							variantId={product.variantId || ''}
-							handle={product.handle}
-							title={product.title}
-							price={price}
-							image={product.images[0]?.url || ''}
-							currency={currency}
-							variant="primary"
-						>
-							Add to Cart
-						</AddToCartButton>
+						<div className={styles.addToCartButton}>
+							<AddToCartButton
+								productId={product.id}
+								variantId={product.variantId || ''}
+								handle={product.handle}
+								title={product.title}
+								price={price}
+								image={product.images[0]?.url || ''}
+								currency={currency}
+								variant="primary"
+							>
+								Add to Cart
+							</AddToCartButton>
+						</div>
+						<section className={styles.productDescription}>
+							<Accordion>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="size-fit-content"
+									id="size-fit-header"
+								>
+									<h3>Size & Fit</h3>
+								</AccordionSummary>
+								<AccordionDetails>
+									{product.sizeAndFit && <p>{product.sizeAndFit}</p>}
+								</AccordionDetails>
+							</Accordion>
+
+							<Accordion>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="details-content"
+									id="details-header"
+								>
+									<h3>Details</h3>
+								</AccordionSummary>
+								<AccordionDetails>
+									{product.description && <p>{product.description}</p>}
+								</AccordionDetails>
+							</Accordion>
+
+							<Accordion>
+								<AccordionSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="shipping-content"
+									id="shipping-header"
+								>
+									<h3>Shipping</h3>
+								</AccordionSummary>
+								<AccordionDetails>
+									{product.shipping && <p>{product.shipping}</p>}
+								</AccordionDetails>
+							</Accordion>
+						</section>
 					</div>
 				</section>
 			</div>

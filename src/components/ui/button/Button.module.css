@@ -36,9 +36,9 @@
 .button[data-variant='primary'] {
 	background-color: var(--primary);
 	color: var(--primary-foreground);
-	padding: 1.25rem 1.5rem;
+	padding: 1rem 1.5rem;
 	border-radius: 3px;
-	font-size: 1.5rem;
+	font-size: 1rem;
 	font-weight: 600;
 	width: 100%;
 	display: block;
