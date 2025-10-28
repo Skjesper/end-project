@@ -1,32 +1,7 @@
-/* Mobile styles (default) */
+/* Mobile and tablet styles (default - up to 1023px) */
 .pageContainer {
 	display: flex;
 	flex-direction: column;
-}
-
-/* Hide scrollbar on Chrome/Safari/Edge */
-.imageGallery::-webkit-scrollbar {
-	display: none;
-}
-
-.imageGallery {
-	display: flex;
-	flex-direction: row; /* Horizontal on mobile */
-	width: 100%;
-	gap: 1rem;
-	overflow-x: auto; /* Horizontal scroll */
-	overflow-y: hidden;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-	-webkit-overflow-scrolling: touch;
-}
-
-.imageGallery img {
-	width: 100vw; /* Full viewport width per image */
-	height: 50vh;
-	display: block;
-	object-fit: cover;
-	flex-shrink: 0; /* Prevent images from shrinking */
 }
 
 .productDetails {
@@ -34,7 +9,9 @@
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
+	max-width: var(--max-width-md);
 	padding: 1rem var(--container-padding);
+	margin: 0 auto;
 }
 
 .addToCartButton {
@@ -42,25 +19,12 @@
 	width: 100%;
 }
 
-.productDescription {
-	display: flex;
-	flex-direction: column;
-	gap: var(--text-gap);
-}
-
-/* Desktop: Side-by-side layout with sticky details */
-@media (min-width: 768px) {
+/* Desktop only: Side-by-side layout starts at 1024px */
+@media (min-width: 1024px) {
 	.pageContainer {
 		flex-direction: row;
 		height: 100vh;
 		overflow: hidden;
-	}
-
-	.imageGallery {
-		width: 50%;
-		overflow-y: auto;
-		height: 100vh;
-		padding-right: 1rem;
 	}
 
 	.productDetails {
@@ -68,6 +32,14 @@
 		height: 100vh;
 		position: sticky;
 		top: 0;
-		padding: 0 var(--container-padding);
+		padding: 2rem var(--container-padding);
+		max-width: none;
+	}
+
+	.productDetails > * {
+		width: calc(100% - 1.5rem);
+		max-width: 37.5rem;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
