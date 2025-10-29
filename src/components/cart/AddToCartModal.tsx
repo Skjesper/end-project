@@ -69,7 +69,7 @@ export default function AddToCartModal({
 			slotProps={{
 				paper: {
 					className: styles.modalPaper,
-					elevation: 3
+					elevation: 0
 				}
 			}}
 			transitionDuration={300}
@@ -78,10 +78,9 @@ export default function AddToCartModal({
 					justifyContent: 'flex-end',
 					alignItems: 'stretch',
 					padding: 0,
-					margin: 0 // ← Add this
+					margin: 0
 				},
 				'& .MuiDialog-paper': {
-					// ← Add this section
 					margin: 0,
 					maxHeight: '100%',
 					borderRadius: 0

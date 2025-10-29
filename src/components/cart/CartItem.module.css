@@ -7,13 +7,17 @@
 
 .cartItemImage {
 	width: 40%;
-	aspect-ratio: 1 / 1;
+	/* No aspect-ratio or height */
 	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
 }
 
 .cartItemImage img {
-	width: 100%;
-	height: 100%;
+	max-width: 100%;
+	height: auto; /* Image determines its own height */
 	object-fit: contain;
 	display: block;
 }
@@ -50,4 +54,14 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--text-gap);
+}
+
+@media (min-width: 768px) {
+	.cartItemDetails {
+		font-size: var(--font-size-sm);
+	}
+
+	.cartItemLeft {
+		gap: 3rem;
+	}
 }
