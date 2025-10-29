@@ -51,6 +51,17 @@
 	display: block;
 }
 
+.button[data-variant='secondary'] {
+	background-color: var(--secondary);
+	color: var(--secondary-foreground);
+	padding: 1rem 1.5rem;
+	border-radius: 3px;
+	font-size: 1rem;
+	font-weight: 600;
+	width: 100%;
+	display: block;
+}
+
 @media (max-width: 768px) {
 	.button[data-variant='filter'] {
 		font-size: 0.7rem;
