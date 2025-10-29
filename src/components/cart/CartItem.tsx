@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import { CartItem as CartItemType } from '@/types/cart'
 import styles from './CartItem.module.css'
+import Button from '../ui/button/Button'
 
 interface CartItemProps {
 	item: CartItemType
@@ -55,27 +56,33 @@ export default function CartItem({ item }: CartItemProps) {
 						role="group"
 						aria-label="Quantity controls"
 					>
-						<button
+						<Button
+							variant="nav"
 							onClick={handleDecrease}
 							disabled={item.quantity <= 1}
 							aria-label="Decrease quantity"
 						>
 							-
-						</button>
+						</Button>
 						<span aria-live="polite" aria-atomic="true">
 							{item.quantity}
 						</span>
-						<button onClick={handleIncrease} aria-label="Increase quantity">
+						<Button
+							variant="nav"
+							onClick={handleIncrease}
+							aria-label="Increase quantity"
+						>
 							+
-						</button>
+						</Button>
 					</div>
 
-					<button
+					<Button
+						variant="delete"
 						onClick={() => removeFromCart(item.productId)}
 						aria-label={`Remove ${item.title} from cart`}
 					>
 						Remove
-					</button>
+					</Button>
 				</div>
 			</div>
 		</article>

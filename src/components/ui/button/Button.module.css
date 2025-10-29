@@ -33,6 +33,13 @@
 	color: #ffffff;
 }
 
+.button[data-variant='delete'] {
+	background-color: var(--primary);
+	color: var(--primary-foreground);
+	padding: 0.3rem 0.3rem;
+	border-radius: 3px;
+}
+
 .button[data-variant='primary'] {
 	background-color: var(--primary);
 	color: var(--primary-foreground);

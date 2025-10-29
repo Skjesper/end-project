@@ -1,6 +1,16 @@
 .cartItemsWrapper {
-	padding: 2rem var(--container-padding);
+	padding: 0 var(--container-padding-sm);
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
+	width: 100vw;
+}
+
+@media (min-width: 1024px) {
+	.cartItemsWrapper {
+		padding: 0 var(--container-padding);
+
+		justify-content: center;
+		align-items: center;
+	}
 }
