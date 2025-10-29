@@ -11,7 +11,7 @@ export default function CartPage() {
 
 	if (cart.items.length === 0) {
 		return (
-			<div>
+			<div className={styles.emptyCart}>
 				<h1>Shopping Cart</h1>
 				<p>Your cart is empty</p>
 				<Link href="/products">
@@ -22,18 +22,20 @@ export default function CartPage() {
 	}
 
 	return (
-		<div>
+		<div className={styles.cartPage}>
 			<h1>Shopping Cart</h1>
 
-			{/* Cart Items */}
-			<section className={styles.cartItemsWrapper}>
-				{cart.items.map((item) => (
-					<CartItem key={item.productId} item={item} />
-				))}
-			</section>
+			<div className={styles.cartContainer}>
+				{/* Cart Items */}
+				<section className={styles.cartItemsList} aria-label="Cart items">
+					{cart.items.map((item) => (
+						<CartItem key={item.productId} item={item} />
+					))}
+				</section>
 
-			{/* Cart Summary */}
-			<CartSummary />
+				{/* Cart Summary */}
+				<CartSummary />
+			</div>
 		</div>
 	)
 }

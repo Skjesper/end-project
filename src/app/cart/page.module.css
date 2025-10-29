@@ -1,16 +1,43 @@
-.cartItemsWrapper {
-	padding: 0 var(--container-padding-sm);
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-	width: 100vw;
+/* page.module.css */
+
+.cartPage {
+	padding: var(--container-padding);
 }
 
-@media (min-width: 1024px) {
-	.cartItemsWrapper {
-		padding: 0 var(--container-padding);
+.cartContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
 
-		justify-content: center;
-		align-items: center;
+.cartItemsList {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.cartItemsList::-webkit-scrollbar {
+	display: none;
+}
+
+/* Desktop - scrollable items, sticky summary */
+@media (min-width: 1024px) {
+	.cartContainer {
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 3rem;
+		max-height: 80vh; /* Set a max height */
+	}
+
+	.cartItemsList {
+		flex: 2;
+		overflow-y: auto; /* Scrollable */
+		max-height: 80vh; /* Match container height */
+	}
+
+	.cartContainer > aside {
+		flex: 1;
+		position: sticky;
+		top: 0;
 	}
 }
