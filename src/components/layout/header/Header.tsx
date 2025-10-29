@@ -8,11 +8,13 @@ import styles from './Header.module.css'
 import Image from 'next/image'
 import { getProductsByCollection } from '@/lib/shopify'
 import { extractUniqueCategories } from '@/utils/categoryFilter'
+import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
 
 export default function Header() {
 	const { getTotalItems } = useCart()
 	const [openDropdown, setOpenDropdown] = useState<string | null>(null)
 	const [menCategories, setMenCategories] = useState<string[]>([])
+	const [categoryModalOpen, setCategoryModalOpen] = useState(false)
 
 	// Fetch Men's categories on mount
 	useEffect(() => {
@@ -34,7 +36,6 @@ export default function Header() {
 
 				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
-					{/* OLD NAVIGATION - Keep for now */}
 					<Link href="/" className={`${styles.navItem} ${styles.priority2}`}>
 						<Button variant="nav">Explore</Button>
 					</Link>
@@ -57,34 +58,10 @@ export default function Header() {
 						<Button variant="nav">Collections</Button>
 					</Link>
 
-					{/* NEW: Men Dropdown - DYNAMIC */}
-					<div
-						className={styles.dropdown}
-						onMouseEnter={() => setOpenDropdown('men')}
-						onMouseLeave={() => setOpenDropdown(null)}
-					>
-						<Link href="/category/men" className={styles.navItem}>
-							<Button variant="nav">Men</Button>
-						</Link>
-						{openDropdown === 'men' && (
-							<div className={styles.dropdownMenu}>
-								{menCategories.length > 0 ? (
-									menCategories.map((category) => (
-										<Link
-											key={category}
-											href={`/category/men?category=${encodeURIComponent(
-												category
-											)}`}
-										>
-											{category}
-										</Link>
-									))
-								) : (
-									<span className={styles.dropdownLoading}>Loading...</span>
-								)}
-							</div>
-						)}
-					</div>
+					{/* TEST: Click to open modal */}
+					<Button variant="nav" onClick={() => setCategoryModalOpen(true)}>
+						Men (Modal Test)
+					</Button>
 				</nav>
 
 				{/* Center - Logo */}
@@ -148,6 +125,14 @@ export default function Header() {
 					</Link>
 				</nav>
 			</div>
+
+			{/* Category Modal */}
+			{/* Category Modal */}
+			<CategoryDropdown
+				open={categoryModalOpen}
+				onClose={() => setCategoryModalOpen(false)}
+				categories={menCategories} // Pass the categories here
+			/>
 		</header>
 	)
 }
