@@ -1,12 +1,28 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import Button from '@/components/ui/button/Button'
 import styles from './Header.module.css'
 import Image from 'next/image'
+import { getProductsByCollection } from '@/lib/shopify'
+import { extractUniqueCategories } from '@/utils/categoryFilter'
+
 export default function Header() {
 	const { getTotalItems } = useCart()
+	const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+	const [menCategories, setMenCategories] = useState<string[]>([])
+
+	// Fetch Men's categories on mount
+	useEffect(() => {
+		async function loadMenCategories() {
+			const data = await getProductsByCollection('men')
+			const categories = extractUniqueCategories(data.products)
+			setMenCategories(categories)
+		}
+		loadMenCategories()
+	}, [])
 
 	return (
 		<header className={styles.header}>
@@ -18,6 +34,7 @@ export default function Header() {
 
 				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
+					{/* OLD NAVIGATION - Keep for now */}
 					<Link href="/" className={`${styles.navItem} ${styles.priority2}`}>
 						<Button variant="nav">Explore</Button>
 					</Link>
@@ -39,6 +56,35 @@ export default function Header() {
 					>
 						<Button variant="nav">Collections</Button>
 					</Link>
+
+					{/* NEW: Men Dropdown - DYNAMIC */}
+					<div
+						className={styles.dropdown}
+						onMouseEnter={() => setOpenDropdown('men')}
+						onMouseLeave={() => setOpenDropdown(null)}
+					>
+						<Link href="/category/men" className={styles.navItem}>
+							<Button variant="nav">Men</Button>
+						</Link>
+						{openDropdown === 'men' && (
+							<div className={styles.dropdownMenu}>
+								{menCategories.length > 0 ? (
+									menCategories.map((category) => (
+										<Link
+											key={category}
+											href={`/category/men?category=${encodeURIComponent(
+												category
+											)}`}
+										>
+											{category}
+										</Link>
+									))
+								) : (
+									<span className={styles.dropdownLoading}>Loading...</span>
+								)}
+							</div>
+						)}
+					</div>
 				</nav>
 
 				{/* Center - Logo */}
@@ -89,25 +135,14 @@ export default function Header() {
 
 					<Link href="/cart" className={styles.navItem}>
 						<Button variant="nav">
-							<div style={{ position: 'relative', display: 'inline-block' }}>
+							<div className={styles.cartIconWrapper}>
 								<Image
 									src="/assets/CartIcon.svg"
 									alt="Cart"
 									width={25}
 									height={25}
 								/>
-								<span
-									style={{
-										position: 'absolute',
-										top: '50%',
-										left: '50%',
-										transform: 'translate(-50%, -50%)',
-										fontSize: '10px',
-										fontWeight: 'bold'
-									}}
-								>
-									{getTotalItems()}
-								</span>
+								<span className={styles.cartBadge}>{getTotalItems()}</span>
 							</div>
 						</Button>
 					</Link>

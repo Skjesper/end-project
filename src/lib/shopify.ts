@@ -57,6 +57,9 @@ export async function getProductsByCollection(
               handle
               description
               tags
+              category {
+                name
+              }
               priceRange {
                 minVariantPrice {
                   amount
@@ -122,6 +125,7 @@ export async function getProductsByCollection(
 					title: node.title,
 					handle: node.handle,
 					tags: node.tags,
+					category: node.category?.name || null,
 					description: node.description,
 					priceRange: {
 						minVariantPrice: {
