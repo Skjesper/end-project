@@ -7,7 +7,7 @@
 
 .cartItemImage {
 	width: 40%;
-	/* No aspect-ratio or height */
+	height: 100%;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
