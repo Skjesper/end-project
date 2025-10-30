@@ -1,3 +1,4 @@
+// components/layout/header/Header.tsx
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -9,32 +10,75 @@ import Image from 'next/image'
 import { getProductsByCollection } from '@/lib/shopify'
 import { extractUniqueCategories } from '@/utils/categoryFilter'
 import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
+import { useHoverDelay } from '@/hooks/useHoverDelay'
+
+const CATEGORY_TYPES = ['men', 'women', 'accessories'] as const
+type CategoryType = (typeof CATEGORY_TYPES)[number]
 
 export default function Header() {
 	const { getTotalItems } = useCart()
-	const [openDropdown, setOpenDropdown] = useState<string | null>(null)
-	const [menCategories, setMenCategories] = useState<string[]>([])
-	const [categoryModalOpen, setCategoryModalOpen] = useState(false)
 
-	// Fetch Men's categories on mount
+	const [categories, setCategories] = useState<Record<CategoryType, string[]>>({
+		men: [],
+		women: [],
+		accessories: []
+	})
+
+	const [activeModal, setActiveModal] = useState<CategoryType | null>(null)
+
 	useEffect(() => {
-		async function loadMenCategories() {
-			const data = await getProductsByCollection('men')
-			const categories = extractUniqueCategories(data.products)
-			setMenCategories(categories)
+		async function loadCategories() {
+			const categoryPromises = CATEGORY_TYPES.map(async (type) => {
+				const data = await getProductsByCollection(type)
+				const cats = extractUniqueCategories(data.products)
+				return { type, categories: cats }
+			})
+
+			const results = await Promise.all(categoryPromises)
+
+			const newCategories = results.reduce((acc, { type, categories }) => {
+				acc[type] = categories
+				return acc
+			}, {} as Record<CategoryType, string[]>)
+
+			setCategories(newCategories)
 		}
-		loadMenCategories()
+		loadCategories()
 	}, [])
+
+	const openModal = (categoryType: CategoryType) => {
+		setActiveModal(categoryType)
+	}
+
+	const closeModal = () => {
+		setActiveModal(null)
+	}
+
+	const menHover = useHoverDelay({
+		onHoverStart: () => openModal('men'),
+		delay: 500,
+		enabled: true
+	})
+
+	const womenHover = useHoverDelay({
+		onHoverStart: () => openModal('women'),
+		delay: 500,
+		enabled: true
+	})
+
+	const accessoriesHover = useHoverDelay({
+		onHoverStart: () => openModal('accessories'),
+		delay: 500,
+		enabled: true
+	})
 
 	return (
 		<header className={styles.header}>
 			<div className={styles.headerContainer}>
-				{/* Mobile menu - hidden on desktop */}
 				<div className={styles.mobileMenu}>
 					<Button variant="nav">☰</Button>
 				</div>
 
-				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
 					<Link href="/" className={`${styles.navItem} ${styles.priority2}`}>
 						<Button variant="nav">Explore</Button>
@@ -58,13 +102,34 @@ export default function Header() {
 						<Button variant="nav">Collections</Button>
 					</Link>
 
-					{/* TEST: Click to open modal */}
-					<Button variant="nav" onClick={() => setCategoryModalOpen(true)}>
-						Men (Modal Test)
-					</Button>
+					<div
+						onMouseEnter={menHover.handleMouseEnter}
+						onMouseLeave={menHover.handleMouseLeave}
+					>
+						<Button variant="nav" onClick={() => openModal('men')}>
+							Men
+						</Button>
+					</div>
+
+					<div
+						onMouseEnter={womenHover.handleMouseEnter}
+						onMouseLeave={womenHover.handleMouseLeave}
+					>
+						<Button variant="nav" onClick={() => openModal('women')}>
+							Women
+						</Button>
+					</div>
+
+					<div
+						onMouseEnter={accessoriesHover.handleMouseEnter}
+						onMouseLeave={accessoriesHover.handleMouseLeave}
+					>
+						<Button variant="nav" onClick={() => openModal('accessories')}>
+							Accessories
+						</Button>
+					</div>
 				</nav>
 
-				{/* Center - Logo */}
 				<div className={styles.logoContainer}>
 					<Link href="/">
 						<Image
@@ -76,7 +141,6 @@ export default function Header() {
 					</Link>
 				</div>
 
-				{/* Right side navigation */}
 				<nav className={styles.rightNav}>
 					<Link
 						href="/account"
@@ -126,12 +190,24 @@ export default function Header() {
 				</nav>
 			</div>
 
-			{/* Category Modal */}
-			{/* Category Modal */}
+			{/* Render all modals but only open the active one */}
 			<CategoryDropdown
-				open={categoryModalOpen}
-				onClose={() => setCategoryModalOpen(false)}
-				categories={menCategories} // Pass the categories here
+				open={activeModal === 'men'}
+				onClose={closeModal}
+				categories={categories.men}
+				categoryType="men"
+			/>
+			<CategoryDropdown
+				open={activeModal === 'women'}
+				onClose={closeModal}
+				categories={categories.women}
+				categoryType="women"
+			/>
+			<CategoryDropdown
+				open={activeModal === 'accessories'}
+				onClose={closeModal}
+				categories={categories.accessories}
+				categoryType="accessories"
 			/>
 		</header>
 	)

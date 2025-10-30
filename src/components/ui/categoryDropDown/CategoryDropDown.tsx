@@ -1,17 +1,19 @@
 // components/layout/categoryDropdown/CategoryDropdown.tsx
 'use client'
 
-import { Dialog, Slide } from '@mui/material'
+import React from 'react'
+import { Dialog, IconButton, Slide } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
-import { forwardRef, ReactElement, Ref } from 'react'
+import { Close as CloseIcon } from '@mui/icons-material'
 import Link from 'next/link'
-import styles from './CategoryDropdown.module.css'
+import styles from './CategoryDropDown.module.css'
 
-const Transition = forwardRef(function Transition(
+// Slide transition component
+const SlideTransition = React.forwardRef(function Transition(
 	props: TransitionProps & {
-		children: ReactElement
+		children: React.ReactElement
 	},
-	ref: Ref<unknown>
+	ref: React.Ref<unknown>
 ) {
 	return <Slide direction="right" ref={ref} {...props} />
 })
@@ -19,25 +21,45 @@ const Transition = forwardRef(function Transition(
 interface CategoryDropdownProps {
 	open: boolean
 	onClose: () => void
-	categories: string[] // Add this
+	categories: string[]
+	categoryType: string
+	title?: string
 }
 
 export default function CategoryDropdown({
 	open,
 	onClose,
-	categories
+	categories,
+	categoryType,
+	title
 }: CategoryDropdownProps) {
+	// Generate title from categoryType if not provided
+	const displayTitle =
+		title ||
+		(categoryType
+			? `${
+					categoryType.charAt(0).toUpperCase() + categoryType.slice(1)
+			  }'s Categories`
+			: 'Categories')
+
 	return (
 		<Dialog
 			open={open}
-			TransitionComponent={Transition}
 			onClose={onClose}
-			aria-labelledby="category-dropdown-title"
+			slots={{
+				transition: SlideTransition
+			}}
 			slotProps={{
+				paper: {
+					className: styles.modalPaper,
+					elevation: 0
+				},
 				backdrop: {
 					timeout: 500
 				}
 			}}
+			transitionDuration={400}
+			aria-labelledby="category-dropdown-title"
 			sx={{
 				'& .MuiDialog-container': {
 					justifyContent: 'flex-start',
@@ -58,25 +80,34 @@ export default function CategoryDropdown({
 				}
 			}}
 		>
-			<div style={{ padding: '2rem' }}>
-				<h2 id="category-dropdown-title">Men's Categories</h2>
+			<div className={styles.modalContent}>
+				{/* Header with close button */}
+				<div className={styles.header}>
+					<h2 id="category-dropdown-title" className={styles.title}>
+						{displayTitle}
+					</h2>
+					<IconButton
+						onClick={onClose}
+						size="small"
+						className={styles.closeButton}
+						aria-label="Close modal"
+					>
+						<CloseIcon />
+					</IconButton>
+				</div>
 
 				{/* Display categories */}
-				<div style={{ marginTop: '2rem' }}>
+				<div className={styles.categoriesList}>
 					{categories.length > 0 ? (
-						<ul style={{ listStyle: 'none', padding: 0 }}>
+						<ul className={styles.categoryList}>
 							{categories.map((category) => (
-								<li key={category} style={{ marginBottom: '1rem' }}>
+								<li key={category} className={styles.categoryItem}>
 									<Link
-										href={`/category/men?category=${encodeURIComponent(
+										href={`/category/${categoryType}?category=${encodeURIComponent(
 											category
 										)}`}
-										onClick={onClose} // Close modal when clicking a category
-										style={{
-											textDecoration: 'none',
-											color: 'black',
-											fontSize: '1.2rem'
-										}}
+										onClick={onClose}
+										className={styles.categoryLink}
 									>
 										{category}
 									</Link>
@@ -84,13 +115,9 @@ export default function CategoryDropdown({
 							))}
 						</ul>
 					) : (
-						<p>Loading categories...</p>
+						<p className={styles.loadingText}>Loading categories...</p>
 					)}
 				</div>
-
-				<button onClick={onClose} style={{ marginTop: '2rem' }}>
-					Close
-				</button>
 			</div>
 		</Dialog>
 	)
