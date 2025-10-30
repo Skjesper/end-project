@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { getProductsByCollection } from '@/lib/shopify'
 import { extractUniqueCategories } from '@/utils/categoryFilter'
 import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
+import MobileMenu from '@/components/ui/mobileMenu/MobileMenu'
 import { useHoverDelay } from '@/hooks/useHoverDelay'
 
 const CATEGORY_TYPES = ['men', 'women', 'accessories'] as const
@@ -25,6 +26,7 @@ export default function Header() {
 	})
 
 	const [activeModal, setActiveModal] = useState<CategoryType | null>(null)
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
 	useEffect(() => {
 		async function loadCategories() {
@@ -75,33 +77,15 @@ export default function Header() {
 	return (
 		<header className={styles.header}>
 			<div className={styles.headerContainer}>
+				{/* Mobile menu - hidden on desktop */}
 				<div className={styles.mobileMenu}>
-					<Button variant="nav">☰</Button>
+					<Button variant="nav" onClick={() => setMobileMenuOpen(true)}>
+						☰
+					</Button>
 				</div>
 
+				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
-					<Link href="/" className={`${styles.navItem} ${styles.priority2}`}>
-						<Button variant="nav">Explore</Button>
-					</Link>
-					<Link
-						href="/category/glasses"
-						className={`${styles.navItem} ${styles.priority2}`}
-					>
-						<Button variant="nav">Glasses</Button>
-					</Link>
-					<Link
-						href="/category/bags"
-						className={`${styles.navItem} ${styles.priority3}`}
-					>
-						<Button variant="nav">Bags</Button>
-					</Link>
-					<Link
-						href="/shop"
-						className={`${styles.navItem} ${styles.priority4}`}
-					>
-						<Button variant="nav">Collections</Button>
-					</Link>
-
 					<div
 						onMouseEnter={menHover.handleMouseEnter}
 						onMouseLeave={menHover.handleMouseLeave}
@@ -130,6 +114,7 @@ export default function Header() {
 					</div>
 				</nav>
 
+				{/* Center - Logo */}
 				<div className={styles.logoContainer}>
 					<Link href="/">
 						<Image
@@ -141,6 +126,7 @@ export default function Header() {
 					</Link>
 				</div>
 
+				{/* Right side navigation */}
 				<nav className={styles.rightNav}>
 					<Link
 						href="/account"
@@ -190,7 +176,14 @@ export default function Header() {
 				</nav>
 			</div>
 
-			{/* Render all modals but only open the active one */}
+			{/* Mobile Menu */}
+			<MobileMenu
+				open={mobileMenuOpen}
+				onClose={() => setMobileMenuOpen(false)}
+				categories={categories}
+			/>
+
+			{/* Category Modals (Desktop) */}
 			<CategoryDropdown
 				open={activeModal === 'men'}
 				onClose={closeModal}

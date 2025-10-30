@@ -1,9 +1,4 @@
-/* components/ui/categoryDropDown/CategoryDropdown.module.css */
-
-.categoriesList {
-	height: 100%;
-}
-
+/* components/ui/categoryList/CategoryList.module.css */
 .categoryList {
 	list-style: none;
 	padding: 0;
