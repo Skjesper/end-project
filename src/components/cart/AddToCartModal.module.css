@@ -1,0 +1,146 @@
+/* Mobile First - Base styles are for mobile */
+.modalPaper {
+	width: 100vw;
+	height: 100vh;
+	max-width: 100vw;
+	max-height: 100vh;
+	margin: 0;
+	border-radius: 0;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.modalContent {
+	padding: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	flex: 1;
+	overflow-y: auto;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid var(--border);
+	flex-shrink: 0;
+}
+
+.title {
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin: 0;
+	flex: 1;
+}
+
+.closeButton {
+	margin-left: auto;
+}
+
+.addedItem {
+	display: flex;
+	gap: 1rem;
+	padding: 0.75rem;
+	background-color: var(--muted);
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+
+.itemImage {
+	width: 70px;
+	height: 70px;
+	flex-shrink: 0;
+	border-radius: 6px;
+	overflow: hidden;
+	background-color: white;
+}
+
+.itemImage img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.itemDetails {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	flex: 1;
+}
+
+.itemTitle {
+	font-size: 1rem;
+	font-weight: 500;
+	margin: 0;
+	line-height: 1.3;
+}
+
+.itemPrice {
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 0;
+}
+
+.itemQuantity {
+	font-size: 0.875rem;
+	color: #666;
+	margin: 0;
+}
+
+.cartSummary {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--border);
+	flex-shrink: 0;
+}
+
+.summaryRow {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.95rem;
+}
+
+.summaryValue {
+	font-weight: 600;
+}
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding-top: 0.5rem;
+	margin-top: auto;
+	flex-shrink: 0;
+}
+
+.viewCart {
+	text-decoration: none;
+	display: block;
+	width: 100%;
+}
+
+/* Desktop - Override mobile styles for larger screens */
+@media (min-width: 769px) {
+	.modalPaper {
+		width: 420px;
+		max-width: 90vw;
+	}
+
+	.modalContent {
+		padding: 1.5rem;
+	}
+
+	.title {
+		font-size: 1.25rem;
+	}
+
+	.itemImage {
+		width: 80px;
+		height: 80px;
+	}
+}

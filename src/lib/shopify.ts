@@ -49,14 +49,17 @@ export async function getProductsByCollection(
         title
         handle
         description
-        products(first: 6) {
+        products(first: 30) {
           edges {
             node {
               id
               title
               handle
               description
-			  tags
+              tags
+              category {
+                name
+              }
               priceRange {
                 minVariantPrice {
                   amount
@@ -68,6 +71,23 @@ export async function getProductsByCollection(
                   node {
                     url
                     altText
+                  }
+                }
+              }
+              variants(first: 50) {
+                edges {
+                  node {
+                    id
+                    title
+                    availableForSale
+                    price {
+                      amount
+                      currencyCode
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
                   }
                 }
               }
@@ -105,6 +125,7 @@ export async function getProductsByCollection(
 					title: node.title,
 					handle: node.handle,
 					tags: node.tags,
+					category: node.category?.name || null,
 					description: node.description,
 					priceRange: {
 						minVariantPrice: {
@@ -115,6 +136,16 @@ export async function getProductsByCollection(
 					images: node.images.edges.map((imgEdge: any) => ({
 						url: imgEdge.node.url,
 						altText: imgEdge.node.altText
+					})),
+					variants: node.variants.edges.map((variantEdge: any) => ({
+						id: variantEdge.node.id,
+						title: variantEdge.node.title,
+						availableForSale: variantEdge.node.availableForSale,
+						price: {
+							amount: variantEdge.node.price.amount,
+							currencyCode: variantEdge.node.price.currencyCode
+						},
+						selectedOptions: variantEdge.node.selectedOptions
 					}))
 				}
 			}
@@ -151,6 +182,23 @@ export async function getProducts(): Promise<Product[]> {
                 }
               }
             }
+            variants(first: 50) {
+              edges {
+                node {
+                  id
+                  title
+                  availableForSale
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -178,6 +226,16 @@ export async function getProducts(): Promise<Product[]> {
 					images: node.images.edges.map((imgEdge: any) => ({
 						url: imgEdge.node.url,
 						altText: imgEdge.node.altText
+					})),
+					variants: node.variants.edges.map((variantEdge: any) => ({
+						id: variantEdge.node.id,
+						title: variantEdge.node.title,
+						availableForSale: variantEdge.node.availableForSale,
+						price: {
+							amount: variantEdge.node.price.amount,
+							currencyCode: variantEdge.node.price.currencyCode
+						},
+						selectedOptions: variantEdge.node.selectedOptions
 					}))
 				}
 			}) || []
@@ -211,6 +269,23 @@ export async function getProduct(id: string): Promise<Product | null> {
             }
           }
         }
+        variants(first: 50) {
+          edges {
+            node {
+              id
+              title
+              availableForSale
+              price {
+                amount
+                currencyCode
+              }
+              selectedOptions {
+                name
+                value
+              }
+            }
+          }
+        }
       }
     }
   `
@@ -240,6 +315,16 @@ export async function getProduct(id: string): Promise<Product | null> {
 			images: node.images.edges.map((imgEdge: any) => ({
 				url: imgEdge.node.url,
 				altText: imgEdge.node.altText
+			})),
+			variants: node.variants.edges.map((variantEdge: any) => ({
+				id: variantEdge.node.id,
+				title: variantEdge.node.title,
+				availableForSale: variantEdge.node.availableForSale,
+				price: {
+					amount: variantEdge.node.price.amount,
+					currencyCode: variantEdge.node.price.currencyCode
+				},
+				selectedOptions: variantEdge.node.selectedOptions
 			}))
 		}
 	} catch (error) {
@@ -272,10 +357,20 @@ export async function getProductByHandle(
             }
           }
         }
-        variants(first: 1) {
+        variants(first: 50) {
           edges {
             node {
               id
+              title
+              availableForSale
+              price {
+                amount
+                currencyCode
+              }
+              selectedOptions {
+                name
+                value
+              }
             }
           }
         }
@@ -307,6 +402,16 @@ export async function getProductByHandle(
 			images: node.images.edges.map((imgEdge: any) => ({
 				url: imgEdge.node.url,
 				altText: imgEdge.node.altText
+			})),
+			variants: node.variants.edges.map((variantEdge: any) => ({
+				id: variantEdge.node.id,
+				title: variantEdge.node.title,
+				availableForSale: variantEdge.node.availableForSale,
+				price: {
+					amount: variantEdge.node.price.amount,
+					currencyCode: variantEdge.node.price.currencyCode
+				},
+				selectedOptions: variantEdge.node.selectedOptions
 			})),
 			variantId: node.variants.edges[0]?.node.id || node.id
 		}

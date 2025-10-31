@@ -1,0 +1,84 @@
+/* components/layout/mobileMenu/MobileMenu.module.css */
+
+.mainMenu {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.menuItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	background: none;
+	border: none;
+	text-align: left;
+	font-size: 1rem;
+	color: #333;
+	text-decoration: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.menuItem:hover {
+	background-color: #f5f5f5;
+}
+
+.arrow {
+	color: #999;
+	font-size: 1.2rem;
+}
+
+.divider {
+	height: 1px;
+	background-color: #e0e0e0;
+	margin: 1rem 0;
+}
+
+.categoryView {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.backButton {
+	padding: 0.75rem 1rem;
+	background: none;
+	border: none;
+	text-align: left;
+	font-size: 0.95rem;
+	color: #666;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.2s;
+}
+
+.backButton:hover {
+	background-color: #f5f5f5;
+}
+
+.categoryList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.categoryItem {
+	margin-bottom: 0.5rem;
+}
+
+.categoryLink {
+	display: block;
+	padding: 1rem;
+	text-decoration: none;
+	color: #333;
+	font-size: 1rem;
+	border-radius: 4px;
+	transition: background-color 0.2s;
+}
+
+.categoryLink:hover {
+	background-color: #f5f5f5;
+}

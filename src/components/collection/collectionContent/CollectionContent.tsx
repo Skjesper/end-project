@@ -2,7 +2,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import ProductGrid from '@/components/products/ProductGrid'
+import ProductGrid from '@/components/products/productGrid/ProductGrid'
 import TagFilter from '../tagFilter/TagFilter'
 import { Product } from '@/types/product'
 import { extractUniqueTags, filterProductsByTag } from '@/utils/tagFilter'

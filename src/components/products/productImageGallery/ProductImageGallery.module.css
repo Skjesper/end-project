@@ -1,0 +1,67 @@
+/* Wrapper for positioning context */
+.galleryWrapper {
+	position: relative;
+	width: 100%;
+}
+
+/* Mobile: Horizontal scroll */
+.imageGallery {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	-webkit-overflow-scrolling: touch;
+	scroll-snap-type: x mandatory;
+}
+
+.imageGallery::-webkit-scrollbar {
+	display: none;
+}
+
+.imageGallery > div {
+	scroll-snap-align: center;
+	scroll-snap-stop: always;
+	flex-shrink: 0;
+	width: 100vw;
+}
+
+.imageGallery img {
+	width: 100%;
+	height: auto; /* Let image determine height naturally */
+	display: block;
+	object-fit: contain; /* Show full image */
+}
+
+/* Desktop: Vertical scroll - MATCH THE 1024px BREAKPOINT */
+@media (min-width: 1024px) {
+	.galleryWrapper {
+		width: 50%;
+		height: 100vh;
+	}
+
+	.imageGallery {
+		flex-direction: column;
+		width: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: 100%;
+		padding-right: 1rem;
+		scroll-snap-type: y mandatory;
+		gap: 1rem;
+	}
+
+	.imageGallery > div {
+		scroll-snap-align: start;
+		width: 100%;
+	}
+
+	.imageGallery img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1 / 1;
+		object-fit: contain;
+	}
+}

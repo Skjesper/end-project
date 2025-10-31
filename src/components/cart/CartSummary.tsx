@@ -4,6 +4,8 @@ import { useCart } from '@/context/CartContext'
 import { createCheckout } from '@/lib/shopify'
 import { useState } from 'react'
 import Link from 'next/link'
+import styles from './CartSummary.module.css'
+import Button from '../ui/button/Button'
 
 export default function CartSummary() {
 	const { getTotalItems, getTotalPrice, cart } = useCart()
@@ -25,25 +27,24 @@ export default function CartSummary() {
 	const currency = cart.items[0]?.currency || 'USD'
 
 	return (
-		<div>
-			<h2>Cart Summary</h2>
-
-			<div>
+		<aside className={styles.cartSummary} aria-label="Cart summary">
+			<div className={styles.summaryDetails}>
 				<p>Items: {getTotalItems()}</p>
-				<p>
-					Subtotal: {getTotalPrice().toFixed(2)} {currency}
+				<p className={styles.totalPrice}>
+					<span>Subtotal:</span>
+					<span>
+						{getTotalPrice().toFixed(2)} {currency}
+					</span>
 				</p>
 			</div>
 
-			<div>
-				<button onClick={handleCheckout} disabled={loading}>
-					{loading ? 'Loading...' : 'Proceed to Checkout'}
-				</button>
-			</div>
+			<Button onClick={handleCheckout} disabled={loading}>
+				{loading ? 'Loading...' : 'Proceed to Checkout'}
+			</Button>
 
-			<div>
+			<Button variant="secondary">
 				<Link href="/products">Continue Shopping</Link>
-			</div>
-		</div>
+			</Button>
+		</aside>
 	)
 }

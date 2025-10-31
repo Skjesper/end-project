@@ -3,7 +3,7 @@ import styles from './Button.module.css'
 interface ButtonProps {
 	children: React.ReactNode
 	onClick?: () => void
-	variant?: 'primary' | 'secondary' | 'danger' | 'nav'
+	variant?: 'primary' | 'secondary' | 'danger' | 'nav' | 'delete'
 	disabled?: boolean
 	type?: 'button' | 'submit' | 'reset'
 	ariaLabel?: string

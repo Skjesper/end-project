@@ -1,0 +1,45 @@
+/* Mobile and tablet styles (default - up to 1023px) */
+.pageContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.productDetails {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	max-width: var(--max-width-md);
+	padding: 1rem var(--container-padding);
+	margin: 0 auto;
+}
+
+.addToCartButton {
+	margin-top: 1.5rem;
+	width: 100%;
+}
+
+/* Desktop only: Side-by-side layout starts at 1024px */
+@media (min-width: 1024px) {
+	.pageContainer {
+		flex-direction: row;
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	.productDetails {
+		width: 50%;
+		height: 100vh;
+		position: sticky;
+		top: 0;
+		padding: 2rem var(--container-padding);
+		max-width: none;
+	}
+
+	.productDetails > * {
+		width: calc(100% - 1.5rem);
+		max-width: 37.5rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
