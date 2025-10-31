@@ -1,4 +1,8 @@
 import { getProducts } from '@/lib/shopify'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(useGSAP)
 
 export default async function Home() {
 	const products = await getProducts()

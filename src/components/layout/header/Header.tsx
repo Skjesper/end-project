@@ -56,65 +56,46 @@ export default function Header() {
 		setActiveModal(null)
 	}
 
-	const menHover = useHoverDelay({
-		onHoverStart: () => openModal('men'),
-		delay: 500,
-		enabled: true
-	})
+	const createHoverHandler = (categoryType: CategoryType) => {
+		return useHoverDelay({
+			onHoverStart: () => openModal(categoryType),
+			delay: 500,
+			enabled: true
+		})
+	}
 
-	const womenHover = useHoverDelay({
-		onHoverStart: () => openModal('women'),
-		delay: 500,
-		enabled: true
-	})
-
-	const accessoriesHover = useHoverDelay({
-		onHoverStart: () => openModal('accessories'),
-		delay: 500,
-		enabled: true
-	})
+	const hoverHandlers: Record<
+		CategoryType,
+		ReturnType<typeof useHoverDelay>
+	> = {
+		men: createHoverHandler('men'),
+		women: createHoverHandler('women'),
+		accessories: createHoverHandler('accessories')
+	}
 
 	return (
 		<header className={styles.header}>
 			<div className={styles.headerContainer}>
-				{/* Mobile menu - hidden on desktop */}
 				<div className={styles.mobileMenu}>
 					<Button variant="nav" onClick={() => setMobileMenuOpen(true)}>
 						☰
 					</Button>
 				</div>
 
-				{/* Left side navigation */}
 				<nav className={styles.leftNav}>
-					<div
-						onMouseEnter={menHover.handleMouseEnter}
-						onMouseLeave={menHover.handleMouseLeave}
-					>
-						<Button variant="nav" onClick={() => openModal('men')}>
-							Men
-						</Button>
-					</div>
-
-					<div
-						onMouseEnter={womenHover.handleMouseEnter}
-						onMouseLeave={womenHover.handleMouseLeave}
-					>
-						<Button variant="nav" onClick={() => openModal('women')}>
-							Women
-						</Button>
-					</div>
-
-					<div
-						onMouseEnter={accessoriesHover.handleMouseEnter}
-						onMouseLeave={accessoriesHover.handleMouseLeave}
-					>
-						<Button variant="nav" onClick={() => openModal('accessories')}>
-							Accessories
-						</Button>
-					</div>
+					{CATEGORY_TYPES.map((categoryType) => (
+						<div
+							key={categoryType}
+							onMouseEnter={hoverHandlers[categoryType].handleMouseEnter}
+							onMouseLeave={hoverHandlers[categoryType].handleMouseLeave}
+						>
+							<Button variant="nav" onClick={() => openModal(categoryType)}>
+								{categoryType.charAt(0).toUpperCase() + categoryType.slice(1)}
+							</Button>
+						</div>
+					))}
 				</nav>
 
-				{/* Center - Logo */}
 				<div className={styles.logoContainer}>
 					<Link href="/">
 						<Image
@@ -126,7 +107,6 @@ export default function Header() {
 					</Link>
 				</div>
 
-				{/* Right side navigation */}
 				<nav className={styles.rightNav}>
 					<Link
 						href="/account"
@@ -176,32 +156,21 @@ export default function Header() {
 				</nav>
 			</div>
 
-			{/* Mobile Menu */}
 			<MobileMenu
 				open={mobileMenuOpen}
 				onClose={() => setMobileMenuOpen(false)}
 				categories={categories}
 			/>
 
-			{/* Category Modals (Desktop) */}
-			<CategoryDropdown
-				open={activeModal === 'men'}
-				onClose={closeModal}
-				categories={categories.men}
-				categoryType="men"
-			/>
-			<CategoryDropdown
-				open={activeModal === 'women'}
-				onClose={closeModal}
-				categories={categories.women}
-				categoryType="women"
-			/>
-			<CategoryDropdown
-				open={activeModal === 'accessories'}
-				onClose={closeModal}
-				categories={categories.accessories}
-				categoryType="accessories"
-			/>
+			{CATEGORY_TYPES.map((categoryType) => (
+				<CategoryDropdown
+					key={categoryType}
+					open={activeModal === categoryType}
+					onClose={closeModal}
+					categories={categories[categoryType]}
+					categoryType={categoryType}
+				/>
+			))}
 		</header>
 	)
 }

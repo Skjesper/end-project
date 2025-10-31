@@ -79,9 +79,6 @@ export default function MobileMenu({
 
 					<div className={styles.divider} />
 
-					<a href="/shop" className={styles.menuItem}>
-						Collections
-					</a>
 					<a href="/account" className={styles.menuItem}>
 						Login
 					</a>
