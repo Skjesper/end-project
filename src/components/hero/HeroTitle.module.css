@@ -1,0 +1,23 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #000;
+	overflow: hidden;
+	padding: 2rem;
+}
+
+.title {
+	font-size: min(12vw, 12.5rem);
+	margin: 0;
+	line-height: 0.8;
+
+	color: #fff;
+	cursor: default;
+}
+
+@media (max-width: 728px) {
+	.title {
+		font-size: min(18vw, 8rem);
+	}
+}
