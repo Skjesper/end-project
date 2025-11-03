@@ -13,6 +13,16 @@ const maelstrom = localFont({
 	variable: '--font-maelstrom',
 	weight: '700'
 })
+const dieGrotesk = localFont({
+	src: '../../../public/fonts/test-die-grotesk-vf-roman.woff2',
+	variable: '--font-dieGrotesk',
+	weight: '700'
+})
+const pixolde = localFont({
+	src: '../../../public/fonts/Pixolde-Bold.ttf',
+	variable: '--font-pixolde',
+	weight: '700'
+})
 
 export default function SplitTextExample() {
 	const titleRef = useRef(null)
@@ -84,16 +94,16 @@ export default function SplitTextExample() {
 	}, [isReady])
 
 	return (
-		<div className={`${maelstrom.variable} ${styles.container}`}>
+		<div className={`${pixolde.variable} ${styles.container}`}>
 			<h1
 				ref={titleRef}
 				className={styles.title}
 				style={{
-					fontFamily: 'var(--font-maelstrom)'
+					fontFamily: 'var(--font-pixolde)'
 				}}
 			>
-				<span>Skepp</span>
-				<span>stedt</span>
+				<span>.Com</span>
+				<span>Eyewear</span>
 			</h1>
 		</div>
 	)
