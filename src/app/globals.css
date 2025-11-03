@@ -95,8 +95,11 @@
 	--section-gap-sm: 2rem; /* Mobile section spacing */
 
 	/* Component spacing - common patterns */
-	--card-gap: 1.5rem; /* Space between cards in grids */
+	--card-gap: 1.5rem;
+	--card-gap-mobile: 0.5rem; /* Space between cards in grids */
 	--content-gap: 1rem; /* Space within content blocks */
+
+	--text-gap: 0.5rem; /* Space between text elements */
 
 	/* ============================================
      BORDER SYSTEM
