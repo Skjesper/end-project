@@ -1,0 +1,13 @@
+.container {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #ffffff;
+	overflow: hidden;
+}
+
+.productSection {
+	display: flex;
+	gap: var(--card-gap);
+}
