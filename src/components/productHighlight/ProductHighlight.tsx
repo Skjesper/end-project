@@ -4,33 +4,63 @@ import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
 import styles from './ProductHighlight.module.css'
 import Image from 'next/image'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
 export default function ProductHighlightTest() {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const leftImageRef = useRef<HTMLDivElement>(null)
 	const rightImageRef = useRef<HTMLDivElement>(null)
 	const swiperRef = useRef<HTMLElement>(null)
+	const subtitleRef = useRef<HTMLHeadingElement>(null)
+	const titleRef = useRef<HTMLHeadingElement>(null)
 
 	useGSAP(
 		() => {
-			// First timeline for pinned scroll animation
+			// Split text into words
+			const splitSubtitle = new SplitText(subtitleRef.current, {
+				type: 'words,chars',
+				wordsClass: 'word',
+				charsClass: 'char'
+			})
+			const splitTitle = new SplitText(titleRef.current, {
+				type: 'words,chars',
+				wordsClass: 'word',
+				charsClass: 'char'
+			})
+
+			let hasCompletedOnce = false
+
+			// One timeline for everything
 			const tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: containerRef.current,
 					start: 'top top',
-					end: '+=100%',
+					end: '+=150%',
 					scrub: 1,
 					markers: true,
 					pin: true,
-					anticipatePin: 1
+					anticipatePin: 1,
+					onUpdate: (self) => {
+						// When timeline completes (progress reaches 1)
+						if (self.progress === 1 && !hasCompletedOnce) {
+							hasCompletedOnce = true
+							console.log('Timeline completed! Now locked in final state.')
+
+							// Kill the ScrollTrigger so it can't be scrolled anymore
+							self.kill()
+
+							// Set timeline to final state
+							tl.progress(1)
+						}
+					}
 				}
 			})
 
-			// Animate left image
+			// 1. Animate left image (position 0-1)
 			tl.from(
 				leftImageRef.current,
 				{
@@ -41,7 +71,7 @@ export default function ProductHighlightTest() {
 				0
 			)
 
-				// Animate right image (simultaneous with left)
+				// 2. Animate right image (position 0-1, simultaneous with left)
 				.from(
 					rightImageRef.current,
 					{
@@ -52,19 +82,43 @@ export default function ProductHighlightTest() {
 					0
 				)
 
-			// Separate animation for swiper - triggers after scroll/pin ends
-			gsap.from(swiperRef.current, {
-				y: 100,
-				opacity: 0,
-				duration: 1,
-				ease: 'power2.out',
-				scrollTrigger: {
-					trigger: swiperRef.current,
-					start: 'bottom 20%', // Triggers when swiper comes into view
-					toggleActions: 'play none none none',
-					markers: true
-				}
-			})
+				// 3. Animate subtitle words (position 1-2, after images)
+				.from(
+					splitSubtitle.words,
+					{
+						opacity: 0,
+						y: 50,
+						duration: 0.5,
+						stagger: 0.1,
+						ease: 'power2.out'
+					},
+					1
+				)
+
+				// 4. Animate title words (position 1.8-2.5, slightly overlapping subtitle)
+				.from(
+					splitTitle.words,
+					{
+						opacity: 0,
+						y: 50,
+						duration: 0.5,
+						stagger: 0.15,
+						ease: 'power2.out'
+					},
+					1.8
+				)
+
+				// 5. Animate swiper (position 2.5-3.5, after text)
+				.from(
+					swiperRef.current,
+					{
+						y: 100,
+						opacity: 0,
+						duration: 1,
+						ease: 'power2.out'
+					},
+					2.5
+				)
 		},
 		{ scope: containerRef }
 	)
@@ -75,56 +129,66 @@ export default function ProductHighlightTest() {
 			className={styles.container}
 			style={{ minHeight: '100vh' }}
 		>
-			<section className={styles.productSection}>
-				<div ref={leftImageRef}>
+			<div className={styles.contentWrapper}>
+				<div className={styles.titleSection}>
+					<h2 ref={subtitleRef} className={styles.subtitle}>
+						New in
+					</h2>
+					<h1 ref={titleRef} className={styles.title}>
+						AW 25
+					</h1>
+				</div>
+				<section className={styles.productSection}>
+					<div ref={leftImageRef}>
+						<Image
+							src="/assets/images/testimg1.png"
+							alt="Highlighted Product"
+							width={400}
+							height={500}
+						/>
+					</div>
+					<div ref={rightImageRef}>
+						<Image
+							src="/assets/images/testimg2.png"
+							alt="Highlighted Product"
+							width={400}
+							height={500}
+						/>
+					</div>
+				</section>
+				<section className={styles.swiperSection} ref={swiperRef}>
 					<Image
 						src="/assets/images/testimg1.png"
 						alt="Highlighted Product"
-						width={400}
-						height={500}
+						width={40}
+						height={40}
 					/>
-				</div>
-				<div ref={rightImageRef}>
 					<Image
-						src="/assets/images/testimg2.png"
+						src="/assets/images/testimg1.png"
 						alt="Highlighted Product"
-						width={400}
-						height={500}
+						width={40}
+						height={40}
 					/>
-				</div>
-			</section>
-			<section className={styles.swiperSection} ref={swiperRef}>
-				<Image
-					src="/assets/images/testimg1.png"
-					alt="Highlighted Product"
-					width={40}
-					height={40}
-				/>
-				<Image
-					src="/assets/images/testimg1.png"
-					alt="Highlighted Product"
-					width={40}
-					height={40}
-				/>
-				<Image
-					src="/assets/images/testimg1.png"
-					alt="Highlighted Product"
-					width={40}
-					height={40}
-				/>
-				<Image
-					src="/assets/images/testimg1.png"
-					alt="Highlighted Product"
-					width={40}
-					height={40}
-				/>
-				<Image
-					src="/assets/images/testimg1.png"
-					alt="Highlighted Product"
-					width={40}
-					height={40}
-				/>
-			</section>
+					<Image
+						src="/assets/images/testimg1.png"
+						alt="Highlighted Product"
+						width={40}
+						height={40}
+					/>
+					<Image
+						src="/assets/images/testimg1.png"
+						alt="Highlighted Product"
+						width={40}
+						height={40}
+					/>
+					<Image
+						src="/assets/images/testimg1.png"
+						alt="Highlighted Product"
+						width={40}
+						height={40}
+					/>
+				</section>
+			</div>
 		</div>
 	)
 }
