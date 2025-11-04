@@ -39,11 +39,11 @@ export default function ProductHighlightTest() {
 				scrollTrigger: {
 					trigger: containerRef.current,
 					start: 'top top',
-					end: '+=150%',
+					end: '+=100%',
 					scrub: 1,
 					markers: true,
 					pin: true,
-					anticipatePin: 1,
+					// anticipatePin: 1,
 					onUpdate: (self) => {
 						// When timeline completes (progress reaches 1)
 						if (self.progress === 1 && !hasCompletedOnce) {
