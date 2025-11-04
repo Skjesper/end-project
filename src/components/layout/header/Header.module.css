@@ -1,9 +1,11 @@
 .header {
 	width: 100%;
+	z-index: var(--z-sticky);
 }
 
 .headerContainer {
 	display: grid;
+	height: 5rem;
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	gap: 1rem;
