@@ -5,9 +5,19 @@
 	justify-content: center;
 	background-color: #ffffff;
 	overflow: hidden;
+	flex-direction: column;
+	gap: var(--section-gap);
 }
 
 .productSection {
 	display: flex;
 	gap: var(--card-gap);
+}
+
+.swiperSection {
+	display: flex;
+	gap: calc(var(--card-gap) * 0.5);
+	width: 50%;
+	height: auto;
+	justify-content: center;
 }

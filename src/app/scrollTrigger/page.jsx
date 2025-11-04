@@ -60,8 +60,3 @@ export default function ScrollTriggerPage() {
 		</div>
 	)
 }
-
-export default function ScrollTriggerPageTest() {
-
-
-}
