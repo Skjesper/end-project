@@ -20,7 +20,6 @@ export default function ProductHighlightTest() {
 
 	useGSAP(
 		() => {
-			// Split text into words
 			const splitSubtitle = new SplitText(subtitleRef.current, {
 				type: 'words,chars',
 				wordsClass: 'word',
@@ -32,9 +31,6 @@ export default function ProductHighlightTest() {
 				charsClass: 'char'
 			})
 
-			let hasCompletedOnce = false
-
-			// One timeline for everything
 			const tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: containerRef.current,
@@ -43,46 +39,14 @@ export default function ProductHighlightTest() {
 					scrub: 1,
 					markers: true,
 					pin: true,
-					// anticipatePin: 1,
-					onUpdate: (self) => {
-						// When timeline completes (progress reaches 1)
-						if (self.progress === 1 && !hasCompletedOnce) {
-							hasCompletedOnce = true
-							console.log('Timeline completed! Now locked in final state.')
-
-							// Kill the ScrollTrigger so it can't be scrolled anymore
-							self.kill()
-
-							// Set timeline to final state
-							tl.progress(1)
-						}
-					}
+					anticipatePin: 1,
+					id: 'product-highlight' // Add ID for debugging
+					// REMOVED onUpdate - let it complete naturally
 				}
 			})
 
-			// 1. Animate left image (position 0-1)
-			tl.from(
-				leftImageRef.current,
-				{
-					x: -200,
-					opacity: 0,
-					duration: 1
-				},
-				0
-			)
-
-				// 2. Animate right image (position 0-1, simultaneous with left)
-				.from(
-					rightImageRef.current,
-					{
-						x: 200,
-						opacity: 0,
-						duration: 1
-					},
-					0
-				)
-
-				// 3. Animate subtitle words (position 1-2, after images)
+			tl.from(leftImageRef.current, { x: -200, opacity: 0, duration: 1 }, 0)
+				.from(rightImageRef.current, { x: 200, opacity: 0, duration: 1 }, 0)
 				.from(
 					splitSubtitle.words,
 					{
@@ -94,8 +58,6 @@ export default function ProductHighlightTest() {
 					},
 					1
 				)
-
-				// 4. Animate title words (position 1.8-2.5, slightly overlapping subtitle)
 				.from(
 					splitTitle.words,
 					{
@@ -107,16 +69,9 @@ export default function ProductHighlightTest() {
 					},
 					1.8
 				)
-
-				// 5. Animate swiper (position 2.5-3.5, after text)
 				.from(
 					swiperRef.current,
-					{
-						y: 100,
-						opacity: 0,
-						duration: 1,
-						ease: 'power2.out'
-					},
+					{ y: 100, opacity: 0, duration: 1, ease: 'power2.out' },
 					2.5
 				)
 		},
@@ -124,11 +79,8 @@ export default function ProductHighlightTest() {
 	)
 
 	return (
-		<div
-			ref={containerRef}
-			className={styles.container}
-			style={{ minHeight: '100vh' }}
-		>
+		<div ref={containerRef} className={styles.container}>
+			{/* REMOVED inline minHeight style */}
 			<div className={styles.contentWrapper}>
 				<div className={styles.titleSection}>
 					<h2 ref={subtitleRef} className={styles.subtitle}>
