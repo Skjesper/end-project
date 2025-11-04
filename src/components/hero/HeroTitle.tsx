@@ -45,6 +45,7 @@ export default function HeroTitle() {
 
 	return (
 		<div className={`${dieGrotesk.variable} ${styles.container}`}>
+			<section className={styles.heroImg}></section>
 			<h1
 				ref={titleRef}
 				className={styles.title}
