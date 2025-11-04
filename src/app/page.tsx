@@ -6,9 +6,6 @@ export default function Home() {
 	return (
 		<main>
 			<HeroTitle />
-			<div style={{ height: '100vh', background: '#000' }}>
-				<h1 style={{ color: 'white', padding: '2rem' }}>Scroll down</h1>
-			</div>
 
 			<ProductHighlight />
 
