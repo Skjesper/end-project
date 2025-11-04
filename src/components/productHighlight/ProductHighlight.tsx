@@ -95,16 +95,16 @@ export default function ProductHighlightTest() {
 						<Image
 							src="/assets/images/testimg1.png"
 							alt="Highlighted Product"
-							width={400}
-							height={500}
+							width={320}
+							height={400}
 						/>
 					</div>
 					<div ref={rightImageRef}>
 						<Image
 							src="/assets/images/testimg2.png"
 							alt="Highlighted Product"
-							width={400}
-							height={500}
+							width={320}
+							height={400}
 						/>
 					</div>
 				</section>
