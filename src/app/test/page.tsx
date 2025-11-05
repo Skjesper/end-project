@@ -1,9 +1,7 @@
-import MyCarousel from '@/components/products/carousel/Carousel'
+import UnicornScene from 'unicornstudio-react/next'
 
-export default function test() {
+export default function MyComponent() {
 	return (
-		<>
-			<MyCarousel />
-		</>
+		<UnicornScene projectId="CEtcYgAJnZN2g1QJtnFK" width={800} height={600} />
 	)
 }
