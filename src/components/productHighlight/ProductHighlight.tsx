@@ -37,7 +37,7 @@ export default function ProductHighlightTest() {
 					start: 'top top',
 					end: '+=100%',
 					scrub: 1,
-					markers: true,
+					// markers: true,
 					pin: true,
 					anticipatePin: 1,
 					id: 'product-highlight' // Add ID for debugging

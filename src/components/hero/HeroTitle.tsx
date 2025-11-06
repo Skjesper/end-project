@@ -9,12 +9,6 @@ import DotGrid from './DotGrid'
 
 gsap.registerPlugin(SplitText)
 
-const dieGrotesk = localFont({
-	src: '../../../public/fonts/test-die-grotesk-vf-roman.woff2',
-	variable: '--font-dieGrotesk',
-	weight: '700'
-})
-
 export default function HeroTitle() {
 	const titleRef = useRef<HTMLHeadingElement>(null)
 
@@ -45,8 +39,8 @@ export default function HeroTitle() {
 	}, [])
 
 	return (
-		<div className={`${dieGrotesk.variable} ${styles.container}`}>
-			<div className={styles.dotGrid}>
+		<div className={`${styles.container}`}>
+			<div className={styles.heroImg}>
 				<DotGrid />
 			</div>
 			<h1

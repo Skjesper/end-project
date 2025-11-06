@@ -5,7 +5,8 @@
 	justify-content: center;
 	background-color: #000;
 	overflow: hidden;
-
+	font-family: var(--font-display);
+	font-weight: 700;
 	min-height: calc(100svh - 5rem - 1px);
 }
 

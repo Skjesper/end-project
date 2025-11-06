@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import localFont from 'next/font/local'
 import styles from './CategorySideScroll.module.css'
 import Image from 'next/image'
 
@@ -31,7 +30,7 @@ export default function CategorySideScroll() {
 				start: 'center center', // Pin starts when container enters viewport
 				end: '+=2000', // Stay pinned for 2000px of scroll
 				scrub: 0.5,
-				markers: true,
+				// markers: true,
 				pin: categoryContainerRef.current // Pin the container
 				// pinSpacing: true,
 				// anticipatePin: 1
@@ -41,7 +40,7 @@ export default function CategorySideScroll() {
 		tl.fromTo(
 			imagesRef.current,
 			{ '--progress': 1 },
-			{ '--progress': -1, stagger: 0.25, ease: 'none' }
+			{ '--progress': -1, stagger: 0.2, ease: 'none' }
 		)
 	}, [])
 
