@@ -104,8 +104,8 @@ export default function Header() {
 						<Image
 							src="/assets/SkjespLogo.png"
 							alt="Logo"
-							width={100}
-							height={25}
+							width={200}
+							height={50}
 						/>
 					</Link>
 				</div>

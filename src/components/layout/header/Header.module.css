@@ -74,6 +74,7 @@
 
 .rightNav {
 	display: flex;
+	height: 100%;
 	align-items: center;
 	justify-content: flex-end;
 	/* gap: 4rem; */
@@ -87,6 +88,18 @@
 
 .logoContainer {
 	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%; /* Match parent height */
+	max-height: 4rem; /* Limit logo height */
+}
+
+.logoContainer img {
+	width: auto;
+	height: auto;
+	max-height: 100%;
+	object-fit: contain;
 }
 
 .navItem {
