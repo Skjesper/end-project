@@ -40,13 +40,11 @@ export default function HeroTitle() {
 
 	return (
 		<div className={`${styles.container}`}>
-			<div className={styles.heroImg}>
-				<DotGrid />
-			</div>
+			<div className={styles.heroImg}></div>
 			<h1
 				ref={titleRef}
 				className={styles.title}
-				style={{ fontFamily: 'var(--font-dieGrotesk)' }}
+				style={{ fontFamily: 'var(--font-display)' }}
 			>
 				OCULUS CAPIENS
 			</h1>
