@@ -5,6 +5,7 @@ import { useState } from 'react'
 import SlideOutModal from '@/components/ui/slideOutModal/SlideOutModal'
 import CategoryList from '@/components/ui/categoryList/CategoryList'
 import styles from './MobileMenu.module.css'
+import Button from '../button/Button'
 
 interface MobileMenuProps {
 	open: boolean
@@ -41,11 +42,11 @@ export default function MobileMenu({
 	const getTitle = () => {
 		switch (currentView) {
 			case 'men':
-				return "Men's Categories"
+				return 'Men'
 			case 'women':
-				return "Women's Categories"
+				return 'Women'
 			case 'accessories':
-				return 'Accessories Categories'
+				return 'Accessories'
 			default:
 				return 'Menu'
 		}
@@ -55,27 +56,29 @@ export default function MobileMenu({
 		<SlideOutModal open={open} onClose={handleClose} title={getTitle()}>
 			{currentView === 'main' ? (
 				<nav className={styles.mainMenu}>
-					<button
-						onClick={() => goToCategory('men')}
-						className={styles.menuItem}
-					>
-						Men
-						<span className={styles.arrow}>→</span>
-					</button>
-					<button
-						onClick={() => goToCategory('women')}
-						className={styles.menuItem}
-					>
-						Women
-						<span className={styles.arrow}>→</span>
-					</button>
-					<button
-						onClick={() => goToCategory('accessories')}
-						className={styles.menuItem}
-					>
-						Accessories
-						<span className={styles.arrow}>→</span>
-					</button>
+					<div className={styles.categorySection}>
+						<Button
+							variant="nav"
+							onClick={() => goToCategory('men')}
+							className={styles.menuItem}
+						>
+							Men
+						</Button>
+						<Button
+							variant="nav"
+							onClick={() => goToCategory('women')}
+							className={styles.menuItem}
+						>
+							Women
+						</Button>
+						<Button
+							variant="nav"
+							onClick={() => goToCategory('accessories')}
+							className={styles.menuItem}
+						>
+							Accessories
+						</Button>
+					</div>
 
 					<div className={styles.divider} />
 

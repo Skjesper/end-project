@@ -100,14 +100,14 @@ export default function Header() {
 				</nav>
 
 				<div className={styles.logoContainer}>
-					<Link href="/">
+					{/* <Link href="/">
 						<Image
 							src="/assets/SkjespLogo.png"
 							alt="Logo"
 							width={200}
 							height={50}
 						/>
-					</Link>
+					</Link> */}
 				</div>
 
 				<nav className={styles.rightNav}>
@@ -155,7 +155,11 @@ export default function Header() {
 											width={25}
 											height={25}
 										/>
-										<span className={styles.cartBadge}>{getTotalItems()}</span>
+										{getTotalItems() > 0 && (
+											<span className={styles.cartBadge}>
+												{getTotalItems()}
+											</span>
+										)}
 									</div>
 								</Button>
 							</Link>

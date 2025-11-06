@@ -12,6 +12,24 @@
 	padding: 1rem var(--container-padding); /* container-type: inline-size; */
 	border-bottom: solid black 1px;
 }
+.cartIconWrapper {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cartBadge {
+	position: absolute;
+	top: 60%;
+	left: 47%;
+	transform: translate(-50%, -50%);
+	font-size: 0.8rem; /* Adjust size to fit inside icon */
+	font-weight: 700;
+	color: #000; /* Match your design */
+	line-height: 1;
+	pointer-events: none; /* Prevent interfering with clicks */
+}
 
 .leftNav,
 .rightNav {
@@ -92,7 +110,7 @@
 	align-items: center;
 	justify-content: center;
 	height: 100%; /* Match parent height */
-	max-height: 4rem; /* Limit logo height */
+	max-height: 2rem; /* Limit logo height */
 }
 
 .logoContainer img {
@@ -138,8 +156,9 @@
 }
 
 /* Mobile layout - hide left nav completely, show hamburger menu */
-@media (max-width: 850px) {
-	.leftNav {
+@media (max-width: 1024px) {
+	.leftNav,
+	.rightNav {
 		display: none;
 	}
 
