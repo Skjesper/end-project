@@ -8,9 +8,29 @@
 .button[data-variant='nav'] {
 	color: #000000;
 	font-size: 1.25rem;
-	font-family: var(--font-futura), Arial, Helvetica, sans-serif;
-	font-weight: 500;
+	font-family: var(--font-display);
+	font-weight: 700;
 	background-color: transparent;
+}
+
+.button[data-variant='nav']:hover {
+	animation: flicker 0.3s ease-in-out;
+}
+
+@keyframes flicker {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0.3;
+	}
+	50% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0.5;
+	}
 }
 
 .button[data-variant='filter'] {
