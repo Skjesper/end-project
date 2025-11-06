@@ -111,51 +111,56 @@ export default function Header() {
 				</div>
 
 				<nav className={styles.rightNav}>
-					<Link
-						href="/account"
-						className={`${styles.navItem} ${styles.priority3}`}
-					>
-						<Button variant="nav">Login</Button>
-					</Link>
+					<div className={styles.rightNavContent}>
+						<div className={styles.login}>
+							<Link
+								href="/account"
+								className={`${styles.navItem} ${styles.priority3}`}
+							>
+								<Button variant="nav">Login</Button>
+							</Link>
+						</div>
+						<div className={styles.icons}>
+							<Link href="/search" className={styles.navItem}>
+								<Button variant="nav">
+									<Image
+										src="/assets/SearchIcon.svg"
+										alt="Search"
+										width={25}
+										height={25}
+									/>
+								</Button>
+							</Link>
 
-					<Link href="/search" className={styles.navItem}>
-						<Button variant="nav">
-							<Image
-								src="/assets/SearchIcon.svg"
-								alt="Search"
-								width={25}
-								height={25}
-							/>
-						</Button>
-					</Link>
+							<Link
+								href="/favorites"
+								className={`${styles.navItem} ${styles.priority2}`}
+							>
+								<Button variant="nav">
+									<Image
+										src="/assets/HeartIcon.svg"
+										alt="Favorites"
+										width={25}
+										height={25}
+									/>
+								</Button>
+							</Link>
 
-					<Link
-						href="/favorites"
-						className={`${styles.navItem} ${styles.priority2}`}
-					>
-						<Button variant="nav">
-							<Image
-								src="/assets/HeartIcon.svg"
-								alt="Favorites"
-								width={25}
-								height={25}
-							/>
-						</Button>
-					</Link>
-
-					<Link href="/cart" className={styles.navItem}>
-						<Button variant="nav">
-							<div className={styles.cartIconWrapper}>
-								<Image
-									src="/assets/CartIcon.svg"
-									alt="Cart"
-									width={25}
-									height={25}
-								/>
-								<span className={styles.cartBadge}>{getTotalItems()}</span>
-							</div>
-						</Button>
-					</Link>
+							<Link href="/cart" className={styles.navItem}>
+								<Button variant="nav">
+									<div className={styles.cartIconWrapper}>
+										<Image
+											src="/assets/CartIcon.svg"
+											alt="Cart"
+											width={25}
+											height={25}
+										/>
+										<span className={styles.cartBadge}>{getTotalItems()}</span>
+									</div>
+								</Button>
+							</Link>
+						</div>
+					</div>
 				</nav>
 			</div>
 

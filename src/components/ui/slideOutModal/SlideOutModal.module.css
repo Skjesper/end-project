@@ -1,7 +1,7 @@
-/* components/ui/slideOutModal/SlideOutModal.module.css */
-
 .modalPaper {
 	background-color: white;
+	font-family: var(--font-display) !important;
+	text-transform: uppercase;
 }
 
 .modalContent {

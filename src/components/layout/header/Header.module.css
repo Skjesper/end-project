@@ -26,7 +26,8 @@
 	gap: 4rem;
 }
 
-.leftNavContent {
+.leftNavContent,
+.rightNavContent {
 	display: flex;
 	height: 100%;
 	align-items: center;
@@ -36,7 +37,9 @@
 }
 
 .leftNavContent::before,
-.leftNavContent::after {
+.leftNavContent::after,
+.rightNavContent::before,
+.rightNavContent::after {
 	content: '';
 	position: absolute;
 	top: -1rem;
@@ -52,11 +55,13 @@
 	}
 }
 
-.leftNavContent::before {
+.leftNavContent::before,
+.rightNavContent::before {
 	left: 0;
 }
 
-.leftNavContent::after {
+.leftNavContent::after,
+.rightNavContent::after {
 	right: 0;
 	animation-delay: 0.15s; /* Right border starts slightly after left */
 }
@@ -71,6 +76,13 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	/* gap: 4rem; */
+}
+
+.icons {
+	display: flex;
+	flex-direction: row;
+	gap: var(--content-gap);
 }
 
 .logoContainer {
