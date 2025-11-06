@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Product } from '@/types/product'
 import styles from './ProductCard.module.css'
+import Image from 'next/image'
 
 interface ProductCardProps {
 	product: Product
@@ -83,8 +84,20 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 					{/* Default info */}
 					<div className={styles.defaultInfo}>
 						<h3 className={styles.title}>{product.title}</h3>
+
 						<p className={styles.price}>
-							{price.toFixed(2)} {currency}
+							<span className={styles.priceWrapper}>
+								<Image
+									src="/assets/images/PriceTag.png"
+									alt="Price tag"
+									width={200}
+									height={80}
+									className={styles.priceImage}
+								/>
+								<span className={styles.priceText}>
+									{price.toFixed(2)} {currency}
+								</span>
+							</span>
 						</p>
 					</div>
 
