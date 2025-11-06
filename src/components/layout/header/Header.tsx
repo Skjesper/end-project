@@ -83,17 +83,20 @@ export default function Header() {
 				</div>
 
 				<nav className={styles.leftNav}>
-					{CATEGORY_TYPES.map((categoryType) => (
-						<div
-							key={categoryType}
-							onMouseEnter={hoverHandlers[categoryType].handleMouseEnter}
-							onMouseLeave={hoverHandlers[categoryType].handleMouseLeave}
-						>
-							<Button variant="nav" onClick={() => openModal(categoryType)}>
-								{categoryType.charAt(0).toUpperCase() + categoryType.slice(1)}
-							</Button>
-						</div>
-					))}
+					<div className={styles.leftNavContent}>
+						{CATEGORY_TYPES.map((categoryType) => (
+							<div
+								key={categoryType}
+								className={styles.category}
+								onMouseEnter={hoverHandlers[categoryType].handleMouseEnter}
+								onMouseLeave={hoverHandlers[categoryType].handleMouseLeave}
+							>
+								<Button variant="nav" onClick={() => openModal(categoryType)}>
+									{categoryType.charAt(0).toUpperCase() + categoryType.slice(1)}
+								</Button>
+							</div>
+						))}
+					</div>
 				</nav>
 
 				<div className={styles.logoContainer}>
@@ -101,8 +104,8 @@ export default function Header() {
 						<Image
 							src="/assets/SkjespLogo.png"
 							alt="Logo"
-							width={200}
-							height={50}
+							width={100}
+							height={25}
 						/>
 					</Link>
 				</div>

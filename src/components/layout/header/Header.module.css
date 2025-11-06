@@ -10,7 +10,7 @@
 	align-items: center;
 	gap: 1rem;
 	padding: 1rem var(--container-padding);
-	container-type: inline-size;
+	/* container-type: inline-size; */
 }
 
 .leftNav,
@@ -20,14 +20,55 @@
 
 .leftNav {
 	display: flex;
-
+	height: 100%;
 	align-items: center;
 	justify-content: flex-start;
+	gap: 4rem;
+}
+
+.leftNavContent {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	gap: 4rem;
+	padding: 0 2rem;
+	position: relative;
+}
+
+.leftNavContent::before,
+.leftNavContent::after {
+	content: '';
+	position: absolute;
+	top: -1rem;
+	width: 1px;
+	background-color: currentColor;
+	height: 0; /* Start with no height */
+	animation: growDown 0.8s ease-out forwards; /* Animate on load */
+}
+
+@keyframes growDown {
+	to {
+		height: calc(100% + 2rem); /* Grow to full height */
+	}
+}
+
+.leftNavContent::before {
+	left: 0;
+}
+
+.leftNavContent::after {
+	right: 0;
+	animation-delay: 0.15s; /* Right border starts slightly after left */
+}
+
+.category {
+	display: flex;
+	align-items: center;
+	height: 100%;
 }
 
 .rightNav {
 	display: flex;
-
 	align-items: center;
 	justify-content: flex-end;
 }

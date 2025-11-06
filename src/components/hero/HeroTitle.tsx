@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import localFont from 'next/font/local'
 import styles from './HeroTitle.module.css'
+import DotGrid from './DotGrid'
 
 gsap.registerPlugin(SplitText)
 
@@ -45,7 +46,9 @@ export default function HeroTitle() {
 
 	return (
 		<div className={`${dieGrotesk.variable} ${styles.container}`}>
-			<section className={styles.heroImg}></section>
+			<div className={styles.dotGrid}>
+				<DotGrid />
+			</div>
 			<h1
 				ref={titleRef}
 				className={styles.title}
