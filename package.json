@@ -14,14 +14,18 @@
     "@gsap/react": "^2.1.2",
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
+    "@react-three/fiber": "^9.4.0",
+    "@react-three/postprocessing": "^3.0.4",
     "@shopify/storefront-api-client": "^1.0.9",
     "gsap": "^3.13.0",
     "next": "15.5.5",
+    "postprocessing": "^6.37.8",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sass": "^1.93.2",
     "split-type": "^0.3.4",
     "swiper": "^12.0.3",
+    "three": "^0.181.0",
     "unicornstudio-react": "^1.4.33-1"
   },
   "devDependencies": {
