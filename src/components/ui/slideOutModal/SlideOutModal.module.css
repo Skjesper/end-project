@@ -1,11 +1,11 @@
-/* components/ui/slideOutModal/SlideOutModal.module.css */
-
 .modalPaper {
 	background-color: white;
+	font-family: var(--font-display) !important;
+	text-transform: uppercase;
 }
 
 .modalContent {
-	padding: 1.5rem;
+	padding-top: 1.7rem;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -15,9 +15,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 1.5rem;
-	padding-bottom: 1rem;
-	border-bottom: 1px solid #e0e0e0;
+	padding: 0 1rem 1rem var(--container-padding);
+	/* margin-bottom: 1.5rem;
+	padding-bottom: 1rem; */
+	border-bottom: 1px solid var(--foreground);
 }
 
 .title {
@@ -27,23 +28,26 @@
 }
 
 .closeButton {
-	color: #666;
+	color: var(--foreground) !important;
 	transition: color 0.2s;
 }
 
 .closeButton:hover {
-	color: #000;
+	color: var(--foreground) !important;
 }
 
 .content {
 	flex: 1;
 	overflow-y: auto;
+	padding: 1rem var(--container-padding);
+	color: var(--foreground) !important;
 }
 
 /* Tablet and above */
 @media (min-width: 768px) {
 	.modalContent {
-		padding: 2rem;
+		/* padding-left: var(--container-padding); */
+		/* padding: 1rem var(--container-padding); */
 	}
 
 	.header {

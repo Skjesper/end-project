@@ -3,6 +3,7 @@
 
 import Link from 'next/link'
 import styles from './CategoryList.module.css'
+import Button from '../button/Button'
 
 interface CategoryListProps {
 	categories: string[]
@@ -27,7 +28,7 @@ export default function CategoryList({
 							onClick={onCategoryClick}
 							className={styles.categoryLink}
 						>
-							{category}
+							<Button variant="nav">{category}</Button>
 						</Link>
 					</li>
 				))

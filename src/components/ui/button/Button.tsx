@@ -3,7 +3,15 @@ import styles from './Button.module.css'
 interface ButtonProps {
 	children: React.ReactNode
 	onClick?: () => void
-	variant?: 'primary' | 'secondary' | 'danger' | 'nav' | 'delete'
+	variant?:
+		| 'primary'
+		| 'secondary'
+		| 'danger'
+		| 'nav'
+		| 'delete'
+		| 'filterWide'
+		| 'filter'
+	isActive?: boolean
 	disabled?: boolean
 	type?: 'button' | 'submit' | 'reset'
 	ariaLabel?: string
@@ -16,6 +24,7 @@ export default function Button({
 	variant = 'primary',
 	disabled = false,
 	type = 'button',
+	isActive = false,
 	ariaLabel,
 	ariaDescribedBy
 }: ButtonProps) {
@@ -26,6 +35,7 @@ export default function Button({
 			onClick={onClick}
 			disabled={disabled}
 			data-variant={variant}
+			data-active={isActive}
 			aria-label={ariaLabel}
 			aria-describedby={ariaDescribedBy}
 			aria-disabled={disabled}

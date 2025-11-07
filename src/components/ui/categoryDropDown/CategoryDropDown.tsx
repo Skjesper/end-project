@@ -22,9 +22,7 @@ export default function CategoryDropdown({
 	const displayTitle =
 		title ||
 		(categoryType
-			? `${
-					categoryType.charAt(0).toUpperCase() + categoryType.slice(1)
-			  }'s Categories`
+			? `${categoryType.charAt(0).toUpperCase() + categoryType.slice(1)}`
 			: 'Categories')
 
 	return (

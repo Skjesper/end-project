@@ -105,8 +105,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 			<header className={styles.header}>
 				<section className={styles.collectionSection}>
 					<h1 className={styles.collectionTitle}>
-						{collection.title}
-						{selectedCategory && ` - ${selectedCategory}`}
+						{/* {collection.title} */}
+						{selectedCategory && `  ${selectedCategory}`}
 					</h1>
 					{collection.description && (
 						<p className={styles.descriptionText}>{collection.description}</p>

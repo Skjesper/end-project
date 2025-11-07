@@ -8,9 +8,30 @@
 .button[data-variant='nav'] {
 	color: #000000;
 	font-size: 1.25rem;
-	font-family: var(--font-futura), Arial, Helvetica, sans-serif;
-	font-weight: 500;
+	font-family: var(--font-display);
+	font-weight: 700;
 	background-color: transparent;
+	text-transform: uppercase;
+}
+
+.button[data-variant='nav']:hover {
+	animation: flicker 0.3s ease-in-out;
+}
+
+@keyframes flicker {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 0.3;
+	}
+	50% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0.5;
+	}
 }
 
 .button[data-variant='filter'] {
@@ -21,11 +42,15 @@
 	color: inherit;
 	border: 1px solid #000000;
 	padding: 0.75rem 0.75rem;
-	border-radius: 6px;
+	/* border-radius: 6px; */
+	font-family: var(--font-display);
+	font-weight: 700;
+	text-transform: uppercase;
 }
 
 .button[data-variant='filter']:hover {
-	background-color: rgba(255, 255, 255, 1);
+	background-color: rgb(218, 41, 41);
+	color: white;
 }
 
 .button[data-variant='filter'][data-active='true'] {

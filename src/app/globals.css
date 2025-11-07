@@ -29,6 +29,8 @@
      clear hierarchy in your content.
      ============================================ */
 
+	--font-display: var(--font-space-grotesk);
+
 	--font-size-xs: 0.75rem; /* 12px - captions, labels */
 	--font-size-sm: 0.875rem; /* 14px - small text, meta info */
 	--font-size-base: 1rem; /* 16px - body text */
