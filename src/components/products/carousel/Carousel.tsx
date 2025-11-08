@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
-import { Navigation, Thumbs } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Thumbs, FreeMode } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
-import 'swiper/css/navigation'
+import 'swiper/css/free-mode'
 import 'swiper/css/thumbs'
 import Image from 'next/image'
 import styles from './Carousel.module.css'
@@ -118,12 +118,14 @@ export default function MySwiper() {
 
 				<section className={styles.productSection} ref={mainSwiperRef}>
 					<Swiper
-						modules={[Navigation, Thumbs]}
-						navigation
+						modules={[Thumbs, FreeMode]}
 						onSwiper={setMainSwiper}
 						spaceBetween={30}
 						slidesPerView={2}
-						thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+						thumbs={{
+							swiper:
+								thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
+						}}
 						className={styles.mainSwiper}
 						breakpoints={{
 							320: {
@@ -152,11 +154,12 @@ export default function MySwiper() {
 
 				<section className={styles.swiperSection} ref={thumbSwiperRef}>
 					<Swiper
-						modules={[Thumbs]}
+						modules={[Thumbs, FreeMode]}
 						onSwiper={setThumbsSwiper}
 						spaceBetween={6}
 						slidesPerView={5}
-						watchSlidesProgress
+						freeMode={true}
+						watchSlidesProgress={true}
 						className={styles.thumbSwiper}
 						breakpoints={{
 							320: {

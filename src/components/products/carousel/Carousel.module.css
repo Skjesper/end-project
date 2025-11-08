@@ -50,6 +50,10 @@
 	opacity: 1;
 }
 
+.thumbSwiper :global(.swiper-slide-thumb-active) {
+	opacity: 1;
+}
+
 .thumbImage {
 	width: 100% !important;
 	height: auto;

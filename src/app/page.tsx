@@ -9,11 +9,9 @@ export default function Home() {
 		<main>
 			<HeroTitle />
 
-			<ProductHighlight />
+			<MySwiper />
 
 			<CategorySideScroll />
-
-			<MySwiper />
 		</main>
 	)
 }
