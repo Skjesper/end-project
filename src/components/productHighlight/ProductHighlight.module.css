@@ -4,7 +4,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* background-color: #c2c5ca; */
+
 	overflow: hidden;
 	flex-direction: column;
 	gap: var(--section-gap);

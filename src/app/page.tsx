@@ -12,6 +12,8 @@ export default function Home() {
 			<ProductHighlight />
 
 			<CategorySideScroll />
+
+			<MySwiper />
 		</main>
 	)
 }
