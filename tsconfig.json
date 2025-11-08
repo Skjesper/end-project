@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/splitText/page.jsx",
-    "src/components/products/carousel/Carousel.jsx",
+    "src/components/products/carousel/Carousel.tsx",
     "src/components/hero/DotGrid.jsx"
   ],
   "exclude": [
