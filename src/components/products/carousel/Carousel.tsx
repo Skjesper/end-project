@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Thumbs, FreeMode } from 'swiper/modules'
+import { Thumbs, FreeMode, Autoplay } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/free-mode'
@@ -118,10 +118,14 @@ export default function MySwiper() {
 
 				<section className={styles.productSection} ref={mainSwiperRef}>
 					<Swiper
-						modules={[Thumbs, FreeMode]}
+						modules={[Thumbs, FreeMode, Autoplay]}
 						onSwiper={setMainSwiper}
 						spaceBetween={30}
 						slidesPerView={2}
+						autoplay={{
+							delay: 6000,
+							disableOnInteraction: false
+						}}
 						thumbs={{
 							swiper:
 								thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null
