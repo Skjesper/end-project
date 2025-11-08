@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Thumbs, FreeMode, Autoplay } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
@@ -8,30 +8,22 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/thumbs'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from './Carousel.module.css'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
+import { getProductsByTag } from '@/lib/shopify'
+import { Product } from '@/types/product'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
-
-interface ImageData {
-	src: string
-	alt: string
-}
 
 export default function MySwiper() {
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null)
 	const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null)
-
-	const images: ImageData[] = [
-		{ src: '/assets/images/testimg1.png', alt: 'Product 1' },
-		{ src: '/assets/images/testimg2.png', alt: 'Product 2' },
-		{ src: '/assets/images/testimg1.png', alt: 'Product 3' },
-		{ src: '/assets/images/testimg2.png', alt: 'Product 4' },
-		{ src: '/assets/images/testimg1.png', alt: 'Product 5' }
-	]
+	const [products, setProducts] = useState<Product[]>([])
+	const [loading, setLoading] = useState(true)
 
 	const containerRef = useRef<HTMLDivElement>(null)
 	const mainSwiperRef = useRef<HTMLElement>(null)
@@ -39,10 +31,21 @@ export default function MySwiper() {
 	const subtitleRef = useRef<HTMLHeadingElement>(null)
 	const titleRef = useRef<HTMLHeadingElement>(null)
 
+	// Fetch products on mount
+	useEffect(() => {
+		const fetchProducts = async () => {
+			setLoading(true)
+			const highlightedProducts = await getProductsByTag('Highlight', 10)
+			setProducts(highlightedProducts)
+			setLoading(false)
+		}
+
+		fetchProducts()
+	}, [])
+
 	useGSAP(
 		() => {
-			// Only animate if elements exist
-			if (!subtitleRef.current || !titleRef.current) return
+			if (!subtitleRef.current || !titleRef.current || loading) return
 
 			const splitSubtitle = new SplitText(subtitleRef.current, {
 				type: 'words,chars',
@@ -61,7 +64,6 @@ export default function MySwiper() {
 					start: 'top top',
 					end: '+=100%',
 					scrub: 1,
-					// markers: true,
 					pin: true,
 					anticipatePin: 1,
 					id: 'product-highlight'
@@ -101,8 +103,28 @@ export default function MySwiper() {
 					2.5
 				)
 		},
-		{ scope: containerRef }
+		{ scope: containerRef, dependencies: [loading] }
 	)
+
+	if (loading) {
+		return (
+			<div ref={containerRef} className={styles.container}>
+				<div className={styles.contentWrapper}>
+					<p>Loading...</p>
+				</div>
+			</div>
+		)
+	}
+
+	if (products.length === 0) {
+		return (
+			<div ref={containerRef} className={styles.container}>
+				<div className={styles.contentWrapper}>
+					<p>No highlighted products found.</p>
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<div ref={containerRef} className={styles.container}>
@@ -123,7 +145,7 @@ export default function MySwiper() {
 						spaceBetween={30}
 						slidesPerView={2}
 						autoplay={{
-							delay: 6000,
+							delay: 3000,
 							disableOnInteraction: false
 						}}
 						thumbs={{
@@ -142,15 +164,17 @@ export default function MySwiper() {
 							}
 						}}
 					>
-						{images.map((image, index) => (
-							<SwiperSlide key={index} className={styles.mainSlide}>
-								<Image
-									src={image.src}
-									alt={image.alt}
-									width={320}
-									height={400}
-									className={styles.mainSlideImage}
-								/>
+						{products.map((product) => (
+							<SwiperSlide key={product.id} className={styles.mainSlide}>
+								<Link href={`/item/${product.handle}`}>
+									<Image
+										src={product.images[0]?.url || '/placeholder.png'}
+										alt={product.images[0]?.altText || product.title}
+										width={320}
+										height={400}
+										className={styles.mainSlideImage}
+									/>
+								</Link>
 							</SwiperSlide>
 						))}
 					</Swiper>
@@ -174,11 +198,14 @@ export default function MySwiper() {
 							}
 						}}
 					>
-						{images.map((image, index) => (
-							<SwiperSlide key={index} className={styles.thumbSlide}>
+						{products.map((product) => (
+							<SwiperSlide
+								key={`thumb-${product.id}`}
+								className={styles.thumbSlide}
+							>
 								<Image
-									src={image.src}
-									alt={image.alt}
+									src={product.images[0]?.url || '/placeholder.png'}
+									alt={product.images[0]?.altText || product.title}
 									width={50}
 									height={60}
 									className={styles.thumbImage}
