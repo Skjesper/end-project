@@ -483,3 +483,107 @@ export async function createCheckout(cartItems: any[]) {
 		return null
 	}
 }
+
+export async function getProductsByTag(
+	tag: string,
+	limit: number = 10
+): Promise<Product[]> {
+	const query = `
+    query GetProductsByTag($query: String!, $first: Int!) {
+      products(first: $first, query: $query) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            tags
+            category {
+              name
+            }
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 5) {
+              edges {
+                node {
+                  url
+                  altText
+                }
+              }
+            }
+            variants(first: 50) {
+              edges {
+                node {
+                  id
+                  title
+                  availableForSale
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+
+	try {
+		const response = await client.request(query, {
+			variables: {
+				query: `tag:${tag}`,
+				first: limit
+			}
+		})
+
+		console.log('Products by Tag Response:', response)
+
+		const products: Product[] =
+			response.data?.products.edges.map((edge: any) => {
+				const node = edge.node
+				return {
+					id: node.id,
+					title: node.title,
+					handle: node.handle,
+					description: node.description,
+					tags: node.tags,
+					category: node.category?.name || null,
+					priceRange: {
+						minVariantPrice: {
+							amount: node.priceRange.minVariantPrice.amount,
+							currencyCode: node.priceRange.minVariantPrice.currencyCode
+						}
+					},
+					images: node.images.edges.map((imgEdge: any) => ({
+						url: imgEdge.node.url,
+						altText: imgEdge.node.altText
+					})),
+					variants: node.variants.edges.map((variantEdge: any) => ({
+						id: variantEdge.node.id,
+						title: variantEdge.node.title,
+						availableForSale: variantEdge.node.availableForSale,
+						price: {
+							amount: variantEdge.node.price.amount,
+							currencyCode: variantEdge.node.price.currencyCode
+						},
+						selectedOptions: variantEdge.node.selectedOptions
+					}))
+				}
+			}) || []
+
+		return products
+	} catch (error) {
+		console.error('Shopify Products by Tag Error:', error)
+		return []
+	}
+}

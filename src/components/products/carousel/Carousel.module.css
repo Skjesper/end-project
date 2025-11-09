@@ -1,0 +1,61 @@
+.container {
+	height: 100vh;
+	width: 40rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	flex-direction: column;
+	gap: var(--section-gap);
+	margin: 0 auto;
+}
+
+.mainSwiper {
+	width: 100%;
+	max-width: 40rem;
+	padding: var(--section-gap) 0 var(--section-gap) 0;
+	box-sizing: border-box;
+}
+
+.titleSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.mainSlide {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.mainSlideImage {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.thumbSwiper {
+	width: 50%;
+}
+
+.thumbSlide {
+	cursor: pointer;
+	opacity: 0.6;
+	transition: opacity 0.3s;
+}
+
+.thumbSlide:hover {
+	opacity: 1;
+}
+
+.thumbSwiper :global(.swiper-slide-thumb-active) {
+	opacity: 1;
+}
+
+.thumbImage {
+	width: 100% !important;
+	height: auto;
+	object-fit: cover;
+}

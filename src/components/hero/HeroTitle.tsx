@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import localFont from 'next/font/local'
 import styles from './HeroTitle.module.css'
-import DotGrid from './DotGrid'
+
 import Dither from './Dither'
 
 gsap.registerPlugin(SplitText)
@@ -43,7 +43,7 @@ export default function HeroTitle() {
 		<div className={`${styles.container}`}>
 			{/* <div className={styles.heroImg}> */}
 			<div className={styles.ditherWrapper}>
-				<Dither
+				{/* <Dither
 					waveColor={[0.5, 0.5, 0.5]}
 					disableAnimation={false}
 					enableMouseInteraction={true}
@@ -52,7 +52,7 @@ export default function HeroTitle() {
 					waveAmplitude={0.3}
 					waveFrequency={3}
 					waveSpeed={0.05}
-				/>
+				/> */}
 			</div>
 			<h1
 				ref={titleRef}
