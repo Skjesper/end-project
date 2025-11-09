@@ -17,6 +17,7 @@ export default function Home() {
 				<>
 					<HeroTitle />
 					<MySwiper />
+					<div style={{ height: '100vh' }}></div>
 					<CategorySideScroll />
 				</>
 			)}
