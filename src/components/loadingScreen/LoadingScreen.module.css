@@ -1,0 +1,13 @@
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	background-color: #e53435;
+	height: 100vh;
+}
+
+.countUpText {
+	font-size: var(--font-size-6xl);
+	font-family: var(--font-display);
+}
