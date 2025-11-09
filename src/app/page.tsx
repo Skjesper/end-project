@@ -16,7 +16,7 @@ export default function Home() {
 			{!isLoading && (
 				<>
 					<HeroTitle />
-					<ProductHighlight />
+					<MySwiper />
 					<CategorySideScroll />
 				</>
 			)}
