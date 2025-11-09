@@ -8,6 +8,7 @@ interface CountUpProps {
 	from?: number
 	direction?: 'up' | 'down'
 	delay?: number
+	endDelay?: number
 	duration?: number
 	className?: string
 	startWhen?: boolean
@@ -21,6 +22,7 @@ export default function CountUp({
 	from = 0,
 	direction = 'up',
 	delay = 0,
+	endDelay = 0,
 	duration = 2,
 	className = '',
 	startWhen = true,
@@ -93,7 +95,7 @@ export default function CountUp({
 				if (typeof onEnd === 'function') {
 					onEnd()
 				}
-			}, delay * 1000 + duration * 1000)
+			}, delay * 1000 + duration * 1000 + endDelay)
 
 			return () => {
 				clearTimeout(timeoutId)
@@ -108,6 +110,7 @@ export default function CountUp({
 		from,
 		to,
 		delay,
+		endDelay,
 		onStart,
 		onEnd,
 		duration
