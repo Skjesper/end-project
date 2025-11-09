@@ -1,7 +1,5 @@
-import UnicornScene from 'unicornstudio-react/next'
+import LoadingScreen from '@/components/loadingScreen/LoadingScreen'
 
 export default function MyComponent() {
-	return (
-		<UnicornScene projectId="CEtcYgAJnZN2g1QJtnFK" width={800} height={600} />
-	)
+	return <LoadingScreen />
 }
