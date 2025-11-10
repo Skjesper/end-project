@@ -23,8 +23,6 @@ export default function CartPage() {
 
 	return (
 		<div className={styles.cartPage}>
-			<h1>Shopping Cart</h1>
-
 			<div className={styles.cartContainer}>
 				{/* Cart Items */}
 				<section className={styles.cartItemsList} aria-label="Cart items">

@@ -16,7 +16,8 @@ export default function Home() {
 			{!isLoading && (
 				<>
 					<HeroTitle />
-					<ProductHighlight />
+					<MySwiper />
+					<div style={{ height: '100vh' }}></div>
 					<CategorySideScroll />
 				</>
 			)}

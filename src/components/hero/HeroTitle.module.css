@@ -6,7 +6,6 @@
 	overflow: hidden;
 	height: calc(100svh - 5rem - 1px);
 	min-height: calc(100svh - 5rem - 1px);
-	padding: 0 var(--container-padding);
 }
 
 .ditherWrapper {
@@ -17,6 +16,7 @@
 }
 
 .title {
+	padding: 0 var(--container-padding);
 	display: flex;
 	justify-content: center;
 	position: relative;

@@ -7,6 +7,65 @@ const client = createStorefrontApiClient({
 	publicAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!
 })
 
+// Type definitions for Shopify API responses
+interface ShopifyEdge<T> {
+	node: T
+}
+
+interface ShopifyConnection<T> {
+	edges: ShopifyEdge<T>[]
+}
+
+interface ShopifyCollectionNode {
+	id: string
+	title: string
+	handle: string
+	description: string
+}
+
+interface ShopifyImageNode {
+	url: string
+	altText: string | null
+}
+
+interface ShopifyPriceNode {
+	amount: string
+	currencyCode: string
+}
+
+interface ShopifySelectedOption {
+	name: string
+	value: string
+}
+
+interface ShopifyVariantNode {
+	id: string
+	title: string
+	availableForSale: boolean
+	price: ShopifyPriceNode
+	selectedOptions: ShopifySelectedOption[]
+}
+
+interface ShopifyProductNode {
+	id: string
+	title: string
+	handle: string
+	description: string
+	tags?: string[]
+	category?: {
+		name: string
+	} | null
+	priceRange: {
+		minVariantPrice: ShopifyPriceNode
+	}
+	images: ShopifyConnection<ShopifyImageNode>
+	variants: ShopifyConnection<ShopifyVariantNode>
+}
+
+interface ShopifyCollectionWithProducts extends ShopifyCollectionNode {
+	products: ShopifyConnection<ShopifyProductNode>
+}
+
 export async function getCollections(): Promise<Collection[]> {
 	const query = `
     query GetCollections {
@@ -29,7 +88,7 @@ export async function getCollections(): Promise<Collection[]> {
 
 		const collections =
 			(response.data?.collections.edges.map(
-				(edge: any) => edge.node
+				(edge: ShopifyEdge<ShopifyCollectionNode>) => edge.node
 			) as Collection[]) || []
 
 		return collections
@@ -104,7 +163,9 @@ export async function getProductsByCollection(
 		})
 		console.log('Products by Collection Response:', response)
 
-		const collectionData = response.data?.collection
+		const collectionData = response.data?.collection as
+			| ShopifyCollectionWithProducts
+			| undefined
 
 		if (!collectionData) {
 			return { collection: null, products: [] }
@@ -118,7 +179,7 @@ export async function getProductsByCollection(
 		}
 
 		const products: Product[] = collectionData.products.edges.map(
-			(edge: any) => {
+			(edge: ShopifyEdge<ShopifyProductNode>) => {
 				const node = edge.node
 				return {
 					id: node.id,
@@ -133,20 +194,24 @@ export async function getProductsByCollection(
 							currencyCode: node.priceRange.minVariantPrice.currencyCode
 						}
 					},
-					images: node.images.edges.map((imgEdge: any) => ({
-						url: imgEdge.node.url,
-						altText: imgEdge.node.altText
-					})),
-					variants: node.variants.edges.map((variantEdge: any) => ({
-						id: variantEdge.node.id,
-						title: variantEdge.node.title,
-						availableForSale: variantEdge.node.availableForSale,
-						price: {
-							amount: variantEdge.node.price.amount,
-							currencyCode: variantEdge.node.price.currencyCode
-						},
-						selectedOptions: variantEdge.node.selectedOptions
-					}))
+					images: node.images.edges.map(
+						(imgEdge: ShopifyEdge<ShopifyImageNode>) => ({
+							url: imgEdge.node.url,
+							altText: imgEdge.node.altText
+						})
+					),
+					variants: node.variants.edges.map(
+						(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+							id: variantEdge.node.id,
+							title: variantEdge.node.title,
+							availableForSale: variantEdge.node.availableForSale,
+							price: {
+								amount: variantEdge.node.price.amount,
+								currencyCode: variantEdge.node.price.currencyCode
+							},
+							selectedOptions: variantEdge.node.selectedOptions
+						})
+					)
 				}
 			}
 		)
@@ -210,35 +275,41 @@ export async function getProducts(): Promise<Product[]> {
 		console.log('Shopify Response:', response)
 
 		const products: Product[] =
-			response.data?.products.edges.map((edge: any) => {
-				const node = edge.node
-				return {
-					id: node.id,
-					title: node.title,
-					handle: node.handle,
-					description: node.description,
-					priceRange: {
-						minVariantPrice: {
-							amount: node.priceRange.minVariantPrice.amount,
-							currencyCode: node.priceRange.minVariantPrice.currencyCode
-						}
-					},
-					images: node.images.edges.map((imgEdge: any) => ({
-						url: imgEdge.node.url,
-						altText: imgEdge.node.altText
-					})),
-					variants: node.variants.edges.map((variantEdge: any) => ({
-						id: variantEdge.node.id,
-						title: variantEdge.node.title,
-						availableForSale: variantEdge.node.availableForSale,
-						price: {
-							amount: variantEdge.node.price.amount,
-							currencyCode: variantEdge.node.price.currencyCode
+			response.data?.products.edges.map(
+				(edge: ShopifyEdge<ShopifyProductNode>) => {
+					const node = edge.node
+					return {
+						id: node.id,
+						title: node.title,
+						handle: node.handle,
+						description: node.description,
+						priceRange: {
+							minVariantPrice: {
+								amount: node.priceRange.minVariantPrice.amount,
+								currencyCode: node.priceRange.minVariantPrice.currencyCode
+							}
 						},
-						selectedOptions: variantEdge.node.selectedOptions
-					}))
+						images: node.images.edges.map(
+							(imgEdge: ShopifyEdge<ShopifyImageNode>) => ({
+								url: imgEdge.node.url,
+								altText: imgEdge.node.altText
+							})
+						),
+						variants: node.variants.edges.map(
+							(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+								id: variantEdge.node.id,
+								title: variantEdge.node.title,
+								availableForSale: variantEdge.node.availableForSale,
+								price: {
+									amount: variantEdge.node.price.amount,
+									currencyCode: variantEdge.node.price.currencyCode
+								},
+								selectedOptions: variantEdge.node.selectedOptions
+							})
+						)
+					}
 				}
-			}) || []
+			) || []
 
 		return products
 	} catch (error) {
@@ -299,7 +370,7 @@ export async function getProduct(id: string): Promise<Product | null> {
 			return null
 		}
 
-		const node = response.data.product
+		const node = response.data.product as ShopifyProductNode
 		return {
 			id: node.id,
 			title: node.title,
@@ -312,20 +383,24 @@ export async function getProduct(id: string): Promise<Product | null> {
 					currencyCode: node.priceRange.minVariantPrice.currencyCode
 				}
 			},
-			images: node.images.edges.map((imgEdge: any) => ({
-				url: imgEdge.node.url,
-				altText: imgEdge.node.altText
-			})),
-			variants: node.variants.edges.map((variantEdge: any) => ({
-				id: variantEdge.node.id,
-				title: variantEdge.node.title,
-				availableForSale: variantEdge.node.availableForSale,
-				price: {
-					amount: variantEdge.node.price.amount,
-					currencyCode: variantEdge.node.price.currencyCode
-				},
-				selectedOptions: variantEdge.node.selectedOptions
-			}))
+			images: node.images.edges.map(
+				(imgEdge: ShopifyEdge<ShopifyImageNode>) => ({
+					url: imgEdge.node.url,
+					altText: imgEdge.node.altText
+				})
+			),
+			variants: node.variants.edges.map(
+				(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+					id: variantEdge.node.id,
+					title: variantEdge.node.title,
+					availableForSale: variantEdge.node.availableForSale,
+					price: {
+						amount: variantEdge.node.price.amount,
+						currencyCode: variantEdge.node.price.currencyCode
+					},
+					selectedOptions: variantEdge.node.selectedOptions
+				})
+			)
 		}
 	} catch (error) {
 		console.error('Error fetching product:', error)
@@ -387,7 +462,7 @@ export async function getProductByHandle(
 			return null
 		}
 
-		const node = response.data.product
+		const node = response.data.product as ShopifyProductNode
 		return {
 			id: node.id,
 			title: node.title,
@@ -399,20 +474,24 @@ export async function getProductByHandle(
 					currencyCode: node.priceRange.minVariantPrice.currencyCode
 				}
 			},
-			images: node.images.edges.map((imgEdge: any) => ({
-				url: imgEdge.node.url,
-				altText: imgEdge.node.altText
-			})),
-			variants: node.variants.edges.map((variantEdge: any) => ({
-				id: variantEdge.node.id,
-				title: variantEdge.node.title,
-				availableForSale: variantEdge.node.availableForSale,
-				price: {
-					amount: variantEdge.node.price.amount,
-					currencyCode: variantEdge.node.price.currencyCode
-				},
-				selectedOptions: variantEdge.node.selectedOptions
-			})),
+			images: node.images.edges.map(
+				(imgEdge: ShopifyEdge<ShopifyImageNode>) => ({
+					url: imgEdge.node.url,
+					altText: imgEdge.node.altText
+				})
+			),
+			variants: node.variants.edges.map(
+				(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+					id: variantEdge.node.id,
+					title: variantEdge.node.title,
+					availableForSale: variantEdge.node.availableForSale,
+					price: {
+						amount: variantEdge.node.price.amount,
+						currencyCode: variantEdge.node.price.currencyCode
+					},
+					selectedOptions: variantEdge.node.selectedOptions
+				})
+			),
 			variantId: node.variants.edges[0]?.node.id || node.id
 		}
 	} catch (error) {
@@ -421,7 +500,12 @@ export async function getProductByHandle(
 	}
 }
 
-export async function createCheckout(cartItems: any[]) {
+interface CartItem {
+	variantId: string
+	quantity: number
+}
+
+export async function createCheckout(cartItems: CartItem[]) {
 	const lines = cartItems.map((item) => ({
 		merchandiseId: item.variantId,
 		quantity: item.quantity
@@ -549,37 +633,43 @@ export async function getProductsByTag(
 		console.log('Products by Tag Response:', response)
 
 		const products: Product[] =
-			response.data?.products.edges.map((edge: any) => {
-				const node = edge.node
-				return {
-					id: node.id,
-					title: node.title,
-					handle: node.handle,
-					description: node.description,
-					tags: node.tags,
-					category: node.category?.name || null,
-					priceRange: {
-						minVariantPrice: {
-							amount: node.priceRange.minVariantPrice.amount,
-							currencyCode: node.priceRange.minVariantPrice.currencyCode
-						}
-					},
-					images: node.images.edges.map((imgEdge: any) => ({
-						url: imgEdge.node.url,
-						altText: imgEdge.node.altText
-					})),
-					variants: node.variants.edges.map((variantEdge: any) => ({
-						id: variantEdge.node.id,
-						title: variantEdge.node.title,
-						availableForSale: variantEdge.node.availableForSale,
-						price: {
-							amount: variantEdge.node.price.amount,
-							currencyCode: variantEdge.node.price.currencyCode
+			response.data?.products.edges.map(
+				(edge: ShopifyEdge<ShopifyProductNode>) => {
+					const node = edge.node
+					return {
+						id: node.id,
+						title: node.title,
+						handle: node.handle,
+						description: node.description,
+						tags: node.tags,
+						category: node.category?.name || null,
+						priceRange: {
+							minVariantPrice: {
+								amount: node.priceRange.minVariantPrice.amount,
+								currencyCode: node.priceRange.minVariantPrice.currencyCode
+							}
 						},
-						selectedOptions: variantEdge.node.selectedOptions
-					}))
+						images: node.images.edges.map(
+							(imgEdge: ShopifyEdge<ShopifyImageNode>) => ({
+								url: imgEdge.node.url,
+								altText: imgEdge.node.altText
+							})
+						),
+						variants: node.variants.edges.map(
+							(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+								id: variantEdge.node.id,
+								title: variantEdge.node.title,
+								availableForSale: variantEdge.node.availableForSale,
+								price: {
+									amount: variantEdge.node.price.amount,
+									currencyCode: variantEdge.node.price.currencyCode
+								},
+								selectedOptions: variantEdge.node.selectedOptions
+							})
+						)
+					}
 				}
-			}) || []
+			) || []
 
 		return products
 	} catch (error) {
