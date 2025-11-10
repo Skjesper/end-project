@@ -52,15 +52,13 @@ export default async function ProductDetailPage({
 								image={product.images[0]?.url || ''}
 								currency={currency}
 								variant="primary"
-							>
-								Add to Cart
-							</AddToCartButton>
+							/>
 						</div>
 
 						<ProductAccordions
-							sizeAndFit={product.sizeAndFit}
+							// sizeAndFit={product.sizeAndFit}
 							description={product.description}
-							shipping={product.shipping}
+							// shipping={product.shipping}
 						/>
 					</div>
 				</section>
