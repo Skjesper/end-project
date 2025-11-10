@@ -6,6 +6,7 @@ import HeroTitle from '@/components/hero/HeroTitle'
 
 import MySwiper from '@/components/products/carousel/Carousel'
 import LoadingScreen from '@/components/loadingScreen/LoadingScreen'
+import AboutText from '@/components/aboutText/AboutText'
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true)
@@ -16,6 +17,7 @@ export default function Home() {
 			{!isLoading && ( */}
 			<>
 				<HeroTitle />
+				<AboutText />
 				<MySwiper />
 				{/* <div style={{ height: '100vh' }}></div> */}
 				<CategorySideScroll />
