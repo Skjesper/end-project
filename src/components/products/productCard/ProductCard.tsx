@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { Product } from '@/types/product'
 import styles from './ProductCard.module.css'
@@ -42,42 +44,50 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 	return (
 		<article className={className}>
 			<Link href={`/item/${product.handle}`} className={styles.card}>
-				<div className={styles.cardHeader}>
-					<button
-						className={styles.favoriteButton}
-						onClick={(e) => {
-							e.preventDefault()
-							console.log('Favorite clicked for:', product.id)
-						}}
-						aria-label="Add to favorites"
-					>
-						<img
-							src="/assets/Favorites.svg"
-							alt="Favorite"
-							className={styles.favoriteIcon}
-						/>
-					</button>
-				</div>
-
-				<div className={styles.imageWrapper}>
-					{primaryImage ? (
-						<>
+				<div className={styles.imageContainer}>
+					<div className={styles.cardHeader}>
+						<button
+							className={styles.favoriteButton}
+							onClick={(e) => {
+								e.preventDefault()
+								console.log('Favorite clicked for:', product.id)
+							}}
+							aria-label="Add to favorites"
+						>
 							<img
-								src={primaryImage.url}
-								alt={primaryImage.altText || product.title}
-								className={`${styles.image} ${styles.primaryImage}`}
+								src="/assets/Favorites.svg"
+								alt="Favorite"
+								className={styles.favoriteIcon}
 							/>
-							{hoverImage && (
+						</button>
+					</div>
+
+					<div className={styles.imageWrapper}>
+						{primaryImage ? (
+							<>
 								<img
-									src={hoverImage.url}
-									alt={hoverImage.altText || product.title}
-									className={`${styles.image} ${styles.hoverImage}`}
+									src={primaryImage.url}
+									alt={primaryImage.altText || product.title}
+									className={`${styles.image} ${styles.primaryImage}`}
 								/>
-							)}
-						</>
-					) : (
-						<div>No image</div>
-					)}
+								{hoverImage && (
+									<img
+										src={hoverImage.url}
+										alt={hoverImage.altText || product.title}
+										className={`${styles.image} ${styles.hoverImage}`}
+									/>
+								)}
+							</>
+						) : (
+							<div>No image</div>
+						)}
+					</div>
+
+					<img
+						src="/assets/images/paperclip.png"
+						alt=""
+						className={styles.paperclipImage}
+					/>
 				</div>
 
 				<div className={styles.infoContainer}>

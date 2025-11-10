@@ -14,6 +14,8 @@ interface AddToCartButtonProps {
 	price: number
 	image: string
 	currency: string
+	variant?: 'primary' | 'secondary'
+	children?: React.ReactNode
 }
 
 export default function AddToCartButton({
@@ -23,7 +25,9 @@ export default function AddToCartButton({
 	title,
 	price,
 	image,
-	currency
+	currency,
+	variant = 'primary',
+	children
 }: AddToCartButtonProps) {
 	const { addToCart } = useCart()
 	const [isModalOpen, setIsModalOpen] = useState(false)
@@ -48,8 +52,8 @@ export default function AddToCartButton({
 
 	return (
 		<>
-			<Button onClick={handleClick} variant="primary">
-				Add to Cart
+			<Button onClick={handleClick} variant={variant}>
+				{children || 'Add to Cart'}
 			</Button>
 
 			<AddToCartModal

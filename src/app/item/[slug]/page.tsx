@@ -27,7 +27,6 @@ export default async function ProductDetailPage({
 
 	return (
 		<div>
-			<Link href="/item">← Back to Products</Link>
 			<div className={styles.pageContainer}>
 				<ProductImageGallery
 					images={product.images}
@@ -52,15 +51,13 @@ export default async function ProductDetailPage({
 								image={product.images[0]?.url || ''}
 								currency={currency}
 								variant="primary"
-							>
-								Add to Cart
-							</AddToCartButton>
+							/>
 						</div>
 
 						<ProductAccordions
-							sizeAndFit={product.sizeAndFit}
+							// sizeAndFit={product.sizeAndFit}
 							description={product.description}
-							shipping={product.shipping}
+							// shipping={product.shipping}
 						/>
 					</div>
 				</section>

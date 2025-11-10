@@ -1,3 +1,5 @@
+'use client'
+
 import styles from './Button.module.css'
 
 interface ButtonProps {
@@ -16,6 +18,7 @@ interface ButtonProps {
 	type?: 'button' | 'submit' | 'reset'
 	ariaLabel?: string
 	ariaDescribedBy?: string
+	className?: string // Lägg till denna
 }
 
 export default function Button({
@@ -26,11 +29,12 @@ export default function Button({
 	type = 'button',
 	isActive = false,
 	ariaLabel,
-	ariaDescribedBy
+	ariaDescribedBy,
+	className = '' // Lägg till denna
 }: ButtonProps) {
 	return (
 		<button
-			className={styles.button}
+			className={`${styles.button} ${className}`.trim()}
 			type={type}
 			onClick={onClick}
 			disabled={disabled}

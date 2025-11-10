@@ -19,18 +19,14 @@ export default function ProductAccordions({
 }: ProductAccordionsProps) {
 	const [expanded, setExpanded] = useState('')
 
-	// Shared accordion styles
 	const accordionSx = {
 		backgroundColor: 'transparent',
 		boxShadow: 'none',
-		// border: '1px solid #000',
 		borderBottom: 'none',
 		'&:before': {
-			display: 'none' // Remove default MUI divider
+			display: 'none'
 		},
-		'&:last-of-type': {
-			// borderBottom: '1px solid #000'
-		},
+		'&:last-of-type': {},
 		'&.Mui-expanded': {
 			margin: 0
 		}
@@ -52,7 +48,6 @@ export default function ProductAccordions({
 	}
 
 	const detailsSx = {
-		// borderTop: '1px solid #000',
 		padding: '1rem',
 		fontFamily: 'var(--font-body)'
 	}

@@ -61,12 +61,9 @@ export default function MySwiper() {
 			const tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: containerRef.current,
-					start: 'top top',
-					end: '+=100%',
-					scrub: 1,
-					pin: true,
-					anticipatePin: 1,
-					id: 'product-highlight'
+					start: 'top 50%', // Triggers when top hits 50% of viewport
+					// Remove: end, scrub, pin, anticipatePin
+					toggleActions: 'play none none none' // Plays once when triggered
 				}
 			})
 
@@ -75,8 +72,8 @@ export default function MySwiper() {
 				{
 					opacity: 0,
 					y: 50,
-					duration: 0.5,
-					stagger: 0.1,
+					duration: 0.3, // Reduced from 0.5
+					stagger: 0.05, // Reduced from 0.1
 					ease: 'power2.out'
 				},
 				0
@@ -86,21 +83,21 @@ export default function MySwiper() {
 					{
 						opacity: 0,
 						y: 50,
-						duration: 0.5,
-						stagger: 0.15,
+						duration: 0.3, // Reduced from 0.5
+						stagger: 0.08, // Reduced from 0.15
 						ease: 'power2.out'
 					},
-					0.8
+					0.4 // Reduced from 0.8
 				)
 				.from(
 					mainSwiperRef.current,
-					{ y: -100, opacity: 0, duration: 1, ease: 'power2.out' },
-					1.5
+					{ y: -100, opacity: 0, duration: 0.6, ease: 'power2.out' }, // Reduced from 1
+					0.8 // Reduced from 1.5
 				)
 				.from(
 					thumbSwiperRef.current,
-					{ y: 100, opacity: 0, duration: 1, ease: 'power2.out' },
-					2.5
+					{ y: 100, opacity: 0, duration: 0.6, ease: 'power2.out' }, // Reduced from 1
+					1.2 // Reduced from 2.5
 				)
 		},
 		{ scope: containerRef, dependencies: [loading] }
@@ -144,9 +141,12 @@ export default function MySwiper() {
 						onSwiper={setMainSwiper}
 						spaceBetween={30}
 						slidesPerView={2}
+						simulateTouch={true}
+						allowTouchMove={true}
+						grabCursor={true}
 						autoplay={{
-							delay: 3000,
-							disableOnInteraction: false
+							delay: 5000,
+							disableOnInteraction: true
 						}}
 						thumbs={{
 							swiper:

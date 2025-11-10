@@ -66,6 +66,20 @@ interface ShopifyCollectionWithProducts extends ShopifyCollectionNode {
 	products: ShopifyConnection<ShopifyProductNode>
 }
 
+// Export Collection type
+export interface Collection {
+	id: string
+	title: string
+	handle: string
+	description: string
+}
+
+// Export CartItem type
+export interface CartItem {
+	variantId: string
+	quantity: number
+}
+
 export async function getCollections(): Promise<Collection[]> {
 	const query = `
     query GetCollections {
@@ -498,11 +512,6 @@ export async function getProductByHandle(
 		console.error('Error fetching product by handle:', error)
 		return null
 	}
-}
-
-interface CartItem {
-	variantId: string
-	quantity: number
 }
 
 export async function createCheckout(cartItems: CartItem[]) {
