@@ -29,10 +29,10 @@ export default async function ProductDetailPage({
 		<div>
 			<Link href="/item">← Back to Products</Link>
 			<div className={styles.pageContainer}>
-				{/* <ProductImageGallery
+				<ProductImageGallery
 					images={product.images}
 					productTitle={product.title}
-				/> */}
+				/>
 
 				<section className={styles.productDetails}>
 					<h3>{product.title}</h3>
@@ -43,7 +43,7 @@ export default async function ProductDetailPage({
 						</p>
 
 						<div className={styles.addToCartButton}>
-							{/* <AddToCartButton
+							<AddToCartButton
 								productId={product.id}
 								variantId={product.variantId || ''}
 								handle={product.handle}
@@ -52,14 +52,14 @@ export default async function ProductDetailPage({
 								image={product.images[0]?.url || ''}
 								currency={currency}
 								variant="primary"
-							/> */}
+							/>
 						</div>
 
-						{/* <ProductAccordions
+						<ProductAccordions
 							// sizeAndFit={product.sizeAndFit}
 							description={product.description}
 							// shipping={product.shipping}
-						/> */}
+						/>
 					</div>
 				</section>
 			</div>
