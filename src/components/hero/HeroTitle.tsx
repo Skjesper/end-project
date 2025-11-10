@@ -49,13 +49,16 @@ export default function HeroTitle() {
 					style={{ objectFit: 'fill' }}
 				/>
 			</div>
-			<h1
-				ref={titleRef}
-				className={styles.title}
-				style={{ fontFamily: 'var(--font-display)' }}
-			>
-				OCULUS CAPIENS
-			</h1>
+			<div className={styles.titleContainer}>
+				<h1
+					ref={titleRef}
+					className={styles.title}
+					style={{ fontFamily: 'var(--font-display)' }}
+				>
+					<span>SKEPP</span>
+					<span>STEDT</span>
+				</h1>
+			</div>
 		</div>
 	)
 }
