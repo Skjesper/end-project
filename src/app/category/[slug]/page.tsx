@@ -4,7 +4,7 @@ import { use, useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ProductGrid from '@/components/products/productGrid/ProductGrid'
 import TagFilter from '@/components/collection/tagFilter/TagFilter'
-import { getProductsByCollection } from '@/lib/shopify'
+import { getProductsByCollection, Collection } from '@/lib/shopify'
 import { Product } from '@/types/product'
 import {
 	extractUniqueCategories,
@@ -22,7 +22,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 	const searchParams = useSearchParams()
 	const categoryFromUrl = searchParams.get('category')
 
-	const [collection, setCollection] = useState<any>(null)
+	const [collection, setCollection] = useState<Collection | null>(null)
 	const [products, setProducts] = useState<Product[]>([])
 	const [categoryFilteredProducts, setCategoryFilteredProducts] = useState<
 		Product[]
@@ -36,7 +36,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 	)
 	const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
-	const [availableCategories, setAvailableCategories] = useState<string[]>([])
 	const [availableTags, setAvailableTags] = useState<string[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 
@@ -49,10 +48,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 				setProducts(data.products)
 				setCategoryFilteredProducts(data.products)
 				setFinalFilteredProducts(data.products)
-
-				// Extract categories
-				const categories = extractUniqueCategories(data.products)
-				setAvailableCategories(categories)
 
 				// Extract tags
 				const tags = extractUniqueTags(data.products)
