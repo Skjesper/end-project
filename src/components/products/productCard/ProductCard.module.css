@@ -41,10 +41,17 @@
 .imageWrapper {
 	position: relative;
 	width: 100%;
-	aspect-ratio: 1 / 1;
+	aspect-ratio: 3 / 4;
 	overflow: hidden;
-	/* background-color: #f5f5f5; */
 	border: solid black 1px;
+}
+
+/* Mobile: Make image wrapper slightly narrower to show borders */
+@media (max-width: 768px) {
+	.imageWrapper {
+		width: calc(100% - 2px);
+		margin: 0 auto;
+	}
 }
 
 .image {
@@ -123,8 +130,8 @@
 .priceWrapper {
 	position: relative;
 	display: inline-block;
-	width: 200px; /* match your image width */
-	height: 80px; /* match your image height */
+	width: 200px;
+	height: 80px;
 }
 
 .priceImage {
@@ -140,7 +147,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	color: var(--forground); /* adjust to contrast your image */
+	color: var(--forground);
 	font-weight: 700;
 	font-size: 1.25rem;
 	white-space: nowrap;
