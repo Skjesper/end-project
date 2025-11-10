@@ -27,14 +27,20 @@
 	position: relative;
 	background-color: #151515;
 	z-index: 1;
-	font-size: min(16vw, 12.5rem);
+	font-size: min(14vw, 11rem);
 	margin: 0;
 	line-height: 0.8;
-	padding: 2rem;
+
 	color: var(--accent);
 	cursor: default;
 	width: 100vw;
 }
+
+/* @media (max-width: 1024px) {
+	.title {
+		font-size: min(12vw, 10rem);
+	}
+} */
 
 @media (max-width: 728px) {
 	.title {
