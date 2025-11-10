@@ -13,6 +13,9 @@
 }
 
 .favoriteButton {
+	position: absolute;
+	top: 30px; /* Justera efter behov */
+	right: 10px;
 	background: transparent;
 	border: none;
 	padding: 0;
@@ -21,6 +24,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 10;
 }
 
 .favoriteButton:hover {
@@ -33,9 +37,19 @@
 	transition: filter 0.2s ease;
 }
 
-.favoriteButton:hover .favoriteIcon {
-	filter: brightness(0) saturate(100%) invert(35%) sepia(89%) saturate(2476%)
-		hue-rotate(342deg) brightness(95%) contrast(88%);
+.imageContainer {
+	position: relative;
+}
+
+.paperclipImage {
+	position: absolute;
+	top: -40px; /* Justera efter behov */
+	left: 20%;
+	transform: translateX(-40%);
+	width: 220px; /* Justera storlek */
+	height: auto;
+	z-index: 10;
+	pointer-events: none;
 }
 
 .imageWrapper {
@@ -44,6 +58,19 @@
 	aspect-ratio: 3 / 4;
 	overflow: hidden;
 	border: solid black 1px;
+	box-shadow: 6px 0 4px rgba(0, 0, 0, 0.25),
+		/* Hårdare höger-skugga */ 0 8px 12px rgba(0, 0, 0, 0.05); /* Subtil underskugga */
+}
+
+.overlayImage {
+	position: absolute;
+	top: -40px;
+	left: 30%;
+	transform: translateX(-50%);
+	width: 150px;
+	height: auto;
+	z-index: 10;
+	pointer-events: none;
 }
 
 /* Mobile: Make image wrapper slightly narrower to show borders */
