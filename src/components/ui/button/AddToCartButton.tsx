@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { useCart } from '@/context/CartContext'
 import AddToCartModal from '@/components/cart/AddToCartModal'
+import Button from '@/components/ui/button/Button'
 import { CartItem } from '@/types/cart'
-import styles from './Button.module.css' // Använd samma CSS!
 
 interface AddToCartButtonProps {
 	productId: string
@@ -52,13 +52,9 @@ export default function AddToCartButton({
 
 	return (
 		<>
-			<button
-				onClick={handleClick}
-				className={styles.button}
-				data-variant={variant}
-			>
+			<Button onClick={handleClick} variant={variant}>
 				{children || 'Add to Cart'}
-			</button>
+			</Button>
 
 			<AddToCartModal
 				isOpen={isModalOpen}
