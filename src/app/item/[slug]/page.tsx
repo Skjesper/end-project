@@ -27,7 +27,6 @@ export default async function ProductDetailPage({
 
 	return (
 		<div>
-			<Link href="/item">← Back to Products</Link>
 			<div className={styles.pageContainer}>
 				<ProductImageGallery
 					images={product.images}

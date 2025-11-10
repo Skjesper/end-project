@@ -144,9 +144,12 @@ export default function MySwiper() {
 						onSwiper={setMainSwiper}
 						spaceBetween={30}
 						slidesPerView={2}
+						simulateTouch={true}
+						allowTouchMove={true}
+						grabCursor={true}
 						autoplay={{
-							delay: 3000,
-							disableOnInteraction: false
+							delay: 6000,
+							disableOnInteraction: true
 						}}
 						thumbs={{
 							swiper:
