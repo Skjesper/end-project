@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
-import localFont from 'next/font/local'
+// import localFont from 'next/font/local'
 import styles from './HeroTitle.module.css'
 import Image from 'next/image'
 
