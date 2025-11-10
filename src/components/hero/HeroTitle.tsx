@@ -6,7 +6,6 @@ import { SplitText } from 'gsap/SplitText'
 import localFont from 'next/font/local'
 import styles from './HeroTitle.module.css'
 import Image from 'next/image'
-import Dither from './Dither'
 
 gsap.registerPlugin(SplitText)
 
