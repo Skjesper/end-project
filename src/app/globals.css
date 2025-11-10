@@ -16,7 +16,8 @@
 	--secondary-foreground: #171717;
 
 	/* State colors - for interactive elements */
-	--accent: #171717;
+	--accent: #e53435;
+	--accentHover: rgba(229, 52, 53, 0.85);
 	--accent-foreground: #ffffff;
 	--destructive: #ef4444;
 	--destructive-foreground: #ffffff;

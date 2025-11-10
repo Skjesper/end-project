@@ -49,13 +49,13 @@
 }
 
 .button[data-variant='filter']:hover {
-	background-color: rgb(218, 41, 41);
-	color: white;
+	background-color: var(--accentHover);
+	color: var(--primary);
 }
 
 .button[data-variant='filter'][data-active='true'] {
-	background-color: #000000;
-	color: #ffffff;
+	background-color: var(--accent);
+	color: var(--primary);
 }
 
 .button[data-variant='delete'] {
