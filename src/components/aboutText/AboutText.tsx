@@ -55,8 +55,7 @@ export default function AboutText() {
 	return (
 		<section ref={containerRef} className={styles.textContainer}>
 			<h2 ref={titleRef}>
-				Raw. Structural. Uncompromising. We don't decorate, we construct. Every
-				piece an exercise in essential geometry and honest materiality.
+				{`Raw. Structural. Uncompromising. We don't decorate, we construct. Every piece an exercise in essential geometry and honest materiality.`}
 			</h2>
 		</section>
 	)
