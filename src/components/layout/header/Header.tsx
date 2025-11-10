@@ -1,4 +1,3 @@
-// components/layout/header/Header.tsx
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -56,21 +55,32 @@ export default function Header() {
 		setActiveModal(null)
 	}
 
-	const createHoverHandler = (categoryType: CategoryType) => {
-		return useHoverDelay({
-			onHoverStart: () => openModal(categoryType),
-			delay: 500,
-			enabled: true
-		})
-	}
+	// Anropa hooks direkt i komponenten, inte i en funktion
+	const menHover = useHoverDelay({
+		onHoverStart: () => openModal('men'),
+		delay: 500,
+		enabled: true
+	})
+
+	const womenHover = useHoverDelay({
+		onHoverStart: () => openModal('women'),
+		delay: 500,
+		enabled: true
+	})
+
+	const accessoriesHover = useHoverDelay({
+		onHoverStart: () => openModal('accessories'),
+		delay: 500,
+		enabled: true
+	})
 
 	const hoverHandlers: Record<
 		CategoryType,
 		ReturnType<typeof useHoverDelay>
 	> = {
-		men: createHoverHandler('men'),
-		women: createHoverHandler('women'),
-		accessories: createHoverHandler('accessories')
+		men: menHover,
+		women: womenHover,
+		accessories: accessoriesHover
 	}
 
 	return (
