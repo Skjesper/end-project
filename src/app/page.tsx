@@ -13,16 +13,16 @@ export default function Home() {
 
 	return (
 		<main>
-			{/* {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-			{!isLoading && ( */}
-			<>
-				<HeroTitle />
-				<AboutText />
-				<MySwiper />
-				{/* <div style={{ height: '100vh' }}></div> */}
-				<CategorySideScroll />
-			</>
-			{/* )} */}
+			{isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+			{!isLoading && (
+				<>
+					<HeroTitle />
+					<AboutText />
+					<MySwiper />
+					{/* <div style={{ height: '100vh' }}></div> */}
+					<CategorySideScroll />
+				</>
+			)}
 		</main>
 	)
 }
