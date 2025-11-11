@@ -55,7 +55,7 @@
 @media (max-width: 728px) {
 	.title {
 		text-align: center;
-		font-size: min(15vw, 6rem);
+		font-size: min(20vw, 8rem);
 		flex-direction: column;
 		gap: 0.5rem;
 		padding: 0;

@@ -82,9 +82,9 @@ export default function MobileMenu({
 
 					<div className={styles.divider} />
 
-					<a href="/account" className={styles.menuItem}>
+					{/* <a href="/account" className={styles.menuItem}>
 						Login
-					</a>
+					</a> */}
 				</nav>
 			) : (
 				<div className={styles.categoryView}>

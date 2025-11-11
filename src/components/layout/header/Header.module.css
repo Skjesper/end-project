@@ -27,7 +27,7 @@
 
 .title {
 	padding: 0.5rem;
-	border: solid 2px black;
+	border: solid 1px black;
 	display: flex;
 	justify-content: center;
 	position: relative;
@@ -144,7 +144,12 @@
 	}
 } */
 
-/* Mobile layout - hide left nav completely, show hamburger menu */
+@media (max-width: 1440px) {
+	.leftNavContent {
+		gap: 2rem;
+	}
+}
+
 @media (max-width: 1024px) {
 	.leftNav {
 		display: none;

@@ -69,7 +69,7 @@ export default function CategorySideScroll() {
 
 	return (
 		<div ref={categoryContainerRef} className={styles.categoryContainer}>
-			<h1>GALLERY</h1>
+			<h1>GALLERY.</h1>
 			<section ref={sectionRef} className={styles.categorySection}>
 				{images.map((image, index) => (
 					<div
