@@ -92,10 +92,13 @@
 }
 
 .button[data-variant='cart'] {
+	font-family: var(--font-display);
 	background-color: var(--accent);
 	color: var(--primary-foreground);
-	padding: 0.35rem 0.75rem;
+	/* padding: 0.35rem 0.75rem; */
 	border: solid 1px black;
+	height: 2rem;
+	width: 2rem;
 }
 
 @media (max-width: 768px) {

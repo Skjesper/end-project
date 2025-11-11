@@ -41,20 +41,19 @@ export default function HeroTitle() {
 
 	return (
 		<div className={`${styles.container}`}>
-			{/* <div className={styles.heroImg}> */}
 			<div className={styles.titleContainer}>
 				<h1
 					ref={titleRef}
 					className={styles.title}
 					style={{ fontFamily: 'var(--font-display)' }}
 				>
-					SKEPPSTEDT
+					SKJESP
 				</h1>
 			</div>
 			<div className={styles.ditherWrapper}>
 				<Waves
 					lineColor="#a82121"
-					backgroundColor="rgba(255, 255, 255, 0.2)"
+					backgroundColor="rgb(255, 255, 255)"
 					waveSpeedX={0.02}
 					waveSpeedY={0.01}
 					waveAmpX={40}
@@ -65,12 +64,6 @@ export default function HeroTitle() {
 					xGap={12}
 					yGap={36}
 				/>
-				{/* <Image
-					src="/assets/images/Hero.png"
-					alt="Description of image"
-					fill
-					style={{ objectFit: 'fill' }}
-				/> */}
 			</div>
 		</div>
 	)

@@ -115,25 +115,19 @@ export default function Header() {
 
 				<div className={styles.logoContainer}>
 					<Link href="/">
-						<Image
-							src="/assets/SkjespLogo.png"
-							alt="Logo"
-							width={200}
-							height={50}
-						/>
+						<div className={styles.titleContainer}>
+							<h1
+								className={styles.title}
+								style={{ fontFamily: 'var(--font-display)' }}
+							>
+								SKJESP
+							</h1>
+						</div>
 					</Link>
 				</div>
 
 				<nav className={styles.rightNav}>
 					<div className={styles.rightNavContent}>
-						<div className={styles.login}>
-							<Link
-								href="/account"
-								className={`${styles.navItem} ${styles.priority3}`}
-							>
-								<Button variant="nav">Login</Button>
-							</Link>
-						</div>
 						<div className={styles.icons}>
 							<Link href="/search" className={styles.navItem}>
 								<Button variant="nav">
