@@ -41,7 +41,7 @@ export default function AddToCartModal({
 		if (isOpen) {
 			const timer = setTimeout(() => {
 				onClose()
-			}, 5000)
+			}, 500000000)
 			setAutoCloseTimer(timer)
 
 			return () => {
@@ -93,7 +93,7 @@ export default function AddToCartModal({
 			<div className={styles.modalContent}>
 				{/* Header */}
 				<div className={styles.header}>
-					<h2 className={styles.title}>Added to Cart</h2>
+					<h2 className={styles.title}>CART</h2>
 					<IconButton
 						onClick={handleClose}
 						size="small"

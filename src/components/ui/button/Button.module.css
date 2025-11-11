@@ -19,6 +19,7 @@
 
 .button[data-variant='nav']:hover {
 	animation: flicker 0.3s ease-in-out;
+	color: var(--accent);
 }
 
 @keyframes flicker {
