@@ -32,7 +32,7 @@
 }
 
 .closeButton:hover {
-	color: var(--foreground) !important;
+	color: var(--accent) !important;
 }
 
 .content {
