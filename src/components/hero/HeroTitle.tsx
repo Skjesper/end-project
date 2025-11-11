@@ -48,8 +48,7 @@ export default function HeroTitle() {
 					className={styles.title}
 					style={{ fontFamily: 'var(--font-display)' }}
 				>
-					<span>SKEPP</span>
-					<span>STEDT</span>
+					SKEPPSTEDT
 				</h1>
 			</div>
 			<div className={styles.ditherWrapper}>
