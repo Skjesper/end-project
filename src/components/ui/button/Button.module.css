@@ -1,4 +1,7 @@
 .button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	/* Base button styles */
 	border: none;
 	cursor: pointer;
@@ -85,6 +88,13 @@
 	font-weight: 600;
 	width: 100%;
 	display: block;
+}
+
+.button[data-variant='cart'] {
+	background-color: var(--accent);
+	color: var(--primary-foreground);
+	padding: 0.35rem 0.75rem;
+	border: solid 1px black;
 }
 
 @media (max-width: 768px) {

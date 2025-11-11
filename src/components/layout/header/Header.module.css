@@ -17,17 +17,19 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	background-color: var(--accent);
+	height: 20px;
 }
 
 .cartBadge {
-	position: absolute;
+	/* position: absolute;
 	top: 60%;
 	left: 47%;
-	transform: translate(-50%, -50%);
-	font-size: 0.8rem; /* Adjust size to fit inside icon */
+	transform: translate(-50%, -50%); */
+	font-size: 1rem; /* Adjust size to fit inside icon */
 	font-weight: 700;
 	color: #000; /* Match your design */
-	line-height: 1;
+
 	pointer-events: none; /* Prevent interfering with clicks */
 }
 

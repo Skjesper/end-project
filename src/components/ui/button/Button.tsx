@@ -11,7 +11,7 @@ interface ButtonProps {
 		| 'danger'
 		| 'nav'
 		| 'delete'
-		| 'filterWide'
+		| 'cart'
 		| 'filter'
 	isActive?: boolean
 	disabled?: boolean
