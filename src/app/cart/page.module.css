@@ -24,7 +24,7 @@
 @media (min-width: 1024px) {
 	.cartContainer {
 		flex-direction: row;
-		align-items: flex-start;
+		align-items: center;
 		gap: 3rem;
 		max-height: 80vh; /* Set a max height */
 	}
