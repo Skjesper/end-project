@@ -2,11 +2,10 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center; /* Lägg till detta */
 	overflow: hidden;
-	height: calc(100svh - 5rem);
-	min-height: calc(100svh - 5rem - 1px);
-	position: relative; /* Viktigt för absolute positioning inuti */
+	height: calc(100svh - 6rem);
+	min-height: calc(100svh - rem - 1px);
+	position: relative; /* Måste vara här */
 }
 
 .ditherWrapper {
@@ -48,16 +47,6 @@
 	position: relative; /* Ta bort absolute */
 	height: fit-content;
 	z-index: 1; /* Ovanför background */
-}
-
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	overflow: hidden;
-	height: calc(100svh - 5rem);
-	min-height: calc(100svh - 5rem - 1px);
-	position: relative; /* Måste vara här */
 }
 
 .ditherWrapper {

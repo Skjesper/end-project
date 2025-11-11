@@ -1,51 +1,29 @@
-.wavesBackground {
-	position: fixed;
+.waves {
+	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: -1; /* Bakom allt annat */
-	pointer-events: auto; /* Så den kan ta emot mouse events */
-}
-
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	overflow: hidden;
-	height: calc(100svh - 5rem);
-	min-height: calc(100svh - 5rem - 1px);
-	position: relative; /* Skapar stacking context */
-	z-index: 1;
-}
-
-/* Ta bort ditherWrapper - behövs inte längre */
-
-.titleContainer {
-	background-color: #000;
-	height: fit-content;
-}
-
-.title {
-	padding: 0 var(--container-padding);
-	display: flex;
-	justify-content: center;
-	position: relative;
-	background-color: #151515;
-	z-index: 1;
-	font-size: min(14vw, 11rem);
 	margin: 0;
-	line-height: 0.8;
-	color: var(--accent);
-	cursor: default;
-	width: 100vw;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
-@media (max-width: 728px) {
-	.title {
-		font-size: min(22vw, 8rem);
-		flex-direction: column;
-		gap: 0.5rem;
-		padding: 0;
-	}
+.waves::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0.5rem;
+	height: 0.5rem;
+	background: #160000;
+	border-radius: 50%;
+	transform: translate3d(calc(var(--x) - 0.5rem), calc(var(--y) - 0.5rem), 0);
+	will-change: transform;
+}
+
+.waves-canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
 }

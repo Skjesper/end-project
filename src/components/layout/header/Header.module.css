@@ -5,7 +5,7 @@
 
 .headerContainer {
 	display: grid;
-	height: 5rem;
+	height: 6rem;
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	gap: 1rem;
@@ -54,7 +54,7 @@
 	position: relative;
 }
 
-.leftNavContent::before,
+/* .leftNavContent::before,
 .leftNavContent::after,
 .rightNavContent::before,
 .rightNavContent::after {
@@ -63,17 +63,17 @@
 	top: -1rem;
 	width: 1px;
 	background-color: currentColor;
-	height: 0; /* Start with no height */
-	animation: growDown 0.8s ease-out forwards; /* Animate on load */
-}
+	height: 0; 
+	animation: growDown 0.8s ease-out forwards; 
+} */
 
-@keyframes growDown {
+/* @keyframes growDown {
 	to {
 		height: calc(100% + 2rem); /* Grow to full height */
-	}
-}
+/* } */
+/* }  */
 
-.leftNavContent::before,
+/* .leftNavContent::before,
 .rightNavContent::before {
 	left: 0;
 }
@@ -82,7 +82,7 @@
 .rightNavContent::after {
 	right: 0;
 	animation-delay: 0.15s; /* Right border starts slightly after left */
-}
+/* }  */
 
 .category {
 	display: flex;
