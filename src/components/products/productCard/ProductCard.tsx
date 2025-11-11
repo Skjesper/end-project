@@ -83,11 +83,11 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 						)}
 					</div>
 
-					<img
+					{/* <img
 						src="/assets/images/paperclip.png"
 						alt=""
 						className={styles.paperclipImage}
-					/>
+					/> */}
 				</div>
 
 				<div className={styles.infoContainer}>

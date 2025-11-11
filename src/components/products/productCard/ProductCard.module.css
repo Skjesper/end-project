@@ -43,7 +43,7 @@
 
 .paperclipImage {
 	position: absolute;
-	top: -40px; /* Justera efter behov */
+	top: -50px; /* Justera efter behov */
 	left: 20%;
 	transform: translateX(-40%);
 	width: 220px; /* Justera storlek */
@@ -58,8 +58,6 @@
 	aspect-ratio: 3 / 4;
 	overflow: hidden;
 	border: solid black 1px;
-	box-shadow: 6px 0 4px rgba(0, 0, 0, 0.25),
-		/* Hårdare höger-skugga */ 0 8px 12px rgba(0, 0, 0, 0.05); /* Subtil underskugga */
 }
 
 .overlayImage {
@@ -215,5 +213,16 @@
 
 	.priceText {
 		font-size: 0.75rem;
+	}
+
+	.paperclipImage {
+		position: absolute;
+		top: -30px; /* Justera efter behov */
+		left: 20%;
+		transform: translateX(-40%);
+		width: 120px; /* Justera storlek */
+		height: auto;
+		z-index: 10;
+		pointer-events: none;
 	}
 }

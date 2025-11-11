@@ -12,6 +12,10 @@ import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
 import MobileMenu from '@/components/ui/mobileMenu/MobileMenu'
 import { useHoverDelay } from '@/hooks/useHoverDelay'
 
+import SearchIcon from '@mui/icons-material/Search'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+
 const CATEGORY_TYPES = ['men', 'women', 'accessories'] as const
 type CategoryType = (typeof CATEGORY_TYPES)[number]
 
@@ -110,35 +114,24 @@ export default function Header() {
 				</nav>
 
 				<div className={styles.logoContainer}>
-					{/* <Link href="/">
-						<Image
-							src="/assets/SkjespLogo.png"
-							alt="Logo"
-							width={200}
-							height={50}
-						/>
-					</Link> */}
+					<Link href="/">
+						<div className={styles.titleContainer}>
+							<h1
+								className={styles.title}
+								style={{ fontFamily: 'var(--font-display)' }}
+							>
+								SKJESP
+							</h1>
+						</div>
+					</Link>
 				</div>
 
 				<nav className={styles.rightNav}>
 					<div className={styles.rightNavContent}>
-						<div className={styles.login}>
-							<Link
-								href="/account"
-								className={`${styles.navItem} ${styles.priority3}`}
-							>
-								<Button variant="nav">Login</Button>
-							</Link>
-						</div>
 						<div className={styles.icons}>
 							<Link href="/search" className={styles.navItem}>
 								<Button variant="nav">
-									<Image
-										src="/assets/SearchIcon.svg"
-										alt="Search"
-										width={25}
-										height={25}
-									/>
+									<SearchIcon sx={{ fontSize: 25 }} />
 								</Button>
 							</Link>
 
@@ -147,24 +140,13 @@ export default function Header() {
 								className={`${styles.navItem} ${styles.priority2}`}
 							>
 								<Button variant="nav">
-									<Image
-										src="/assets/HeartIcon.svg"
-										alt="Favorites"
-										width={25}
-										height={25}
-									/>
+									<FavoriteBorderIcon sx={{ fontSize: 25 }} />
 								</Button>
 							</Link>
 
 							<Link href="/cart" className={styles.navItem}>
-								<Button variant="nav">
+								<Button variant="cart">
 									<div className={styles.cartIconWrapper}>
-										<Image
-											src="/assets/CartIcon.svg"
-											alt="Cart"
-											width={25}
-											height={25}
-										/>
 										{getTotalItems() > 0 && (
 											<span className={styles.cartBadge}>
 												{getTotalItems()}

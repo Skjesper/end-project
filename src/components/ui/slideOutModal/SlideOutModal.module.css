@@ -5,7 +5,6 @@
 }
 
 .modalContent {
-	padding-top: 1.7rem;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -15,7 +14,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 1rem 1rem var(--container-padding);
+	padding: 2rem 1rem 1.7rem var(--container-padding);
 	/* margin-bottom: 1.5rem;
 	padding-bottom: 1rem; */
 	border-bottom: 1px solid var(--foreground);
@@ -33,7 +32,7 @@
 }
 
 .closeButton:hover {
-	color: var(--foreground) !important;
+	color: var(--accent) !important;
 }
 
 .content {

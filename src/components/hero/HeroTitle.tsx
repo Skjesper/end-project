@@ -6,6 +6,7 @@ import { SplitText } from 'gsap/SplitText'
 // import localFont from 'next/font/local'
 import styles from './HeroTitle.module.css'
 import Image from 'next/image'
+import Waves from './Waves'
 
 gsap.registerPlugin(SplitText)
 
@@ -40,24 +41,29 @@ export default function HeroTitle() {
 
 	return (
 		<div className={`${styles.container}`}>
-			{/* <div className={styles.heroImg}> */}
-			<div className={styles.ditherWrapper}>
-				<Image
-					src="/assets/images/Hero.png"
-					alt="Description of image"
-					fill
-					style={{ objectFit: 'fill' }}
-				/>
-			</div>
 			<div className={styles.titleContainer}>
 				<h1
 					ref={titleRef}
 					className={styles.title}
 					style={{ fontFamily: 'var(--font-display)' }}
 				>
-					<span>SKEPP</span>
-					<span>STEDT</span>
+					SKJESP
 				</h1>
+			</div>
+			<div className={styles.ditherWrapper}>
+				<Waves
+					lineColor="#a82121"
+					backgroundColor="rgb(255, 255, 255)"
+					waveSpeedX={0.02}
+					waveSpeedY={0.01}
+					waveAmpX={40}
+					waveAmpY={20}
+					friction={0.9}
+					tension={0.01}
+					maxCursorMove={120}
+					xGap={12}
+					yGap={36}
+				/>
 			</div>
 		</div>
 	)

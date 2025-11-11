@@ -6,6 +6,7 @@
 	padding-right: 10rem;
 	font-family: var(--font-display);
 	font-weight: var(--font-weight-bold);
+	border-top: solid 1px black;
 }
 
 @media (max-width: 1024px) {

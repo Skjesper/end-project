@@ -5,7 +5,7 @@
 
 .headerContainer {
 	display: grid;
-	height: 5rem;
+	height: 6rem;
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	gap: 1rem;
@@ -17,17 +17,41 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	background-color: var(--accent);
+	height: 20px;
+}
+
+.titleContainer {
+	background-color: var(--accent);
+}
+
+.title {
+	padding: 0.5rem;
+	border: solid 1px black;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	/* -webkit-text-stroke: 1px black; */
+	z-index: 1;
+	font-size: min(4vw, 12rem);
+	margin: 0;
+	line-height: 0.8;
+
+	color: black;
+	cursor: default;
+	width: fit-content;
+	white-space: nowrap;
 }
 
 .cartBadge {
-	position: absolute;
+	/* position: absolute;
 	top: 60%;
 	left: 47%;
-	transform: translate(-50%, -50%);
-	font-size: 0.8rem; /* Adjust size to fit inside icon */
+	transform: translate(-50%, -50%); */
+	font-size: 1rem; /* Adjust size to fit inside icon */
 	font-weight: 700;
 	color: #000; /* Match your design */
-	line-height: 1;
+
 	pointer-events: none; /* Prevent interfering with clicks */
 }
 
@@ -52,36 +76,6 @@
 	gap: 4rem;
 	padding: 0 2rem;
 	position: relative;
-}
-
-.leftNavContent::before,
-.leftNavContent::after,
-.rightNavContent::before,
-.rightNavContent::after {
-	content: '';
-	position: absolute;
-	top: -1rem;
-	width: 1px;
-	background-color: currentColor;
-	height: 0; /* Start with no height */
-	animation: growDown 0.8s ease-out forwards; /* Animate on load */
-}
-
-@keyframes growDown {
-	to {
-		height: calc(100% + 2rem); /* Grow to full height */
-	}
-}
-
-.leftNavContent::before,
-.rightNavContent::before {
-	left: 0;
-}
-
-.leftNavContent::after,
-.rightNavContent::after {
-	right: 0;
-	animation-delay: 0.15s; /* Right border starts slightly after left */
 }
 
 .category {
@@ -130,35 +124,34 @@
 	display: none;
 }
 
-/* Priority system - items hide based on available space */
-/* Lower priority numbers = hide later (more important) */
-/* No priority class = highest priority (always visible) */
-
-/* Hide priority 4 items first (least important) */
-@container (max-width: 1200px) {
+/* @container (max-width: 1200px) {
 	.priority4 {
 		display: none;
 	}
 }
 
-/* Hide priority 3 items */
+
 @container (max-width: 1000px) {
 	.priority3 {
 		display: none;
 	}
 }
 
-/* Hide priority 2 items */
+
 @container (max-width: 800px) {
 	.priority2 {
 		display: none;
 	}
+} */
+
+@media (max-width: 1440px) {
+	.leftNavContent {
+		gap: 2rem;
+	}
 }
 
-/* Mobile layout - hide left nav completely, show hamburger menu */
 @media (max-width: 1024px) {
-	.leftNav,
-	.rightNav {
+	.leftNav {
 		display: none;
 	}
 
