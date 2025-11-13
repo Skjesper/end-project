@@ -112,6 +112,40 @@
 	background: rgba(0, 0, 0, 0.05); /* Optional subtle hover */
 }
 
+.button[data-variant='size'] {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	height: 2rem;
+	width: 2rem;
+	color: inherit;
+	border: 1px solid #000000;
+	background-color: rgba(255, 255, 255, 0.5);
+
+	font-family: var(--font-display);
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.button[data-variant='size']:hover {
+	background-color: var(--accentHover);
+}
+
+.button[data-variant='size']:active {
+	background-color: var(--accent);
+}
+
+.button[data-variant='color'] {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	height: 2rem;
+	width: 2rem;
+	color: inherit;
+	border: 1px solid #000000;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
 @media (max-width: 768px) {
 	.button[data-variant='filter'] {
 		font-size: 0.7rem;
