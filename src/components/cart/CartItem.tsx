@@ -5,7 +5,8 @@ import { useCart } from '@/context/CartContext'
 import { CartItem as CartItemType } from '@/types/cart'
 import styles from './CartItem.module.css'
 import Button from '../ui/button/Button'
-
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 interface CartItemProps {
 	item: CartItemType
 }
@@ -62,7 +63,7 @@ export default function CartItem({ item }: CartItemProps) {
 							disabled={item.quantity <= 1}
 							aria-label="Decrease quantity"
 						>
-							-
+							<RemoveIcon />
 						</Button>
 						<span aria-live="polite" aria-atomic="true">
 							{item.quantity}
@@ -72,7 +73,7 @@ export default function CartItem({ item }: CartItemProps) {
 							onClick={handleIncrease}
 							aria-label="Increase quantity"
 						>
-							+
+							<AddIcon />
 						</Button>
 					</div>
 

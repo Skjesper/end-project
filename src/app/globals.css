@@ -31,6 +31,7 @@
      ============================================ */
 
 	--font-display: var(--font-space-grotesk);
+	--font-body: var(--font-IBM-plex-sans);
 
 	--font-size-xs: 0.75rem; /* 12px - captions, labels */
 	--font-size-sm: 0.875rem; /* 14px - small text, meta info */
@@ -199,7 +200,7 @@ body {
 body {
 	color: var(--foreground);
 	background: var(--background);
-	font-family: var(--font-futura), Arial, Helvetica, sans-serif;
+	font-style: var(--font-body);
 	font-size: var(--font-size-base);
 	line-height: var(--line-height-normal);
 	-webkit-font-smoothing: antialiased;
@@ -215,4 +216,12 @@ body {
 a {
 	color: inherit;
 	text-decoration: none;
+}
+
+h1 {
+	font-style: var(--font-display);
+}
+
+h3 {
+	font-style: var(--font-display);
 }

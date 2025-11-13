@@ -1,5 +1,6 @@
 .wrapper {
 	width: 100%;
+	min-height: 100vh;
 }
 
 .container {
@@ -15,13 +16,6 @@
 	max-width: 40rem;
 }
 
-@media (max-width: 768px) {
-	.container {
-		max-width: 100%;
-		border: 0;
-	}
-}
-
 .contentWrapper {
 	display: flex;
 }
@@ -30,6 +24,11 @@
 	display: flex;
 	gap: 0.5rem;
 	padding: 1rem;
+	font-family: var(--font-display);
+}
+
+.title h3 {
+	font-size: 1rem;
 }
 
 .favoriteItems {
@@ -69,11 +68,20 @@
 
 .infoSection h3 {
 	font-size: 1rem;
+	font-family: var(--font-display);
 }
 
 .favoritesFooter {
-	padding: 0.5rem 1rem;
+	padding: 1rem 1rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+	.container {
+		max-width: 100%;
+		border: 0;
+		border-bottom: solid var(--foreground) var(--border-width);
+	}
 }

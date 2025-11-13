@@ -13,13 +13,15 @@ interface AddToCartButtonProps {
 	title: string
 	price: number
 	image: string
+	onClick?: () => void
 	currency: string
-	variant?: 'primary' | 'secondary'
+	variant?: 'primary' | 'secondary' | 'filter'
 	children?: React.ReactNode
 }
 
 export default function AddToCartButton({
 	productId,
+	onClick,
 	variantId,
 	handle,
 	title,
@@ -38,6 +40,7 @@ export default function AddToCartButton({
 			productId,
 			variantId,
 			handle,
+			onClick,
 			title,
 			price,
 			image,

@@ -5,6 +5,7 @@ import { useCart } from '@/context/CartContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/button/Button'
+import AddToCartButton from '@/components/ui/button/AddToCartButton'
 import styles from './page.module.css'
 
 export default function FavoritesPage() {
@@ -24,7 +25,7 @@ export default function FavoritesPage() {
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
 				<div className={styles.title}>
-					<h3>Favorites ({favorites.length})</h3>
+					<h3>FAVORITES ({favorites.length})</h3>
 
 					<Button variant="nav">
 						<Link href="/cart">
@@ -60,10 +61,20 @@ export default function FavoritesPage() {
 
 							<div className={styles.footerWrapper}>
 								<div className={styles.favoritesFooter}>
-									<Button variant="delete" onClick={() => toggleFavorite(item)}>
-										Remove
-									</Button>
-									<Button variant="delete" onClick={() => toggleFavorite(item)}>
+									<AddToCartButton
+										productId={item.productId}
+										variantId={item.productId}
+										handle={item.handle}
+										title={item.title}
+										price={item.price}
+										image={item.image}
+										currency={item.currency}
+										variant="filter"
+									>
+										Add to cart
+									</AddToCartButton>
+
+									<Button variant="filter" onClick={() => toggleFavorite(item)}>
 										Remove
 									</Button>
 								</div>
