@@ -1,4 +1,4 @@
-export default function CheckoutPage() {
+export default function FavoritesPage() {
 	return (
 		<div>
 			<h1>Checkout</h1>
