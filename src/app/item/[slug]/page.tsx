@@ -1,4 +1,6 @@
-import { getProductByHandle } from '@/lib/shopify'
+'use client'
+
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
 import AddToCartButton from '@/components/ui/button/AddToCartButton'
@@ -6,14 +8,42 @@ import ProductImageGallery from '@/components/products/productImageGallery/Produ
 import ProductAccordions from '@/components/products/productAccordions/ProductAccordions'
 import Button from '@/components/ui/button/Button'
 import { Product } from '@/types/product'
+import { getProductByHandle } from '@/lib/shopify'
 
-export default async function ProductDetailPage({
+import {
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
+	SelectChangeEvent
+} from '@mui/material'
+
+export default function ProductDetailPage({
 	params
 }: {
 	params: Promise<{ slug: string }>
 }) {
-	const { slug } = await params
-	const product = await getProductByHandle(slug)
+	const [product, setProduct] = useState<Product | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [selectedSize, setSelectedSize] = useState<string>('')
+
+	useEffect(() => {
+		async function loadProduct() {
+			const resolvedParams = await params
+			const productData = await getProductByHandle(resolvedParams.slug)
+			setProduct(productData)
+			setLoading(false)
+		}
+		loadProduct()
+	}, [params])
+
+	const handleSizeChange = (event: SelectChangeEvent<string>) => {
+		setSelectedSize(event.target.value)
+	}
+
+	if (loading) {
+		return <div>Loading...</div>
+	}
 
 	if (!product) {
 		return (
@@ -23,6 +53,7 @@ export default async function ProductDetailPage({
 			</div>
 		)
 	}
+
 	const colors = product.variants
 		? Array.from(
 				new Set(
@@ -44,6 +75,7 @@ export default async function ProductDetailPage({
 				)
 		  )
 		: []
+
 	const price = parseFloat(product.priceRange.minVariantPrice.amount)
 	const currency = product.priceRange.minVariantPrice.currencyCode
 
@@ -67,14 +99,22 @@ export default async function ProductDetailPage({
 						<div className={styles.variantInfo}>
 							{sizes.length > 0 && (
 								<div className={styles.variantRow}>
-									<span className={styles.variantLabel}></span>
-									<div className={styles.variantOptions}>
-										{sizes.map((size) => (
-											<Button key={size} variant="size">
-												{size}
-											</Button>
-										))}
-									</div>
+									<FormControl fullWidth>
+										<InputLabel id="size-select-label">Select Size</InputLabel>
+										<Select
+											labelId="size-select-label"
+											id="size-select"
+											value={selectedSize}
+											label="Size"
+											onChange={handleSizeChange}
+										>
+											{sizes.map((size) => (
+												<MenuItem key={size} value={size}>
+													{size}
+												</MenuItem>
+											))}
+										</Select>
+									</FormControl>
 								</div>
 							)}
 						</div>
@@ -107,11 +147,7 @@ export default async function ProductDetailPage({
 							/>
 						</div>
 
-						<ProductAccordions
-							// sizeAndFit={product.sizeAndFit}
-							description={product.description}
-							// shipping={product.shipping}
-						/>
+						<ProductAccordions description={product.description} />
 					</div>
 				</section>
 			</div>
