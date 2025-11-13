@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { Space_Grotesk, IBM_Plex_Sans } from 'next/font/google'
 import Layout from '@/components/layout/Layout'
 import { CartProvider } from '@/context/CartContext'
+import { FavoritesProvider } from '@/context/FavoritesContext'
 
 import './globals.css'
-import { FavoritesProvider } from '@/context/FavoritesContext'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',

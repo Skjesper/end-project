@@ -58,7 +58,6 @@ export default function Header() {
 		setActiveModal(null)
 	}
 
-	// Anropa hooks direkt i komponenten, inte i en funktion
 	const menHover = useHoverDelay({
 		onHoverStart: () => openModal('men'),
 		delay: 500,
