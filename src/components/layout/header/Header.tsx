@@ -145,11 +145,7 @@ export default function Header() {
 							<Link href="/cart" className={styles.navItem}>
 								<Button variant="cart">
 									<div className={styles.cartIconWrapper}>
-										{getTotalItems() > 0 && (
-											<span className={styles.cartBadge}>
-												{getTotalItems()}
-											</span>
-										)}
+										<span className={styles.cartBadge}>{getTotalItems()}</span>
 									</div>
 								</Button>
 							</Link>
