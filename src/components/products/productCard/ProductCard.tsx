@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Product } from '@/types/product'
 import styles from './ProductCard.module.css'
 import Image from 'next/image'
+import FavoriteButton from '@/components/ui/button/FavoritesButton'
 
 interface ProductCardProps {
 	product: Product
@@ -45,22 +46,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 		<article className={className}>
 			<Link href={`/item/${product.handle}`} className={styles.card}>
 				<div className={styles.imageContainer}>
-					<div className={styles.cardHeader}>
-						<button
-							className={styles.favoriteButton}
-							onClick={(e) => {
-								e.preventDefault()
-								console.log('Favorite clicked for:', product.id)
-							}}
-							aria-label="Add to favorites"
-						>
-							<img
-								src="/assets/Favorites.svg"
-								alt="Favorite"
-								className={styles.favoriteIcon}
-							/>
-						</button>
-					</div>
+					<div className={styles.cardHeader}></div>
 
 					<div className={styles.imageWrapper}>
 						{primaryImage ? (
@@ -83,11 +69,16 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 						)}
 					</div>
 
-					{/* <img
-						src="/assets/images/paperclip.png"
-						alt=""
-						className={styles.paperclipImage}
-					/> */}
+					<div className={styles.favoriteButton}>
+						<FavoriteButton
+							productId={product.id}
+							handle={product.handle}
+							title={product.title}
+							image={primaryImage?.url || ''}
+							price={price}
+							currency={currency}
+						/>
+					</div>
 				</div>
 
 				<div className={styles.infoContainer}>

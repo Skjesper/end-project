@@ -13,6 +13,7 @@ interface ButtonProps {
 		| 'delete'
 		| 'cart'
 		| 'filter'
+		| 'favorites'
 	isActive?: boolean
 	disabled?: boolean
 	type?: 'button' | 'submit' | 'reset'

@@ -2,6 +2,9 @@
 
 import { useFavorites } from '@/context/FavoritesContext'
 import Button from './Button'
+import styles from './Button.module.css'
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
 
 interface FavoriteButtonProps {
 	productId: string
@@ -37,11 +40,15 @@ export default function FavoriteButton({
 
 	return (
 		<Button
+			variant="favorites"
+			className={styles.favoriteButton}
 			onClick={handleClick}
-			variant="secondary"
-			ariaLabel={favorited ? 'Remove from favorites' : 'Add to favorites'}
 		>
-			{favorited ? '❤️' : '🤍'}
+			{favorited ? (
+				<BookmarkIcon className={styles.favoriteIcon} />
+			) : (
+				<BookmarkBorderIcon className={styles.favoriteIcon} />
+			)}
 		</Button>
 	)
 }
