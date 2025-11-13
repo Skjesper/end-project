@@ -78,7 +78,7 @@ export default function CartItem({ item }: CartItemProps) {
 					</div>
 
 					<Button
-						variant="delete"
+						variant="filter"
 						onClick={() => removeFromCart(item.productId)}
 						aria-label={`Remove ${item.title} from cart`}
 					>
