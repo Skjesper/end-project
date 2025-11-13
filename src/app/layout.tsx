@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout'
 import { CartProvider } from '@/context/CartContext'
 
 import './globals.css'
+import { FavoritesProvider } from '@/context/FavoritesContext'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -33,9 +34,11 @@ export default function RootLayout({
 		>
 			<head></head>
 			<body className={ibmPlexSans.className}>
-				<CartProvider>
-					<Layout>{children}</Layout>
-				</CartProvider>
+				<FavoritesProvider>
+					<CartProvider>
+						<Layout>{children}</Layout>
+					</CartProvider>
+				</FavoritesProvider>
 			</body>
 		</html>
 	)

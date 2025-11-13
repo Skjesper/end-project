@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import Button from '@/components/ui/button/Button'
 import styles from './Header.module.css'
-import Image from 'next/image'
+
 import { getProductsByCollection } from '@/lib/shopify'
 import { extractUniqueCategories } from '@/utils/categoryFilter'
 import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
@@ -14,7 +14,6 @@ import { useHoverDelay } from '@/hooks/useHoverDelay'
 
 import SearchIcon from '@mui/icons-material/Search'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 
 const CATEGORY_TYPES = ['men', 'women', 'accessories'] as const
 type CategoryType = (typeof CATEGORY_TYPES)[number]
