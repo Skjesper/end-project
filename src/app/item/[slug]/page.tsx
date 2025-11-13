@@ -1,6 +1,9 @@
-import AddToCartButton from '@/components/products/AddToCartButton'
 import { getProductByHandle } from '@/lib/shopify'
 import Link from 'next/link'
+import styles from './page.module.css'
+import AddToCartButton from '@/components/ui/button/AddToCartButton'
+import ProductImageGallery from '@/components/products/productImageGallery/ProductImageGallery'
+import ProductAccordions from '@/components/products/productAccordions/ProductAccordions'
 
 export default async function ProductDetailPage({
 	params
@@ -24,49 +27,40 @@ export default async function ProductDetailPage({
 
 	return (
 		<div>
-			<Link href="/item">← Back to Products</Link>
+			<div className={styles.pageContainer}>
+				<ProductImageGallery
+					images={product.images}
+					productTitle={product.title}
+				/>
 
-			<h1>{product.title}</h1>
+				<section className={styles.productDetails}>
+					<h3>{product.title}</h3>
 
-			<div>
-				<h2>Images</h2>
-				{product.images.length > 0 ? (
-					product.images.map((image, index) => (
-						<div key={index}>
-							<img
-								src={image.url}
-								alt={image.altText || product.title}
-								width="400"
-								height="400"
+					<div>
+						<p>
+							Price: {price.toFixed(2)} {currency}
+						</p>
+
+						<div className={styles.addToCartButton}>
+							<AddToCartButton
+								productId={product.id}
+								variantId={product.variantId || ''}
+								handle={product.handle}
+								title={product.title}
+								price={price}
+								image={product.images[0]?.url || ''}
+								currency={currency}
+								variant="primary"
 							/>
 						</div>
-					))
-				) : (
-					<p>No images available</p>
-				)}
-			</div>
 
-			<div>
-				<p>
-					Price: {price.toFixed(2)} {currency}
-				</p>
-
-				{product.description && (
-					<div>
-						<h2>Description</h2>
-						<p>{product.description}</p>
+						<ProductAccordions
+							// sizeAndFit={product.sizeAndFit}
+							description={product.description}
+							// shipping={product.shipping}
+						/>
 					</div>
-				)}
-
-				<AddToCartButton
-					productId={product.id}
-					variantId={product.variantId}
-					handle={product.handle}
-					title={product.title}
-					price={price}
-					image={product.images[0]?.url || ''}
-					currency={currency}
-				/>
+				</section>
 			</div>
 		</div>
 	)

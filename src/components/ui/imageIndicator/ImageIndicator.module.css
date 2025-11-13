@@ -1,0 +1,30 @@
+.indicator {
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 0.5rem;
+	z-index: 10;
+}
+
+.dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+}
+
+.dot.active {
+	background-color: rgb(0, 0, 0);
+	transform: scale(1.2);
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+	.indicator {
+		display: none;
+	}
+}

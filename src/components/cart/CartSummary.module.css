@@ -1,0 +1,19 @@
+.summaryDetails {
+	font-size: var(--font-size-sm);
+	gap: var(--text-gap);
+	display: flex;
+	flex-direction: column;
+}
+
+.totalPrice {
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+	display: flex;
+	justify-content: space-between;
+}
+
+.cartSummary {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}

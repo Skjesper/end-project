@@ -4,13 +4,14 @@ import { useCart } from '@/context/CartContext'
 import CartItem from '@/components/cart/CartItem'
 import CartSummary from '@/components/cart/CartSummary'
 import Link from 'next/link'
+import styles from './page.module.css'
 
 export default function CartPage() {
 	const { cart } = useCart()
 
 	if (cart.items.length === 0) {
 		return (
-			<div>
+			<div className={styles.emptyCart}>
 				<h1>Shopping Cart</h1>
 				<p>Your cart is empty</p>
 				<Link href="/products">
@@ -21,18 +22,18 @@ export default function CartPage() {
 	}
 
 	return (
-		<div>
-			<h1>Shopping Cart</h1>
+		<div className={styles.cartPage}>
+			<div className={styles.cartContainer}>
+				{/* Cart Items */}
+				<section className={styles.cartItemsList} aria-label="Cart items">
+					{cart.items.map((item) => (
+						<CartItem key={item.productId} item={item} />
+					))}
+				</section>
 
-			{/* Cart Items */}
-			<div>
-				{cart.items.map((item) => (
-					<CartItem key={item.productId} item={item} />
-				))}
+				{/* Cart Summary */}
+				<CartSummary />
 			</div>
-
-			{/* Cart Summary */}
-			<CartSummary />
 		</div>
 	)
 }

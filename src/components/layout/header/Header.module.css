@@ -1,0 +1,161 @@
+.header {
+	width: 100%;
+	z-index: var(--z-sticky);
+}
+
+.headerContainer {
+	display: grid;
+	height: 6rem;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem var(--container-padding); /* container-type: inline-size; */
+	border-bottom: solid black 1px;
+}
+.cartIconWrapper {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--accent);
+	height: 20px;
+}
+
+.titleContainer {
+	background-color: var(--accent);
+}
+
+.title {
+	padding: 0.5rem;
+	border: solid 1px black;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	/* -webkit-text-stroke: 1px black; */
+	z-index: 1;
+	font-size: min(4vw, 12rem);
+	margin: 0;
+	line-height: 0.8;
+
+	color: black;
+	cursor: default;
+	width: fit-content;
+	white-space: nowrap;
+}
+
+.cartBadge {
+	/* position: absolute;
+	top: 60%;
+	left: 47%;
+	transform: translate(-50%, -50%); */
+	font-size: 1rem; /* Adjust size to fit inside icon */
+	font-weight: 700;
+	color: #000; /* Match your design */
+
+	pointer-events: none; /* Prevent interfering with clicks */
+}
+
+.leftNav,
+.rightNav {
+	gap: 0.75rem;
+}
+
+.leftNav {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 4rem;
+}
+
+.leftNavContent,
+.rightNavContent {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	gap: 4rem;
+	padding: 0 2rem;
+	position: relative;
+}
+
+.category {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.rightNav {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: flex-end;
+	/* gap: 4rem; */
+}
+
+.icons {
+	display: flex;
+	flex-direction: row;
+	gap: var(--content-gap);
+}
+
+.logoContainer {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%; /* Match parent height */
+	max-height: 2rem; /* Limit logo height */
+}
+
+.logoContainer img {
+	width: auto;
+	height: auto;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+.navItem {
+	display: flex;
+	text-decoration: none;
+}
+
+/* Mobile menu hidden by default */
+.mobileMenu {
+	display: none;
+}
+
+/* @container (max-width: 1200px) {
+	.priority4 {
+		display: none;
+	}
+}
+
+
+@container (max-width: 1000px) {
+	.priority3 {
+		display: none;
+	}
+}
+
+
+@container (max-width: 800px) {
+	.priority2 {
+		display: none;
+	}
+} */
+
+@media (max-width: 1440px) {
+	.leftNavContent {
+		gap: 2rem;
+	}
+}
+
+@media (max-width: 1024px) {
+	.leftNav {
+		display: none;
+	}
+
+	.mobileMenu {
+		display: block;
+	}
+}

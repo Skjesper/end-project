@@ -1,0 +1,59 @@
+.modalPaper {
+	background-color: white;
+	font-family: var(--font-display) !important;
+	text-transform: uppercase;
+}
+
+.modalContent {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2rem 1rem 1.7rem var(--container-padding);
+	/* margin-bottom: 1.5rem;
+	padding-bottom: 1rem; */
+	border-bottom: 1px solid var(--foreground);
+}
+
+.title {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.closeButton {
+	color: var(--foreground) !important;
+	transition: color 0.2s;
+}
+
+.closeButton:hover {
+	color: var(--accent) !important;
+}
+
+.content {
+	flex: 1;
+	overflow-y: auto;
+	padding: 1rem var(--container-padding);
+	color: var(--foreground) !important;
+}
+
+/* Tablet and above */
+@media (min-width: 768px) {
+	.modalContent {
+		/* padding-left: var(--container-padding); */
+		/* padding: 1rem var(--container-padding); */
+	}
+
+	.header {
+		margin-bottom: 2rem;
+	}
+
+	.title {
+		font-size: 1.5rem;
+	}
+}

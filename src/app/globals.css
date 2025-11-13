@@ -1,42 +1,218 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	/* ============================================
+     COLOR SYSTEM
+     ============================================ */
+
+	/* Base colors - these are your fundamental palette */
+	--background: #ffffff;
+	--foreground: #171717;
+	--border: #e5e5e5;
+	--muted: #f5f5f5;
+
+	/* Semantic colors - these describe purpose, not appearance */
+	--primary: #000000;
+	--primary-foreground: #ffffff;
+	--secondary: #f5f5f5;
+	--secondary-foreground: #171717;
+
+	/* State colors - for interactive elements */
+	--accent: #e53435;
+	--accentHover: rgba(229, 52, 53, 0.85);
+	--accent-foreground: #ffffff;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+
+	/* ============================================
+     TYPOGRAPHY SCALE
+     ============================================
+     Based on a modular scale for visual harmony.
+     Each size is intentionally chosen to create
+     clear hierarchy in your content.
+     ============================================ */
+
+	--font-display: var(--font-space-grotesk);
+
+	--font-size-xs: 0.75rem; /* 12px - captions, labels */
+	--font-size-sm: 0.875rem; /* 14px - small text, meta info */
+	--font-size-base: 1rem; /* 16px - body text */
+	--font-size-lg: 1.125rem; /* 18px - emphasized body text */
+	--font-size-xl: 1.25rem; /* 20px - small headings */
+	--font-size-2xl: 1.5rem; /* 24px - section headings */
+	--font-size-3xl: 2rem; /* 32px - page headings */
+	--font-size-4xl: 2.5rem; /* 40px - hero headings */
+	--font-size-5xl: 3rem; /* 48px - large hero headings */
+	--font-size-6xl: 4rem; /* 64px - statement headings */
+
+	/* Font weights - semantic naming */
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	/* Line heights - for readability */
+	--line-height-tight: 1.25; /* Headings */
+	--line-height-normal: 1.5; /* Body text */
+	--line-height-relaxed: 1.75; /* Long-form content */
+
+	/* ============================================
+     SPACING SCALE
+     ============================================
+     Use these for margins, padding, and gaps.
+     Following a consistent scale creates visual
+     rhythm throughout your design.
+     ============================================ */
+
+	--space-0: 0;
+	--space-xs: 0.25rem; /* 4px  - tiny adjustments */
+	--space-sm: 0.5rem; /* 8px  - compact spacing */
+	--space-md: 1rem; /* 16px - default spacing */
+	--space-lg: 1.5rem; /* 24px - comfortable spacing */
+	--space-xl: 2rem; /* 32px - generous spacing */
+	--space-2xl: 3rem; /* 48px - section spacing */
+	--space-3xl: 4rem; /* 64px - large section spacing */
+	--space-4xl: 6rem; /* 96px - major section spacing */
+	--space-5xl: 8rem; /* 128px - hero spacing */
+
+	/* ============================================
+     LAYOUT SYSTEM
+     ============================================
+     These control the overall page structure
+     and ensure consistent alignment across
+     all pages and components.
+     ============================================ */
+
+	/* Container constraints - maximum widths for content */
+	--max-width-sm: 640px; /* Narrow content like forms */
+	--max-width-md: 768px; /* Medium content like articles */
+	--max-width-lg: 1024px; /* Standard content */
+	--max-width-xl: 1280px; /* Wide content */
+	--max-width-2xl: 1400px; /* Maximum content width */
+	--max-width-full: 100%; /* Full width sections */
+
+	/* The magic variables that create your consistent margins */
+	--container-padding: 4rem; /* Left/right page margins */
+	--container-padding-sm: 1rem; /* Mobile left/right margins */
+
+	/* Vertical rhythm - spacing between major sections */
+	--section-gap: 3rem; /* Desktop section spacing */
+	--section-gap-sm: 2rem; /* Mobile section spacing */
+
+	/* Component spacing - common patterns */
+	--card-gap: 1.5rem;
+	--card-gap-mobile: 0.5rem; /* Space between cards in grids */
+	--content-gap: 1rem; /* Space within content blocks */
+
+	--text-gap: 0.5rem; /* Space between text elements */
+
+	/* ============================================
+     BORDER SYSTEM
+     ============================================ */
+
+	--border-radius-sm: 0.25rem; /* 4px  - subtle rounding */
+	--border-radius-md: 0.5rem; /* 8px  - standard rounding */
+	--border-radius-lg: 0.75rem; /* 12px - prominent rounding */
+	--border-radius-xl: 1rem; /* 16px - large rounding */
+	--border-radius-full: 9999px; /* Fully rounded (pills, circles) */
+
+	--border-width: 1px;
+	--border-width-thick: 2px;
+
+	/* ============================================
+     TRANSITIONS
+     ============================================
+     Consistent timing creates polish
+     ============================================ */
+
+	--transition-fast: 150ms ease;
+	--transition-base: 200ms ease;
+	--transition-slow: 300ms ease;
+
+	/* ============================================
+     Z-INDEX SCALE
+     ============================================
+     Prevents z-index chaos by having a system
+     ============================================ */
+
+	--z-base: 0;
+	--z-dropdown: 100;
+	--z-sticky: 200;
+	--z-overlay: 300;
+	--z-modal: 400;
+	--z-toast: 500;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================
+   DARK MODE
+   ============================================
+   Adjusts colors for dark mode while keeping
+   all spacing and typography the same
+   ============================================ */
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+		--border: #262626;
+		--muted: #171717;
+
+		--primary: #ffffff;
+		--primary-foreground: #000000;
+		--secondary: #262626;
+		--secondary-foreground: #ededed;
+	}
 }
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================
+   On mobile, we reduce spacing to make better
+   use of limited screen space
+   ============================================ */
+
+@media (max-width: 768px) {
+	:root {
+		/* Tighter spacing on mobile */
+		--container-padding: var(--container-padding-sm);
+		--section-gap: var(--section-gap-sm);
+
+		/* Slightly smaller typography scale on mobile */
+		--font-size-3xl: 1.75rem; /* 28px instead of 32px */
+		--font-size-4xl: 2rem; /* 32px instead of 40px */
+		--font-size-5xl: 2.5rem; /* 40px instead of 48px */
+		--font-size-6xl: 3rem; /* 48px instead of 64px */
+	}
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================
+   These apply your design system to HTML
+   elements by default
+   ============================================ */
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+	max-width: 100vw;
+	overflow-x: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	color: var(--foreground);
+	background: var(--background);
+	font-family: var(--font-futura), Arial, Helvetica, sans-serif;
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-normal);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+	color: inherit;
+	text-decoration: none;
 }
