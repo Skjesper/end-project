@@ -17,12 +17,12 @@ export default function CartItem({ item }: CartItemProps) {
 
 	const handleDecrease = () => {
 		if (item.quantity > 1) {
-			updateQuantity(item.variantId, item.quantity - 1) // Changed to variantId
+			updateQuantity(item.variantId, item.quantity - 1)
 		}
 	}
 
 	const handleIncrease = () => {
-		updateQuantity(item.variantId, item.quantity + 1) // Changed to variantId
+		updateQuantity(item.variantId, item.quantity + 1)
 	}
 
 	const itemTotal = (item.price * item.quantity).toFixed(2)
@@ -46,12 +46,12 @@ export default function CartItem({ item }: CartItemProps) {
 					<Link href={`/item/${item.handle}`}>
 						<h3>{item.title}</h3>
 					</Link>
-					{/* Show variant options if they exist */}
+					{/* Show variant options */}
 					{(item.selectedSize || item.selectedColor) && (
-						<p className={styles.variantInfo}>
-							{item.selectedSize && <span>Size: {item.selectedSize}</span>}
-							{item.selectedSize && item.selectedColor && <span> • </span>}
-							{item.selectedColor && <span>Color: {item.selectedColor}</span>}
+						<p style={{ fontSize: '0.9rem', color: '#666', margin: '4px 0' }}>
+							{item.selectedSize && `Size: ${item.selectedSize}`}
+							{item.selectedSize && item.selectedColor && ' • '}
+							{item.selectedColor && `Color: ${item.selectedColor}`}
 						</p>
 					)}
 					<p aria-label={`Price: ${item.price.toFixed(2)} ${item.currency}`}>
@@ -88,7 +88,7 @@ export default function CartItem({ item }: CartItemProps) {
 
 					<Button
 						variant="filter"
-						onClick={() => removeFromCart(item.variantId)} // Changed to variantId
+						onClick={() => removeFromCart(item.variantId)}
 						aria-label={`Remove ${item.title} from cart`}
 					>
 						Remove

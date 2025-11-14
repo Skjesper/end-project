@@ -204,6 +204,8 @@ export default function ProductDetailPage({
 								image={product.images[0]?.url || ''}
 								currency={currency}
 								variant="primary"
+								selectedSize={selectedSize}
+								selectedColor={selectedColor}
 							/>
 						</div>
 

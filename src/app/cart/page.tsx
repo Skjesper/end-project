@@ -27,7 +27,7 @@ export default function CartPage() {
 				{/* Cart Items */}
 				<section className={styles.cartItemsList} aria-label="Cart items">
 					{cart.items.map((item) => (
-						<CartItem key={item.productId} item={item} />
+						<CartItem key={item.variantId} item={item} />
 					))}
 				</section>
 
