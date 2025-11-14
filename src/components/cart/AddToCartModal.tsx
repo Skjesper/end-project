@@ -31,7 +31,7 @@ export default function AddToCartModal({
 	onClose,
 	addedItem
 }: AddToCartModalProps) {
-	const { getTotalItems, getTotalPrice } = useCart()
+	const { getTotalItems, getTotalPrice, cart } = useCart()
 	const [autoCloseTimer, setAutoCloseTimer] = useState<NodeJS.Timeout | null>(
 		null
 	)
@@ -41,7 +41,7 @@ export default function AddToCartModal({
 		if (isOpen) {
 			const timer = setTimeout(() => {
 				onClose()
-			}, 500000000)
+			}, 5000) // Changed back to 5 seconds
 			setAutoCloseTimer(timer)
 
 			return () => {
@@ -104,18 +104,37 @@ export default function AddToCartModal({
 					</IconButton>
 				</div>
 
-				{/* Added Item */}
-				<div className={styles.addedItem}>
-					<div className={styles.itemImage}>
-						<img src={addedItem.image} alt={addedItem.title} />
-					</div>
-					<div className={styles.itemDetails}>
-						<h3 className={styles.itemTitle}>{addedItem.title}</h3>
-						<p className={styles.itemPrice}>
-							{addedItem.price.toFixed(2)} {addedItem.currency}
-						</p>
-						<p className={styles.itemQuantity}>Qty: {addedItem.quantity}</p>
-					</div>
+				{/* Cart Items List */}
+				<div className={styles.cartItemsList}>
+					{cart.items.map((item) => (
+						<div
+							key={item.variantId}
+							className={`${styles.cartItem} ${
+								item.variantId === addedItem.variantId ? styles.justAdded : ''
+							}`}
+						>
+							<div className={styles.itemImage}>
+								<img src={item.image} alt={item.title} />
+							</div>
+							<div className={styles.itemDetails}>
+								<h3 className={styles.itemTitle}>{item.title}</h3>
+
+								{/* Show size/color if they exist */}
+								{(item.selectedSize || item.selectedColor) && (
+									<p className={styles.itemVariants}>
+										{item.selectedSize && `Size: ${item.selectedSize}`}
+										{item.selectedSize && item.selectedColor && ' • '}
+										{item.selectedColor && `Color: ${item.selectedColor}`}
+									</p>
+								)}
+
+								<p className={styles.itemPrice}>
+									{item.price.toFixed(2)} {item.currency}
+								</p>
+								<p className={styles.itemQuantity}>Qty: {item.quantity}</p>
+							</div>
+						</div>
+					))}
 				</div>
 
 				{/* Cart Summary */}
