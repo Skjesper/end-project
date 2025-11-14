@@ -7,7 +7,7 @@
 .favoriteButton {
 	position: absolute;
 	top: 1rem;
-	right: 2rem;
+	right: 1rem;
 	z-index: 20;
 }
 
@@ -61,6 +61,13 @@
 
 	.imageGallery::-webkit-scrollbar {
 		display: none;
+	}
+
+	.favoriteButton {
+		position: absolute;
+		top: 1rem;
+		right: 2rem;
+		z-index: 20;
 	}
 
 	.imageGallery > div {

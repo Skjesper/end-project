@@ -101,14 +101,14 @@
 	width: 2rem;
 }
 
-.button[data-variant='favorite'] {
+.button[data-variant='favorites'] {
 	background: none;
 	border: none;
-	padding: 8px;
+	padding: 0;
 	min-width: auto;
 }
 
-.button[data-variant='favorite']:hover {
+.button[data-variant='favorites']:hover {
 	background: rgba(0, 0, 0, 0.05); /* Optional subtle hover */
 }
 
