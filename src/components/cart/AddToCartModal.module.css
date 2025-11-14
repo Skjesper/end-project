@@ -94,6 +94,14 @@
 	margin: 0;
 }
 
+.cartItemsList {
+	display: flex;
+	flex-direction: column;
+	gap: var(--section-gap-sm);
+	background-color: aqua;
+	padding: var(--container-padding-sm);
+}
+
 .cartSummary {
 	display: flex;
 	flex-direction: column;

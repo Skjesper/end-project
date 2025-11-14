@@ -41,7 +41,7 @@ export default function AddToCartModal({
 		if (isOpen) {
 			const timer = setTimeout(() => {
 				onClose()
-			}, 5000) // Changed back to 5 seconds
+			}, 500000) // Changed back to 5 seconds
 			setAutoCloseTimer(timer)
 
 			return () => {
