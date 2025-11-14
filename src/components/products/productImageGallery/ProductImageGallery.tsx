@@ -15,11 +15,13 @@ interface ProductImage {
 interface ProductImageGalleryProps {
 	images: ProductImage[]
 	productTitle: string
+	favoriteButton?: React.ReactNode
 }
 
 export default function ProductImageGallery({
 	images,
-	productTitle
+	productTitle,
+	favoriteButton
 }: ProductImageGalleryProps) {
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [isMobile, setIsMobile] = useState(false)
@@ -66,6 +68,9 @@ export default function ProductImageGallery({
 
 	return (
 		<div className={styles.galleryWrapper}>
+			{favoriteButton && (
+				<div className={styles.favoriteButton}>{favoriteButton}</div>
+			)}
 			{isMobile ? (
 				// Mobile: Swiper
 				<>
