@@ -520,6 +520,8 @@ export async function createCheckout(cartItems: CartItem[]) {
 		quantity: item.quantity
 	}))
 
+	console.log('Creating checkout with lines:', lines)
+
 	// Step 1: Create cart
 	const createMutation = `
     mutation cartCreate($lines: [CartLineInput!]!) {

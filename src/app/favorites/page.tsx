@@ -1,87 +1,208 @@
 'use client'
 
-import { useFavorites } from '@/context/FavoritesContext'
-import { useCart } from '@/context/CartContext'
-import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Button from '@/components/ui/button/Button'
-import AddToCartButton from '@/components/ui/button/AddToCartButton'
 import styles from './page.module.css'
+import AddToCartButton from '@/components/ui/button/AddToCartButton'
+import ProductImageGallery from '@/components/products/productImageGallery/ProductImageGallery'
+import ProductAccordions from '@/components/products/productAccordions/ProductAccordions'
+import Button from '@/components/ui/button/Button'
+import { Product } from '@/types/product'
+import { getProductByHandle } from '@/lib/shopify'
 
-export default function FavoritesPage() {
-	const { favorites, toggleFavorite } = useFavorites()
-	const { getTotalItems } = useCart()
+import {
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
+	SelectChangeEvent
+} from '@mui/material'
 
-	if (favorites.length === 0) {
+export default function ProductDetailPage({
+	params
+}: {
+	params: Promise<{ slug: string }>
+}) {
+	const [product, setProduct] = useState<Product | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [selectedSize, setSelectedSize] = useState<string>('')
+	const [selectedColor, setSelectedColor] = useState<string>('')
+	const [selectedVariantId, setSelectedVariantId] = useState<string>('')
+
+	useEffect(() => {
+		async function loadProduct() {
+			const resolvedParams = await params
+			const productData = await getProductByHandle(resolvedParams.slug)
+			setProduct(productData)
+
+			// Set default variant if available
+			if (productData?.variants?.[0]) {
+				setSelectedVariantId(productData.variants[0].id)
+				// Set default selections based on first variant
+				const firstVariant = productData.variants[0]
+				const sizeOption = firstVariant.selectedOptions.find(
+					(opt) => opt.name.toLowerCase() === 'size'
+				)
+				const colorOption = firstVariant.selectedOptions.find(
+					(opt) => opt.name.toLowerCase() === 'color'
+				)
+				if (sizeOption) setSelectedSize(sizeOption.value)
+				if (colorOption) setSelectedColor(colorOption.value)
+			}
+
+			setLoading(false)
+		}
+		loadProduct()
+	}, [params])
+
+	// Update selected variant when size or color changes
+	useEffect(() => {
+		if (!product?.variants) return
+
+		const matchingVariant = product.variants.find((variant) => {
+			const variantSize = variant.selectedOptions.find(
+				(opt) => opt.name.toLowerCase() === 'size'
+			)?.value
+			const variantColor = variant.selectedOptions.find(
+				(opt) => opt.name.toLowerCase() === 'color'
+			)?.value
+
+			// Match based on what options exist
+			const sizeMatches = !selectedSize || variantSize === selectedSize
+			const colorMatches = !selectedColor || variantColor === selectedColor
+
+			return sizeMatches && colorMatches
+		})
+
+		if (matchingVariant) {
+			setSelectedVariantId(matchingVariant.id)
+		}
+	}, [selectedSize, selectedColor, product])
+
+	const handleSizeChange = (event: SelectChangeEvent<string>) => {
+		setSelectedSize(event.target.value)
+	}
+
+	const handleColorChange = (color: string) => {
+		setSelectedColor(color)
+	}
+
+	if (loading) {
+		return <div>Loading...</div>
+	}
+
+	if (!product) {
 		return (
 			<div>
-				<h1>Your Favorites</h1>
-				<p>You haven't added any favorites yet.</p>
+				<h1>Product Not Found</h1>
+				<Link href="/item">Back to Products</Link>
 			</div>
 		)
 	}
 
+	const colors = product.variants
+		? Array.from(
+				new Set(
+					product.variants
+						.flatMap((v) => v.selectedOptions)
+						.filter((opt) => opt.name.toLowerCase() === 'color')
+						.map((opt) => opt.value)
+				)
+		  )
+		: []
+
+	const sizes = product.variants
+		? Array.from(
+				new Set(
+					product.variants
+						.flatMap((v) => v.selectedOptions)
+						.filter((opt) => opt.name.toLowerCase() === 'size')
+						.map((opt) => opt.value)
+				)
+		  )
+		: []
+
+	const price = parseFloat(product.priceRange.minVariantPrice.amount)
+	const currency = product.priceRange.minVariantPrice.currencyCode
+
 	return (
-		<div className={styles.wrapper}>
-			<div className={styles.container}>
-				<div className={styles.title}>
-					<h3>FAVORITES ({favorites.length})</h3>
+		<div>
+			<div className={styles.pageContainer}>
+				<ProductImageGallery
+					images={product.images}
+					productTitle={product.title}
+				/>
 
-					<Button variant="nav">
-						<Link href="/cart">
-							{getTotalItems() > 0 && <h3>Cart ({getTotalItems()})</h3>}
-						</Link>
-					</Button>
-				</div>
+				<section className={styles.productDetails}>
+					<h3>{product.title}</h3>
+					<div className={styles.options}>
+						<div className={styles.price}>
+							<p>
+								Price: {price.toFixed(2)} {currency}
+							</p>
+						</div>
 
-				<ul className={styles.favoriteItems}>
-					{favorites.map((item) => (
-						<li key={item.productId}>
-							<div className={styles.contentWrapper}>
-								<div className={styles.imageSection}>
-									<Link href={`/item/${item.handle}`}>
-										<img
-											src={item.image}
-											alt={item.title}
-											width={200}
-											height={200}
-										/>
-									</Link>
+						<div className={styles.variantInfo}>
+							{sizes.length > 0 && (
+								<div className={styles.variantRow}>
+									<FormControl fullWidth>
+										<InputLabel id="size-select-label">Select Size</InputLabel>
+										<Select
+											labelId="size-select-label"
+											id="size-select"
+											value={selectedSize}
+											label="Size"
+											onChange={handleSizeChange}
+										>
+											{sizes.map((size) => (
+												<MenuItem key={size} value={size}>
+													{size}
+												</MenuItem>
+											))}
+										</Select>
+									</FormControl>
 								</div>
+							)}
+						</div>
 
-								<div className={styles.infoSection}>
-									<Link href={`/item/${item.handle}`}>
-										<h3>{item.title}</h3>
-										<p>
-											{item.price.toFixed(2)} {item.currency}
-										</p>
-									</Link>
+						<div className={styles.variantInfo}>
+							{colors.length > 0 && (
+								<div className={styles.variantRow}>
+									<span className={styles.variantLabel}>Color:</span>
+									<div className={styles.variantOptions}>
+										{colors.map((color) => (
+											<Button
+												key={color}
+												variant="color"
+												onClick={() => handleColorChange(color)}
+												className={
+													selectedColor === color ? styles.selected : ''
+												}
+											>
+												{color}
+											</Button>
+										))}
+									</div>
 								</div>
-							</div>
+							)}
+						</div>
 
-							<div className={styles.footerWrapper}>
-								<div className={styles.favoritesFooter}>
-									<AddToCartButton
-										productId={item.productId}
-										variantId={item.productId}
-										handle={item.handle}
-										title={item.title}
-										price={item.price}
-										image={item.image}
-										currency={item.currency}
-										variant="filter"
-									>
-										Add to cart
-									</AddToCartButton>
+						<div className={styles.addToCartButton}>
+							<AddToCartButton
+								productId={product.id}
+								variantId={selectedVariantId}
+								handle={product.handle}
+								title={product.title}
+								price={price}
+								image={product.images[0]?.url || ''}
+								currency={currency}
+								variant="primary"
+							/>
+						</div>
 
-									<Button variant="filter" onClick={() => toggleFavorite(item)}>
-										Remove
-									</Button>
-								</div>
-							</div>
-						</li>
-					))}
-				</ul>
+						<ProductAccordions description={product.description} />
+					</div>
+				</section>
 			</div>
 		</div>
 	)

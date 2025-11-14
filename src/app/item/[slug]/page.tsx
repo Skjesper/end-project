@@ -26,19 +26,67 @@ export default function ProductDetailPage({
 	const [product, setProduct] = useState<Product | null>(null)
 	const [loading, setLoading] = useState(true)
 	const [selectedSize, setSelectedSize] = useState<string>('')
+	const [selectedColor, setSelectedColor] = useState<string>('')
+	const [selectedVariantId, setSelectedVariantId] = useState<string>('')
 
 	useEffect(() => {
 		async function loadProduct() {
 			const resolvedParams = await params
 			const productData = await getProductByHandle(resolvedParams.slug)
 			setProduct(productData)
+
+			// IMPORTANT: Set default variant immediately when product loads
+			if (productData?.variants && productData.variants.length > 0) {
+				const firstVariant = productData.variants[0]
+				setSelectedVariantId(firstVariant.id) // Set the variant ID right away
+
+				// Also set the default size and color based on first variant
+				const sizeOption = firstVariant.selectedOptions.find(
+					(opt) => opt.name.toLowerCase() === 'size'
+				)
+				const colorOption = firstVariant.selectedOptions.find(
+					(opt) => opt.name.toLowerCase() === 'color'
+				)
+				if (sizeOption) setSelectedSize(sizeOption.value)
+				if (colorOption) setSelectedColor(colorOption.value)
+			}
+
 			setLoading(false)
 		}
 		loadProduct()
 	}, [params])
 
+	// Update selected variant when size or color changes
+	useEffect(() => {
+		if (!product?.variants || product.variants.length === 0) return
+
+		const matchingVariant = product.variants.find((variant) => {
+			const variantSize = variant.selectedOptions.find(
+				(opt) => opt.name.toLowerCase() === 'size'
+			)?.value
+			const variantColor = variant.selectedOptions.find(
+				(opt) => opt.name.toLowerCase() === 'color'
+			)?.value
+
+			// Match based on selected options
+			const sizeMatches = !selectedSize || variantSize === selectedSize
+			const colorMatches = !selectedColor || variantColor === selectedColor
+
+			return sizeMatches && colorMatches
+		})
+
+		if (matchingVariant) {
+			setSelectedVariantId(matchingVariant.id)
+			console.log('Selected variant ID:', matchingVariant.id) // Debug log
+		}
+	}, [selectedSize, selectedColor, product])
+
 	const handleSizeChange = (event: SelectChangeEvent<string>) => {
 		setSelectedSize(event.target.value)
+	}
+
+	const handleColorChange = (event: SelectChangeEvent<string>) => {
+		setSelectedColor(event.target.value)
 	}
 
 	if (loading) {
@@ -79,6 +127,8 @@ export default function ProductDetailPage({
 	const price = parseFloat(product.priceRange.minVariantPrice.amount)
 	const currency = product.priceRange.minVariantPrice.currencyCode
 
+	console.log('Current selectedVariantId:', selectedVariantId) // Debug log
+
 	return (
 		<div>
 			<div className={styles.pageContainer}>
@@ -105,7 +155,7 @@ export default function ProductDetailPage({
 											labelId="size-select-label"
 											id="size-select"
 											value={selectedSize}
-											label="Size"
+											label="Select Size"
 											onChange={handleSizeChange}
 										>
 											{sizes.map((size) => (
@@ -122,14 +172,24 @@ export default function ProductDetailPage({
 						<div className={styles.variantInfo}>
 							{colors.length > 0 && (
 								<div className={styles.variantRow}>
-									<span className={styles.variantLabel}></span>
-									<div className={styles.variantOptions}>
-										{colors.map((color) => (
-											<Button key={color} variant="color">
-												{color}
-											</Button>
-										))}
-									</div>
+									<FormControl fullWidth>
+										<InputLabel id="color-select-label">
+											Select Color
+										</InputLabel>
+										<Select
+											labelId="color-select-label"
+											id="color-select"
+											value={selectedColor}
+											label="Select Color"
+											onChange={handleColorChange}
+										>
+											{colors.map((color) => (
+												<MenuItem key={color} value={color}>
+													{color}
+												</MenuItem>
+											))}
+										</Select>
+									</FormControl>
 								</div>
 							)}
 						</div>
@@ -137,7 +197,7 @@ export default function ProductDetailPage({
 						<div className={styles.addToCartButton}>
 							<AddToCartButton
 								productId={product.id}
-								variantId={product.variantId || ''}
+								variantId={selectedVariantId}
 								handle={product.handle}
 								title={product.title}
 								price={price}
