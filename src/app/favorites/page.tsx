@@ -2,7 +2,7 @@
 
 import { useFavorites } from '@/context/FavoritesContext'
 import { useCart } from '@/context/CartContext'
-import Image from 'next/image'
+
 import Link from 'next/link'
 import Button from '@/components/ui/button/Button'
 import AddToCartButton from '@/components/ui/button/AddToCartButton'
