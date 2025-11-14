@@ -6,8 +6,8 @@ import { Cart, CartItem } from '@/types/cart'
 interface CartContextType {
 	cart: Cart
 	addToCart: (item: Omit<CartItem, 'quantity'>) => void
-	removeFromCart: (productId: string) => void
-	updateQuantity: (productId: string, quantity: number) => void
+	removeFromCart: (variantId: string) => void
+	updateQuantity: (variantId: string, quantity: number) => void
 	clearCart: () => void
 	getTotalItems: () => number
 	getTotalPrice: () => number
@@ -17,6 +17,7 @@ const CartContext = createContext<CartContextType | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {
 	const [cart, setCart] = useState<Cart>({ items: [] })
+
 	useEffect(() => {
 		const saved = localStorage.getItem('cart')
 		if (saved) {
@@ -31,41 +32,44 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
 	const addToCart = (item: Omit<CartItem, 'quantity'>) => {
 		setCart((prev) => {
+			// Use variantId instead of productId to find existing items
 			const existingItem = prev.items.find(
-				(i) => i.productId === item.productId
+				(i) => i.variantId === item.variantId
 			)
 
 			if (existingItem) {
+				// If same variant exists, just increase quantity
 				return {
 					items: prev.items.map((i) =>
-						i.productId === item.productId
+						i.variantId === item.variantId
 							? { ...i, quantity: i.quantity + 1 }
 							: i
 					)
 				}
 			}
 
+			// If it's a new variant, add it as a new item
 			return {
 				items: [...prev.items, { ...item, quantity: 1 }]
 			}
 		})
 	}
 
-	const removeFromCart = (productId: string) => {
+	const removeFromCart = (variantId: string) => {
 		setCart((prev) => ({
-			items: prev.items.filter((item) => item.productId !== productId)
+			items: prev.items.filter((item) => item.variantId !== variantId)
 		}))
 	}
 
-	const updateQuantity = (productId: string, quantity: number) => {
+	const updateQuantity = (variantId: string, quantity: number) => {
 		if (quantity <= 0) {
-			removeFromCart(productId)
+			removeFromCart(variantId)
 			return
 		}
 
 		setCart((prev) => ({
 			items: prev.items.map((item) =>
-				item.productId === productId ? { ...item, quantity } : item
+				item.variantId === variantId ? { ...item, quantity } : item
 			)
 		}))
 	}

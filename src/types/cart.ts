@@ -1,12 +1,14 @@
 export interface CartItem {
-	handle: string
 	productId: string
 	variantId: string
+	handle: string
 	title: string
 	price: number
-	quantity: number
 	image: string
 	currency: string
+	quantity: number
+	selectedSize?: string
+	selectedColor?: string
 }
 
 export interface Cart {
