@@ -72,6 +72,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 					<div className={styles.favoriteButton}>
 						<FavoriteButton
 							productId={product.id}
+							variantId={product.variants?.[0]?.id || product.id} // Add this - use first variant as default
 							handle={product.handle}
 							title={product.title}
 							image={primaryImage?.url || ''}

@@ -12,11 +12,34 @@
 	max-width: var(--max-width-md);
 	padding: 1rem var(--container-padding);
 	margin: 0 auto;
+	gap: var(--text-gap);
 }
 
 .addToCartButton {
 	margin-top: 1.5rem;
 	width: 100%;
+}
+
+.variantRow {
+	display: flex;
+	flex-direction: row;
+}
+
+.variantInfo {
+	display: flex;
+	flex-direction: column;
+}
+
+.variantOptions {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+
+.options {
+	display: flex;
+	flex-direction: column;
+	gap: var(--text-gap);
 }
 
 /* Desktop only: Side-by-side layout starts at 1024px */

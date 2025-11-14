@@ -14,6 +14,8 @@ interface ButtonProps {
 		| 'cart'
 		| 'filter'
 		| 'favorites'
+		| 'size'
+		| 'color'
 	isActive?: boolean
 	disabled?: boolean
 	type?: 'button' | 'submit' | 'reset'

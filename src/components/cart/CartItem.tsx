@@ -7,6 +7,7 @@ import styles from './CartItem.module.css'
 import Button from '../ui/button/Button'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+
 interface CartItemProps {
 	item: CartItemType
 }
@@ -16,12 +17,12 @@ export default function CartItem({ item }: CartItemProps) {
 
 	const handleDecrease = () => {
 		if (item.quantity > 1) {
-			updateQuantity(item.productId, item.quantity - 1)
+			updateQuantity(item.variantId, item.quantity - 1)
 		}
 	}
 
 	const handleIncrease = () => {
-		updateQuantity(item.productId, item.quantity + 1)
+		updateQuantity(item.variantId, item.quantity + 1)
 	}
 
 	const itemTotal = (item.price * item.quantity).toFixed(2)
@@ -45,6 +46,14 @@ export default function CartItem({ item }: CartItemProps) {
 					<Link href={`/item/${item.handle}`}>
 						<h3>{item.title}</h3>
 					</Link>
+					{/* Show variant options */}
+					{(item.selectedSize || item.selectedColor) && (
+						<p style={{ fontSize: '0.9rem', color: '#666', margin: '4px 0' }}>
+							{item.selectedSize && `Size: ${item.selectedSize}`}
+							{item.selectedSize && item.selectedColor && ' • '}
+							{item.selectedColor && `Color: ${item.selectedColor}`}
+						</p>
+					)}
 					<p aria-label={`Price: ${item.price.toFixed(2)} ${item.currency}`}>
 						{item.price.toFixed(2)} {item.currency}
 					</p>
@@ -79,7 +88,7 @@ export default function CartItem({ item }: CartItemProps) {
 
 					<Button
 						variant="filter"
-						onClick={() => removeFromCart(item.productId)}
+						onClick={() => removeFromCart(item.variantId)}
 						aria-label={`Remove ${item.title} from cart`}
 					>
 						Remove
