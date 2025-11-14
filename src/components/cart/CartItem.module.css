@@ -6,7 +6,7 @@
 }
 
 .cartItemImage {
-	width: 40%;
+	width: 50%;
 	aspect-ratio: 4 / 5; /* Changed from 1/1 to match 112×140 */
 	overflow: hidden;
 }

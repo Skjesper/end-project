@@ -42,6 +42,16 @@
 	gap: var(--text-gap);
 }
 
+.imageSection {
+	position: relative;
+}
+
+.favoriteButton {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	z-index: 10;
+}
 /* Desktop only: Side-by-side layout starts at 1024px */
 @media (min-width: 1024px) {
 	.pageContainer {

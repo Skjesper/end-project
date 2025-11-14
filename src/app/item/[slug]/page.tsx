@@ -6,6 +6,7 @@ import styles from './page.module.css'
 import AddToCartButton from '@/components/ui/button/AddToCartButton'
 import ProductImageGallery from '@/components/products/productImageGallery/ProductImageGallery'
 import ProductAccordions from '@/components/products/productAccordions/ProductAccordions'
+import FavoriteButton from '@/components/ui/button/FavoritesButton'
 import Button from '@/components/ui/button/Button'
 import { Product } from '@/types/product'
 import { getProductByHandle } from '@/lib/shopify'
@@ -135,6 +136,17 @@ export default function ProductDetailPage({
 				<ProductImageGallery
 					images={product.images}
 					productTitle={product.title}
+					favoriteButton={
+						<FavoriteButton
+							productId={product.id}
+							variantId={selectedVariantId}
+							handle={product.handle}
+							title={product.title}
+							image={product.images[0]?.url || ''}
+							price={price}
+							currency={currency}
+						/>
+					}
 				/>
 
 				<section className={styles.productDetails}>
