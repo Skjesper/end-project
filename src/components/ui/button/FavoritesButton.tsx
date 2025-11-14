@@ -13,6 +13,7 @@ interface FavoriteButtonProps {
 	image: string
 	price: number
 	currency: string
+	variantId: string
 }
 
 export default function FavoriteButton({
@@ -21,7 +22,8 @@ export default function FavoriteButton({
 	title,
 	image,
 	price,
-	currency
+	currency,
+	variantId // lowercase 'Id'
 }: FavoriteButtonProps) {
 	const { toggleFavorite, isFavorite } = useFavorites()
 
@@ -32,7 +34,8 @@ export default function FavoriteButton({
 			title,
 			image,
 			price,
-			currency
+			currency,
+			variantId // Changed from variantID to variantId (lowercase 'Id')
 		})
 	}
 
