@@ -221,7 +221,11 @@ export default function ProductDetailPage({
 							/>
 						</div>
 
-						<ProductAccordions description={product.description} />
+						<ProductAccordions
+							description={product.description}
+							shipping={product.standardShipping || undefined}
+							sizeAndFit={product.sizeInfo || undefined}
+						/>
 					</div>
 				</section>
 			</div>

@@ -46,6 +46,10 @@ interface ShopifyVariantNode {
 	selectedOptions: ShopifySelectedOption[]
 }
 
+interface ShopifyMetafieldNode {
+	value: string
+}
+
 interface ShopifyProductNode {
 	id: string
 	title: string
@@ -55,6 +59,8 @@ interface ShopifyProductNode {
 	category?: {
 		name: string
 	} | null
+	standardShipping?: ShopifyMetafieldNode | null
+	sizeInfo?: ShopifyMetafieldNode | null
 	priceRange: {
 		minVariantPrice: ShopifyPriceNode
 	}
@@ -133,6 +139,13 @@ export async function getProductsByCollection(
               category {
                 name
               }
+              standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+                value
+              }
+				sizeInfo: metafield(namespace: "custom", key: "sizeinfo") {
+  value
+}
+
               priceRange {
                 minVariantPrice {
                   amount
@@ -201,6 +214,8 @@ export async function getProductsByCollection(
 					handle: node.handle,
 					tags: node.tags,
 					category: node.category?.name || null,
+					standardShipping: node.standardShipping?.value || null,
+					sizeInfo: node.sizeInfo?.value || null,
 					description: node.description,
 					priceRange: {
 						minVariantPrice: {
@@ -247,6 +262,9 @@ export async function getProducts(): Promise<Product[]> {
             title
             handle
             description
+            standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+              value
+            }
             priceRange {
               minVariantPrice {
                 amount
@@ -297,6 +315,7 @@ export async function getProducts(): Promise<Product[]> {
 						title: node.title,
 						handle: node.handle,
 						description: node.description,
+						standardShipping: node.standardShipping?.value || null,
 						priceRange: {
 							minVariantPrice: {
 								amount: node.priceRange.minVariantPrice.amount,
@@ -340,6 +359,12 @@ export async function getProduct(id: string): Promise<Product | null> {
         title
         description
         handle
+        standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+          value
+        }
+		  sizeInfo: metafield(namespace: "custom", key: "standard_shipping") {
+          value
+        }
         priceRange {
           minVariantPrice {
             amount
@@ -391,6 +416,7 @@ export async function getProduct(id: string): Promise<Product | null> {
 			description: node.description || '',
 			handle: node.handle,
 			tags: node.tags,
+			standardShipping: node.standardShipping?.value || null,
 			priceRange: {
 				minVariantPrice: {
 					amount: node.priceRange.minVariantPrice.amount,
@@ -432,6 +458,12 @@ export async function getProductByHandle(
         title
         description
         handle
+        standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+          value
+        }
+		  sizeInfo: metafield(namespace: "custom", key: "sizeinfo") {
+  value
+}
         priceRange {
           minVariantPrice {
             amount
@@ -482,6 +514,8 @@ export async function getProductByHandle(
 			title: node.title,
 			description: node.description || '',
 			handle: node.handle,
+			standardShipping: node.standardShipping?.value || null,
+			sizeInfo: node.sizeInfo?.value || null,
 			priceRange: {
 				minVariantPrice: {
 					amount: node.priceRange.minVariantPrice.amount,
@@ -596,6 +630,9 @@ export async function getProductsByTag(
             category {
               name
             }
+            standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+              value
+            }
             priceRange {
               minVariantPrice {
                 amount
@@ -654,6 +691,7 @@ export async function getProductsByTag(
 						description: node.description,
 						tags: node.tags,
 						category: node.category?.name || null,
+						standardShipping: node.standardShipping?.value || null,
 						priceRange: {
 							minVariantPrice: {
 								amount: node.priceRange.minVariantPrice.amount,
