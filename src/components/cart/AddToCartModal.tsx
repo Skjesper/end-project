@@ -117,21 +117,30 @@ export default function AddToCartModal({
 								<img src={item.image} alt={item.title} />
 							</div>
 							<div className={styles.itemDetails}>
-								<h3 className={styles.itemTitle}>{item.title}</h3>
+								<div className={styles.itemPrice}>
+									<h3 className={styles.itemTitle}>{item.title}</h3>
+									<p className={styles.itemPrice}>
+										{item.price.toFixed(2)} {item.currency}
+									</p>{' '}
+								</div>
 
 								{/* Show size/color if they exist */}
 								{(item.selectedSize || item.selectedColor) && (
-									<p className={styles.itemVariants}>
-										{item.selectedSize && `Size: ${item.selectedSize}`}
-										{item.selectedSize && item.selectedColor && ' • '}
-										{item.selectedColor && `Color: ${item.selectedColor}`}
-									</p>
+									<div className={styles.itemVariants}>
+										{item.selectedSize && (
+											<p className={styles.variantItem}>
+												Size: {item.selectedSize}
+											</p>
+										)}
+										{item.selectedColor && (
+											<p className={styles.variantItem}>
+												Color: {item.selectedColor}
+											</p>
+										)}
+									</div>
 								)}
 
-								<p className={styles.itemPrice}>
-									{item.price.toFixed(2)} {item.currency}
-								</p>
-								<p className={styles.itemQuantity}>Qty: {item.quantity}</p>
+								<p className={styles.itemQuantity}>Quantity: {item.quantity}</p>
 							</div>
 						</div>
 					))}
