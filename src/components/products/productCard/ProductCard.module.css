@@ -114,8 +114,8 @@
 .productCardSwiper :global(.swiper-button-prev) {
 	color: #000 !important;
 	background: transparent !important; /* Changed from rgba(255, 255, 255, 0.8) to transparent */
-	width: 30px !important;
-	height: 30px !important;
+	width: 1.5rem !important;
+	height: 1.5rem !important;
 }
 
 .productCardSwiper :global(.swiper-button-next)::after,
@@ -192,8 +192,9 @@
 	transform: translate(-50%, -50%);
 	color: var(--forground);
 	font-weight: 700;
-	font-size: 1.25rem;
+	font-size: 1rem;
 	white-space: nowrap;
+	font-family: var(--font-display);
 }
 
 .variantRow {
