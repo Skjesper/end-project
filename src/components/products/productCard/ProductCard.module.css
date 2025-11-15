@@ -14,7 +14,7 @@
 
 .favoriteButton {
 	position: absolute;
-	top: 30px; /* Justera efter behov */
+	top: 30px;
 	right: 10px;
 	background: transparent;
 	border: none;
@@ -39,17 +39,6 @@
 
 .imageContainer {
 	position: relative;
-}
-
-.paperclipImage {
-	position: absolute;
-	top: -50px; /* Justera efter behov */
-	left: 20%;
-	transform: translateX(-40%);
-	width: 220px; /* Justera storlek */
-	height: auto;
-	z-index: 10;
-	pointer-events: none;
 }
 
 .imageWrapper {
@@ -87,21 +76,67 @@
 	height: 100%;
 	object-fit: cover;
 	display: block;
-	transition: opacity 0.3s ease;
 }
 
-.primaryImage {
-	z-index: 1;
-	opacity: 1;
+/* Swiper styles */
+.productCardSwiper {
+	width: 100% !important;
+	height: 100% !important;
 }
 
-.hoverImage {
-	z-index: 2;
-	opacity: 0;
+.productCardSwiper :global(.swiper-slide) {
+	width: 100% !important;
+	height: 100% !important;
 }
 
-.card:hover .hoverImage {
-	opacity: 1;
+/* Pagination dots at the bottom */
+.productCardSwiper :global(.swiper-pagination) {
+	bottom: 10px !important;
+	z-index: 5;
+}
+
+.productCardSwiper :global(.swiper-pagination-bullet) {
+	background: #fff !important;
+	opacity: 0.5 !important;
+	width: 8px !important;
+	height: 8px !important;
+	border: 1px solid #000;
+	margin: 0 4px !important;
+}
+
+.productCardSwiper :global(.swiper-pagination-bullet-active) {
+	opacity: 1 !important;
+	background: #000 !important;
+}
+
+/* Style the navigation arrows */
+.productCardSwiper :global(.swiper-button-next),
+.productCardSwiper :global(.swiper-button-prev) {
+	color: #000 !important;
+	background: transparent !important; /* Changed from rgba(255, 255, 255, 0.8) to transparent */
+	width: 30px !important;
+	height: 30px !important;
+}
+
+.productCardSwiper :global(.swiper-button-next)::after,
+.productCardSwiper :global(.swiper-button-prev)::after {
+	font-size: 16px !important;
+	font-weight: bold;
+}
+
+/* Show arrows always on desktop, hide on mobile */
+@media (min-width: 768px) {
+	.productCardSwiper :global(.swiper-button-next),
+	.productCardSwiper :global(.swiper-button-prev) {
+		opacity: 1 !important; /* Changed from 0 to 1 - always visible */
+	}
+}
+
+@media (max-width: 767px) {
+	.productCardSwiper :global(.swiper-button-next),
+	.productCardSwiper :global(.swiper-button-prev) {
+		display: none; /* Hide arrows on mobile */
+	}
 }
 
 .infoContainer {
@@ -118,7 +153,6 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--text-gap);
-	transition: opacity 0.3s ease;
 }
 
 .title {
@@ -201,10 +235,10 @@
 
 	.paperclipImage {
 		position: absolute;
-		top: -30px; /* Justera efter behov */
+		top: -30px;
 		left: 20%;
 		transform: translateX(-40%);
-		width: 120px; /* Justera storlek */
+		width: 120px;
 		height: auto;
 		z-index: 10;
 		pointer-events: none;
