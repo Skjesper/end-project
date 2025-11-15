@@ -43,20 +43,31 @@ export default function CartItem({ item }: CartItemProps) {
 			<div className={styles.cartItemDetails}>
 				{/* Product Info */}
 				<div className={styles.productInfo}>
-					<Link href={`/item/${item.handle}`}>
-						<h3>{item.title}</h3>
-					</Link>
+					<div className={styles.titlePrice}>
+						{' '}
+						<Link href={`/item/${item.handle}`}>
+							<h3 className={styles.itemTitle}>{item.title}</h3>
+						</Link>
+						<p className={styles.itemPrice}>
+							{item.price.toFixed(2)} {item.currency}
+						</p>
+					</div>
+
 					{/* Show variant options */}
 					{(item.selectedSize || item.selectedColor) && (
-						<p style={{ fontSize: '0.9rem', color: '#666', margin: '4px 0' }}>
-							{item.selectedSize && `Size: ${item.selectedSize}`}
-							{item.selectedSize && item.selectedColor && ' • '}
-							{item.selectedColor && `Color: ${item.selectedColor}`}
-						</p>
+						<div className={styles.itemVariants}>
+							{item.selectedSize && (
+								<p className={styles.variantItem}>Size: {item.selectedSize}</p>
+							)}
+							{item.selectedColor && (
+								<p className={styles.variantItem}>
+									Color: {item.selectedColor}
+								</p>
+							)}
+						</div>
 					)}
-					<p aria-label={`Price: ${item.price.toFixed(2)} ${item.currency}`}>
-						{item.price.toFixed(2)} {item.currency}
-					</p>
+
+					<p className={styles.itemQuantity}>Quantity: {item.quantity}</p>
 				</div>
 
 				{/* Quantity Controls & Actions */}
@@ -85,6 +96,7 @@ export default function CartItem({ item }: CartItemProps) {
 							<AddIcon />
 						</Button>
 					</div>
+					{/* ... rest of your code */}
 
 					<Button
 						variant="filter"
