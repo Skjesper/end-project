@@ -21,8 +21,11 @@
 .cartItemDetails {
 	display: flex;
 	align-items: flex-start;
-	justify-content: center;
+
 	flex-direction: column;
+
+	justify-content: flex-start;
+
 	flex: 1;
 	font-size: var(--font-size-xs);
 }
