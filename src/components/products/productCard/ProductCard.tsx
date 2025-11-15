@@ -103,7 +103,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 						</p>
 					</div>
 
-					{/* Variant info - only render if variants exist */}
+					{/* Variant info - only render if variants exist
 					{hasVariants && (
 						<div className={styles.variantInfo}>
 							{sizes.length > 0 && (
@@ -131,7 +131,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 								</div>
 							)}
 						</div>
-					)}
+					)} */}
 				</div>
 			</Link>
 		</article>

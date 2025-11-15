@@ -9,7 +9,7 @@
 .cardHeader {
 	display: flex;
 	justify-content: flex-end;
-	padding: 8px;
+	padding: 0.5rem;
 }
 
 .favoriteButton {
@@ -119,22 +119,6 @@
 	align-items: center;
 	gap: var(--text-gap);
 	transition: opacity 0.3s ease;
-}
-
-.defaultInfo {
-	opacity: 1;
-}
-
-.variantInfo {
-	opacity: 0;
-}
-
-.card:hover .defaultInfo {
-	opacity: 0;
-}
-
-.card:hover .variantInfo {
-	opacity: 1;
 }
 
 .title {
