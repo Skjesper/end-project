@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import ProductGrid from '@/components/products/productGrid/ProductGrid'
 import TagFilter from '@/components/collection/tagFilter/TagFilter'
 import { getProductsByCollection, Collection } from '@/lib/shopify'
+import CircularProgress from '@mui/material/CircularProgress'
 import { Product } from '@/types/product'
 import {
 	extractUniqueCategories,
@@ -86,9 +87,19 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 		const filtered = filterProductsByTag(categoryFilteredProducts, selectedTag)
 		setFinalFilteredProducts(filtered)
 	}, [selectedTag, categoryFilteredProducts])
-
 	if (isLoading) {
-		return <div>Loading...</div>
+		return (
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: 'calc(100vh - 5rem)'
+				}}
+			>
+				<CircularProgress size={60} sx={{ color: 'var(--accent)' }} />
+			</div>
+		)
 	}
 
 	if (!collection) {

@@ -3,7 +3,13 @@ export interface FavoriteItem {
 	variantId: string
 	handle: string
 	title: string
-	image: string
 	price: number
 	currency: string
+	image: string
+
+	selectedOptions?: {
+		name: string
+		value: string
+	}[]
+	variantTitle?: string
 }
