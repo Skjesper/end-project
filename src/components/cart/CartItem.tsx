@@ -7,6 +7,7 @@ import styles from './CartItem.module.css'
 import Button from '../ui/button/Button'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+import Image from 'next/image'
 
 interface CartItemProps {
 	item: CartItemType
@@ -35,7 +36,7 @@ export default function CartItem({ item }: CartItemProps) {
 					href={`/item/${item.handle}`}
 					aria-label={`View ${item.title} details`}
 				>
-					<img src={item.image} alt={item.title} width="100" height="100" />
+					<Image src={item.image} alt={item.title} width={200} height={200} />
 				</Link>
 			</div>
 
@@ -57,17 +58,23 @@ export default function CartItem({ item }: CartItemProps) {
 					{(item.selectedSize || item.selectedColor) && (
 						<div className={styles.itemVariants}>
 							{item.selectedSize && (
-								<p className={styles.variantItem}>Size: {item.selectedSize}</p>
+								<p className={styles.variantItem}>
+									<span className={styles.variantLabel}>Size:</span>{' '}
+									<span className={styles.variantValue}>
+										{item.selectedSize}
+									</span>
+								</p>
 							)}
 							{item.selectedColor && (
 								<p className={styles.variantItem}>
-									Color: {item.selectedColor}
+									<span className={styles.variantLabel}>Color:</span>{' '}
+									<span className={styles.variantValue}>
+										{item.selectedColor}
+									</span>
 								</p>
 							)}
 						</div>
 					)}
-
-					<p className={styles.itemQuantity}>Quantity: {item.quantity}</p>
 				</div>
 
 				{/* Quantity Controls & Actions */}

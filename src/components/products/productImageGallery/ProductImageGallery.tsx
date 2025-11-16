@@ -68,12 +68,12 @@ export default function ProductImageGallery({
 
 	return (
 		<div className={styles.galleryWrapper}>
-			{favoriteButton && (
-				<div className={styles.favoriteButton}>{favoriteButton}</div>
-			)}
 			{isMobile ? (
 				// Mobile: Swiper
 				<>
+					{favoriteButton && (
+						<div className={styles.favoriteButton}>{favoriteButton}</div>
+					)}
 					<Swiper
 						spaceBetween={0}
 						slidesPerView={1}
@@ -102,7 +102,10 @@ export default function ProductImageGallery({
 				<>
 					<section ref={galleryRef} className={styles.imageGallery}>
 						{images.map((image, index) => (
-							<div key={index}>
+							<div key={index} className={styles.imageWrapper}>
+								{index === 0 && favoriteButton && (
+									<div className={styles.favoriteButton}>{favoriteButton}</div>
+								)}
 								<img src={image.url} alt={image.altText || productTitle} />
 							</div>
 						))}
