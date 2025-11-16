@@ -10,6 +10,7 @@ import FavoriteButton from '@/components/ui/button/FavoritesButton'
 import Button from '@/components/ui/button/Button'
 import { Product } from '@/types/product'
 import { getProductByHandle } from '@/lib/shopify'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import {
 	FormControl,
@@ -91,7 +92,18 @@ export default function ProductDetailPage({
 	}
 
 	if (loading) {
-		return <div>Loading...</div>
+		return (
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					height: 'calc(100vh - 5rem)'
+				}}
+			>
+				<CircularProgress size={60} sx={{ color: 'var(--accent)' }} />
+			</div>
+		)
 	}
 
 	if (!product) {

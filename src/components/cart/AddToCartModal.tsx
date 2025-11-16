@@ -9,6 +9,7 @@ import { useCart } from '@/context/CartContext'
 import { CartItem } from '@/types/cart'
 import Button from '@/components/ui/button/Button'
 import styles from './AddToCartModal.module.css'
+import Image from 'next/image'
 
 interface AddToCartModalProps {
 	isOpen: boolean
@@ -114,7 +115,13 @@ export default function AddToCartModal({
 							}`}
 						>
 							<div className={styles.itemImage}>
-								<img src={item.image} alt={item.title} />
+								<Image
+									src={item.image}
+									alt={item.title}
+									width={200}
+									height={250}
+									quality={90}
+								/>
 							</div>
 							<div className={styles.itemDetails}>
 								<div className={styles.itemPrice}>
