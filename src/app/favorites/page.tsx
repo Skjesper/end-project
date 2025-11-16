@@ -16,7 +16,6 @@ export default function FavoritesPage() {
 		return (
 			<div>
 				<h1>Your Favorites</h1>
-				<p>You haven't added any favorites yet.</p>
 			</div>
 		)
 	}
