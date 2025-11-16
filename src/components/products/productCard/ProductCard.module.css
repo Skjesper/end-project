@@ -113,7 +113,7 @@
 .productCardSwiper :global(.swiper-button-next),
 .productCardSwiper :global(.swiper-button-prev) {
 	color: #000 !important;
-	background: transparent !important; /* Changed from rgba(255, 255, 255, 0.8) to transparent */
+	background: transparent !important;
 	width: 1.5rem !important;
 	height: 1.5rem !important;
 }
@@ -128,14 +128,14 @@
 @media (min-width: 768px) {
 	.productCardSwiper :global(.swiper-button-next),
 	.productCardSwiper :global(.swiper-button-prev) {
-		opacity: 1 !important; /* Changed from 0 to 1 - always visible */
+		opacity: 1 !important;
 	}
 }
 
 @media (max-width: 767px) {
 	.productCardSwiper :global(.swiper-button-next),
 	.productCardSwiper :global(.swiper-button-prev) {
-		display: none; /* Hide arrows on mobile */
+		display: none;
 	}
 }
 
@@ -172,16 +172,17 @@
 
 .priceWrapper {
 	position: relative;
-	display: inline-block;
-	width: 200px;
-	height: 80px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	height: auto;
 }
 
 .priceImage {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
+	display: block;
+	width: 200px;
+	height: auto;
 	object-fit: contain;
 }
 
@@ -225,9 +226,8 @@
 }
 
 @media (max-width: 1024px) {
-	.priceWrapper {
+	.priceImage {
 		width: 100px;
-		height: 80px;
 	}
 
 	.priceText {
