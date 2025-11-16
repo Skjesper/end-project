@@ -149,7 +149,7 @@
    all spacing and typography the same
    ============================================ */
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
 	:root {
 		--background: #0a0a0a;
 		--foreground: #ededed;
@@ -161,7 +161,7 @@
 		--secondary: #262626;
 		--secondary-foreground: #ededed;
 	}
-}
+} */
 
 /* ============================================
    RESPONSIVE ADJUSTMENTS
