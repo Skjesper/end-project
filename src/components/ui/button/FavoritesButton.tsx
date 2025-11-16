@@ -23,11 +23,14 @@ export default function FavoriteButton({
 	image,
 	price,
 	currency,
-	variantId // lowercase 'Id'
+	variantId
 }: FavoriteButtonProps) {
 	const { toggleFavorite, isFavorite } = useFavorites()
 
-	const handleClick = () => {
+	const handleClick = (e: React.MouseEvent) => {
+		e.preventDefault() // Prevents link navigation
+		e.stopPropagation() // Stops event from bubbling to parent elements
+
 		toggleFavorite({
 			productId,
 			handle,
@@ -35,7 +38,7 @@ export default function FavoriteButton({
 			image,
 			price,
 			currency,
-			variantId // Changed from variantID to variantId (lowercase 'Id')
+			variantId
 		})
 	}
 
