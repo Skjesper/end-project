@@ -51,7 +51,7 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		height: 100vh;
-		padding-right: 1rem;
+		padding-left: var(--container-padding);
 		scroll-snap-type: y mandatory;
 		gap: 1rem;
 		scrollbar-width: none;
@@ -59,14 +59,27 @@
 		-webkit-overflow-scrolling: touch;
 	}
 
+	/* Add padding with a pseudo-element AND make it snap */
+	.imageGallery::before {
+		content: '';
+		display: block;
+		height: 3rem;
+		flex-shrink: 0;
+		scroll-snap-align: start;
+	}
+
 	.imageGallery::-webkit-scrollbar {
 		display: none;
+	}
+
+	.imageWrapper {
+		position: relative; /* Add this for positioning context */
 	}
 
 	.favoriteButton {
 		position: absolute;
 		top: 1rem;
-		right: 2rem;
+		right: 1rem;
 		z-index: 20;
 	}
 
@@ -81,10 +94,12 @@
 		width: 100%;
 		height: auto;
 		object-fit: contain;
+		display: block;
+		border: solid var(--primary) var(--border-width);
 	}
 
 	.galleryWrapper {
-		width: 50%;
+		width: 40%;
 		height: 100vh;
 	}
 }
