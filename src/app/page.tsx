@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import CategorySideScroll from '@/components/categorySideScroll/CategorySideScroll'
 import HeroTitle from '@/components/hero/HeroTitle'
-
 import MySwiper from '@/components/products/carousel/Carousel'
 import LoadingScreen from '@/components/loadingScreen/LoadingScreen'
 import AboutText from '@/components/aboutText/AboutText'
@@ -14,15 +13,11 @@ export default function Home() {
 	return (
 		<main>
 			{isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-			{!isLoading && (
-				<>
-					<HeroTitle />
-					<AboutText />
-					<MySwiper />
-					{/* <div style={{ height: '100vh' }}></div> */}
-					<CategorySideScroll />
-				</>
-			)}
+
+			<HeroTitle />
+			<AboutText />
+			<MySwiper />
+			<CategorySideScroll />
 		</main>
 	)
 }

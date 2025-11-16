@@ -50,7 +50,7 @@ export default function FavoritesPage() {
 
 				<ul className={styles.favoriteItems}>
 					{favorites.map((item) => (
-						<li key={item.productId}>
+						<li key={`${item.productId}-${item.variantId}`}>
 							<div className={styles.contentWrapper}>
 								<div className={styles.imageSection}>
 									<Link href={`/item/${item.handle}`}>
@@ -66,7 +66,20 @@ export default function FavoritesPage() {
 								<div className={styles.infoSection}>
 									<Link href={`/item/${item.handle}`}>
 										<h3>{item.title}</h3>
-										<p>
+
+										{/* Display variant options (size, color, etc.) */}
+										{item.selectedOptions &&
+											item.selectedOptions.length > 0 && (
+												<div className={styles.variantInfo}>
+													{item.selectedOptions.map((option, index) => (
+														<p key={index} className={styles.optionText}>
+															{option.name}: {option.value}
+														</p>
+													))}
+												</div>
+											)}
+
+										<p className={styles.price}>
 											{item.price.toFixed(2)} {item.currency}
 										</p>
 									</Link>
@@ -77,7 +90,7 @@ export default function FavoritesPage() {
 								<div className={styles.favoritesFooter}>
 									<AddToCartButton
 										productId={item.productId}
-										variantId={item.productId}
+										variantId={item.variantId}
 										handle={item.handle}
 										title={item.title}
 										price={item.price}
