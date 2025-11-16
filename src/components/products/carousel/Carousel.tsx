@@ -61,9 +61,8 @@ export default function MySwiper() {
 			const tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: containerRef.current,
-					start: 'top 50%', // Triggers when top hits 50% of viewport
-					// Remove: end, scrub, pin, anticipatePin
-					toggleActions: 'play none none none' // Plays once when triggered
+					start: 'top 50%',
+					toggleActions: 'play none none none'
 				}
 			})
 
@@ -72,8 +71,8 @@ export default function MySwiper() {
 				{
 					opacity: 0,
 					y: 50,
-					duration: 0.3, // Reduced from 0.5
-					stagger: 0.05, // Reduced from 0.1
+					duration: 0.3,
+					stagger: 0.05,
 					ease: 'power2.out'
 				},
 				0
@@ -83,21 +82,21 @@ export default function MySwiper() {
 					{
 						opacity: 0,
 						y: 50,
-						duration: 0.3, // Reduced from 0.5
-						stagger: 0.08, // Reduced from 0.15
+						duration: 0.3,
+						stagger: 0.08,
 						ease: 'power2.out'
 					},
-					0.4 // Reduced from 0.8
+					0.4
 				)
 				.from(
 					mainSwiperRef.current,
-					{ y: -100, opacity: 0, duration: 0.6, ease: 'power2.out' }, // Reduced from 1
-					0.8 // Reduced from 1.5
+					{ y: -100, opacity: 0, duration: 0.6, ease: 'power2.out' },
+					0.8
 				)
 				.from(
 					thumbSwiperRef.current,
-					{ y: 100, opacity: 0, duration: 0.6, ease: 'power2.out' }, // Reduced from 1
-					1.2 // Reduced from 2.5
+					{ y: 100, opacity: 0, duration: 0.6, ease: 'power2.out' },
+					1.2
 				)
 		},
 		{ scope: containerRef, dependencies: [loading] }
@@ -206,8 +205,8 @@ export default function MySwiper() {
 								<Image
 									src={product.images[0]?.url || '/placeholder.png'}
 									alt={product.images[0]?.altText || product.title}
-									width={50}
-									height={60}
+									width={200}
+									height={240}
 									className={styles.thumbImage}
 								/>
 							</SwiperSlide>
