@@ -43,7 +43,7 @@ export default function CartSummary() {
 			</Button>
 
 			<Button variant="secondary">
-				<Link href="/products">Continue Shopping</Link>
+				<Link href="/">Continue Shopping</Link>
 			</Button>
 		</aside>
 	)

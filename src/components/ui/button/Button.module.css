@@ -83,14 +83,20 @@
 }
 
 .button[data-variant='secondary'] {
-	background-color: var(--secondary);
+	font-family: var(--font-display);
+	background-color: var(--primary-foreground);
 	color: var(--secondary-foreground);
 	padding: 1rem 1.5rem;
-	border-radius: 3px;
+	border: solid var(--primary) 1px;
+
 	font-size: 1rem;
-	font-weight: 600;
+	font-weight: 700;
 	width: 100%;
 	display: block;
+}
+
+.button[data-variant='secondary']:hover {
+	background-color: var(--accent);
 }
 
 .button[data-variant='cart'] {
