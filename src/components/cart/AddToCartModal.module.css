@@ -58,7 +58,8 @@
 
 .itemImage {
 	flex-shrink: 0;
-
+	width: auto;
+	height: 9rem;
 	overflow: hidden;
 	background-color: white;
 }
@@ -153,10 +154,5 @@
 
 	.title {
 		font-size: 1.25rem;
-	}
-
-	.itemImage {
-		width: auto;
-		height: 8rem;
 	}
 }
