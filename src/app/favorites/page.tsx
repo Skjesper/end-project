@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Button from '@/components/ui/button/Button'
 import AddToCartButton from '@/components/ui/button/AddToCartButton'
 import styles from './page.module.css'
+import Image from 'next/image'
 
 export default function FavoritesPage() {
 	const { favorites, toggleFavorite } = useFavorites()
@@ -14,8 +15,22 @@ export default function FavoritesPage() {
 
 	if (favorites.length === 0) {
 		return (
-			<div>
-				<h1>Your Favorites</h1>
+			<div className={styles.wrapper}>
+				<div className={styles.container}>
+					<div className={styles.title}>
+						<h3>FAVORITES ({favorites.length})</h3>
+
+						<Button variant="nav">
+							<Link href="/cart">
+								{getTotalItems() > 0 && <h3>Cart ({getTotalItems()})</h3>}
+							</Link>
+						</Button>
+					</div>
+
+					<div className={styles.emptyState}>
+						<h3>Your favorites list is empty</h3>
+					</div>
+				</div>
 			</div>
 		)
 	}
@@ -39,11 +54,11 @@ export default function FavoritesPage() {
 							<div className={styles.contentWrapper}>
 								<div className={styles.imageSection}>
 									<Link href={`/item/${item.handle}`}>
-										<img
+										<Image
 											src={item.image}
 											alt={item.title}
-											width={200}
-											height={200}
+											width={400}
+											height={400}
 										/>
 									</Link>
 								</div>
