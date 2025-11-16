@@ -5,6 +5,7 @@ import CartItem from '@/components/cart/CartItem'
 import CartSummary from '@/components/cart/CartSummary'
 import Link from 'next/link'
 import styles from './page.module.css'
+import Button from '@/components/ui/button/Button'
 
 export default function CartPage() {
 	const { cart } = useCart()
@@ -12,10 +13,9 @@ export default function CartPage() {
 	if (cart.items.length === 0) {
 		return (
 			<div className={styles.emptyCart}>
-				<h1>Shopping Cart</h1>
-				<p>Your cart is empty</p>
-				<Link href="/products">
-					<button>Browse Products</button>
+				<h1>Your cart is empty</h1>
+				<Link href="/">
+					<Button variant="filter">Back to home</Button>
 				</Link>
 			</div>
 		)

@@ -42,18 +42,19 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: nowrap;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: var(--primary-foreground);
+	/* background-color: rgba(255, 255, 255, 0.5); */
 	color: inherit;
 	border: 1px solid #000000;
 	padding: 0.75rem 0.75rem;
-	/* border-radius: 6px; */
+
 	font-family: var(--font-display);
 	font-weight: 700;
 	text-transform: uppercase;
 }
 
 .button[data-variant='filter']:hover {
-	background-color: var(--accentHover);
+	background-color: var(--accent);
 	color: var(--primary);
 }
 

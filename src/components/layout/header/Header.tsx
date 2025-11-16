@@ -127,11 +127,11 @@ export default function Header() {
 				<nav className={styles.rightNav}>
 					<div className={styles.rightNavContent}>
 						<div className={styles.icons}>
-							<Link href="/search" className={styles.navItem}>
+							{/* <Link href="/search" className={styles.navItem}>
 								<Button variant="nav">
 									<SearchIcon sx={{ fontSize: 25 }} />
 								</Button>
-							</Link>
+							</Link> */}
 
 							<Link
 								href="/favorites"
