@@ -106,10 +106,10 @@
 	border: none;
 	padding: 0;
 	min-width: auto;
+	color: #000000;
 }
 
 .button[data-variant='favorites']:hover {
-	background: rgba(0, 0, 0, 0.05); /* Optional subtle hover */
 }
 
 .button[data-variant='size'] {
