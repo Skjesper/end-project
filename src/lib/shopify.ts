@@ -205,8 +205,8 @@ export async function getProductsByCollection(
 			description: collectionData.description
 		}
 
-		const products: Product[] = collectionData.products.edges.map(
-			(edge: ShopifyEdge<ShopifyProductNode>) => {
+		const products: Product[] = collectionData.products.edges
+			.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 				const node = edge.node
 				return {
 					id: node.id,
@@ -242,8 +242,14 @@ export async function getProductsByCollection(
 						})
 					)
 				}
-			}
-		)
+			})
+			// Filter out products with NO available variants
+			.filter((product) => {
+				return (
+					product.variants &&
+					product.variants.some((variant) => variant.availableForSale)
+				)
+			})
 
 		return { collection, products }
 	} catch (error) {
@@ -307,8 +313,8 @@ export async function getProducts(): Promise<Product[]> {
 		console.log('Shopify Response:', response)
 
 		const products: Product[] =
-			response.data?.products.edges.map(
-				(edge: ShopifyEdge<ShopifyProductNode>) => {
+			response.data?.products.edges
+				.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 					const node = edge.node
 					return {
 						id: node.id,
@@ -341,8 +347,13 @@ export async function getProducts(): Promise<Product[]> {
 							})
 						)
 					}
-				}
-			) || []
+				})
+				.filter((product) => {
+					return (
+						product.variants &&
+						product.variants.some((variant) => variant.availableForSale)
+					)
+				}) || []
 
 		return products
 	} catch (error) {
@@ -603,7 +614,17 @@ export async function createCheckout(cartItems: CartItem[]) {
 			variables: { cartId }
 		})
 
-		const checkoutUrl = cartResponse.data?.cart?.checkoutUrl
+		let checkoutUrl = cartResponse.data?.cart?.checkoutUrl
+
+		// Add return_to parameter to redirect back to your Vercel site
+		if (checkoutUrl) {
+			const url = new URL(checkoutUrl)
+			url.searchParams.append(
+				'return_to',
+				'https://skjesp.vercel.app/thank-you'
+			)
+			checkoutUrl = url.toString()
+		}
 
 		console.log('Final checkout URL:', checkoutUrl)
 		return checkoutUrl || null
@@ -681,8 +702,8 @@ export async function getProductsByTag(
 		console.log('Products by Tag Response:', response)
 
 		const products: Product[] =
-			response.data?.products.edges.map(
-				(edge: ShopifyEdge<ShopifyProductNode>) => {
+			response.data?.products.edges
+				.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 					const node = edge.node
 					return {
 						id: node.id,
@@ -717,8 +738,13 @@ export async function getProductsByTag(
 							})
 						)
 					}
-				}
-			) || []
+				})
+				.filter((product) => {
+					return (
+						product.variants &&
+						product.variants.some((variant) => variant.availableForSale)
+					)
+				}) || []
 
 		return products
 	} catch (error) {
