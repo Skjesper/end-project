@@ -5,6 +5,9 @@ import { useCart } from '@/context/CartContext'
 import { CartItem as CartItemType } from '@/types/cart'
 import styles from './CartItem.module.css'
 import Button from '../ui/button/Button'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
+import Image from 'next/image'
 
 interface CartItemProps {
 	item: CartItemType
@@ -15,12 +18,12 @@ export default function CartItem({ item }: CartItemProps) {
 
 	const handleDecrease = () => {
 		if (item.quantity > 1) {
-			updateQuantity(item.productId, item.quantity - 1)
+			updateQuantity(item.variantId, item.quantity - 1)
 		}
 	}
 
 	const handleIncrease = () => {
-		updateQuantity(item.productId, item.quantity + 1)
+		updateQuantity(item.variantId, item.quantity + 1)
 	}
 
 	const itemTotal = (item.price * item.quantity).toFixed(2)
@@ -33,7 +36,7 @@ export default function CartItem({ item }: CartItemProps) {
 					href={`/item/${item.handle}`}
 					aria-label={`View ${item.title} details`}
 				>
-					<img src={item.image} alt={item.title} width="100" height="100" />
+					<Image src={item.image} alt={item.title} width={200} height={200} />
 				</Link>
 			</div>
 
@@ -41,12 +44,37 @@ export default function CartItem({ item }: CartItemProps) {
 			<div className={styles.cartItemDetails}>
 				{/* Product Info */}
 				<div className={styles.productInfo}>
-					<Link href={`/item/${item.handle}`}>
-						<h3>{item.title}</h3>
-					</Link>
-					<p aria-label={`Price: ${item.price.toFixed(2)} ${item.currency}`}>
-						{item.price.toFixed(2)} {item.currency}
-					</p>
+					<div className={styles.titlePrice}>
+						{' '}
+						<Link href={`/item/${item.handle}`}>
+							<h3 className={styles.itemTitle}>{item.title}</h3>
+						</Link>
+						<p className={styles.itemPrice}>
+							{item.price.toFixed(2)} {item.currency}
+						</p>
+					</div>
+
+					{/* Show variant options */}
+					{(item.selectedSize || item.selectedColor) && (
+						<div className={styles.itemVariants}>
+							{item.selectedSize && (
+								<p className={styles.variantItem}>
+									<span className={styles.variantLabel}>Size:</span>{' '}
+									<span className={styles.variantValue}>
+										{item.selectedSize}
+									</span>
+								</p>
+							)}
+							{item.selectedColor && (
+								<p className={styles.variantItem}>
+									<span className={styles.variantLabel}>Color:</span>{' '}
+									<span className={styles.variantValue}>
+										{item.selectedColor}
+									</span>
+								</p>
+							)}
+						</div>
+					)}
 				</div>
 
 				{/* Quantity Controls & Actions */}
@@ -62,7 +90,7 @@ export default function CartItem({ item }: CartItemProps) {
 							disabled={item.quantity <= 1}
 							aria-label="Decrease quantity"
 						>
-							-
+							<RemoveIcon />
 						</Button>
 						<span aria-live="polite" aria-atomic="true">
 							{item.quantity}
@@ -72,13 +100,14 @@ export default function CartItem({ item }: CartItemProps) {
 							onClick={handleIncrease}
 							aria-label="Increase quantity"
 						>
-							+
+							<AddIcon />
 						</Button>
 					</div>
+					{/* ... rest of your code */}
 
 					<Button
-						variant="delete"
-						onClick={() => removeFromCart(item.productId)}
+						variant="filter"
+						onClick={() => removeFromCart(item.variantId)}
 						aria-label={`Remove ${item.title} from cart`}
 					>
 						Remove

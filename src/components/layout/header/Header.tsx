@@ -5,16 +5,16 @@ import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import Button from '@/components/ui/button/Button'
 import styles from './Header.module.css'
-import Image from 'next/image'
+
 import { getProductsByCollection } from '@/lib/shopify'
 import { extractUniqueCategories } from '@/utils/categoryFilter'
 import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
 import MobileMenu from '@/components/ui/mobileMenu/MobileMenu'
 import { useHoverDelay } from '@/hooks/useHoverDelay'
+import { useModalState } from '@/hooks/useModalState'
 
 import SearchIcon from '@mui/icons-material/Search'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 
 const CATEGORY_TYPES = ['men', 'women', 'accessories'] as const
 type CategoryType = (typeof CATEGORY_TYPES)[number]
@@ -22,14 +22,15 @@ type CategoryType = (typeof CATEGORY_TYPES)[number]
 export default function Header() {
 	const { getTotalItems } = useCart()
 
+	const { activeModal, openModal, closeModal, isOpen } =
+		useModalState<CategoryType>()
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
 	const [categories, setCategories] = useState<Record<CategoryType, string[]>>({
 		men: [],
 		women: [],
 		accessories: []
 	})
-
-	const [activeModal, setActiveModal] = useState<CategoryType | null>(null)
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
 	useEffect(() => {
 		async function loadCategories() {
@@ -51,15 +52,6 @@ export default function Header() {
 		loadCategories()
 	}, [])
 
-	const openModal = (categoryType: CategoryType) => {
-		setActiveModal(categoryType)
-	}
-
-	const closeModal = () => {
-		setActiveModal(null)
-	}
-
-	// Anropa hooks direkt i komponenten, inte i en funktion
 	const menHover = useHoverDelay({
 		onHoverStart: () => openModal('men'),
 		delay: 500,
@@ -129,11 +121,11 @@ export default function Header() {
 				<nav className={styles.rightNav}>
 					<div className={styles.rightNavContent}>
 						<div className={styles.icons}>
-							<Link href="/search" className={styles.navItem}>
+							{/* <Link href="/search" className={styles.navItem}>
 								<Button variant="nav">
 									<SearchIcon sx={{ fontSize: 25 }} />
 								</Button>
-							</Link>
+							</Link> */}
 
 							<Link
 								href="/favorites"
@@ -147,11 +139,7 @@ export default function Header() {
 							<Link href="/cart" className={styles.navItem}>
 								<Button variant="cart">
 									<div className={styles.cartIconWrapper}>
-										{getTotalItems() > 0 && (
-											<span className={styles.cartBadge}>
-												{getTotalItems()}
-											</span>
-										)}
+										<span className={styles.cartBadge}>{getTotalItems()}</span>
 									</div>
 								</Button>
 							</Link>

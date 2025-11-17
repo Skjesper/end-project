@@ -4,7 +4,7 @@ import styles from './Button.module.css'
 
 interface ButtonProps {
 	children: React.ReactNode
-	onClick?: () => void
+	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void // Updated this line
 	variant?:
 		| 'primary'
 		| 'secondary'
@@ -13,12 +13,15 @@ interface ButtonProps {
 		| 'delete'
 		| 'cart'
 		| 'filter'
+		| 'favorites'
+		| 'size'
+		| 'color'
 	isActive?: boolean
 	disabled?: boolean
 	type?: 'button' | 'submit' | 'reset'
 	ariaLabel?: string
 	ariaDescribedBy?: string
-	className?: string // Lägg till denna
+	className?: string
 }
 
 export default function Button({
@@ -30,7 +33,7 @@ export default function Button({
 	isActive = false,
 	ariaLabel,
 	ariaDescribedBy,
-	className = '' // Lägg till denna
+	className = ''
 }: ButtonProps) {
 	return (
 		<button

@@ -9,6 +9,7 @@ import { useCart } from '@/context/CartContext'
 import { CartItem } from '@/types/cart'
 import Button from '@/components/ui/button/Button'
 import styles from './AddToCartModal.module.css'
+import Image from 'next/image'
 
 interface AddToCartModalProps {
 	isOpen: boolean
@@ -31,7 +32,7 @@ export default function AddToCartModal({
 	onClose,
 	addedItem
 }: AddToCartModalProps) {
-	const { getTotalItems, getTotalPrice } = useCart()
+	const { getTotalItems, getTotalPrice, cart } = useCart()
 	const [autoCloseTimer, setAutoCloseTimer] = useState<NodeJS.Timeout | null>(
 		null
 	)
@@ -41,7 +42,7 @@ export default function AddToCartModal({
 		if (isOpen) {
 			const timer = setTimeout(() => {
 				onClose()
-			}, 500000000)
+			}, 500000) // Changed back to 5 seconds
 			setAutoCloseTimer(timer)
 
 			return () => {
@@ -104,18 +105,52 @@ export default function AddToCartModal({
 					</IconButton>
 				</div>
 
-				{/* Added Item */}
-				<div className={styles.addedItem}>
-					<div className={styles.itemImage}>
-						<img src={addedItem.image} alt={addedItem.title} />
-					</div>
-					<div className={styles.itemDetails}>
-						<h3 className={styles.itemTitle}>{addedItem.title}</h3>
-						<p className={styles.itemPrice}>
-							{addedItem.price.toFixed(2)} {addedItem.currency}
-						</p>
-						<p className={styles.itemQuantity}>Qty: {addedItem.quantity}</p>
-					</div>
+				{/* Cart Items List */}
+				<div className={styles.cartItemsList}>
+					{cart.items.map((item) => (
+						<div
+							key={item.variantId}
+							className={`${styles.cartItem} ${
+								item.variantId === addedItem.variantId ? styles.justAdded : ''
+							}`}
+						>
+							<div className={styles.itemImage}>
+								<Image
+									src={item.image}
+									alt={item.title}
+									width={200}
+									height={250}
+									quality={90}
+								/>
+							</div>
+							<div className={styles.itemDetails}>
+								<div className={styles.itemPrice}>
+									<h3 className={styles.itemTitle}>{item.title}</h3>
+									<p className={styles.itemPrice}>
+										{item.price.toFixed(2)} {item.currency}
+									</p>{' '}
+								</div>
+
+								{/* Show size/color if they exist */}
+								{(item.selectedSize || item.selectedColor) && (
+									<div className={styles.itemVariants}>
+										{item.selectedSize && (
+											<p className={styles.variantItem}>
+												Size: {item.selectedSize}
+											</p>
+										)}
+										{item.selectedColor && (
+											<p className={styles.variantItem}>
+												Color: {item.selectedColor}
+											</p>
+										)}
+									</div>
+								)}
+
+								<p className={styles.itemQuantity}>Quantity: {item.quantity}</p>
+							</div>
+						</div>
+					))}
 				</div>
 
 				{/* Cart Summary */}

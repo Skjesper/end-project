@@ -1,5 +1,12 @@
+.productWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .gridWrapper {
 	padding: var(--container-padding);
+	width: 100vw;
 }
 
 .grid {
@@ -8,6 +15,44 @@
 	gap: var(--card-gap);
 }
 
+.paginationContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 3rem 0 2rem;
+	margin-top: 2rem;
+}
+
+.pageNumbers {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.arrowButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+.arrowButton:hover:not(:disabled) {
+	opacity: 0.7;
+}
+
+.arrowButton:disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
+.activePage {
+	background-color: var(--accent) !important;
+	color: var(--foreground) !important;
+}
 @media (max-width: 1280px) {
 	.grid {
 		grid-template-columns: repeat(3, 1fr);

@@ -46,6 +46,10 @@ interface ShopifyVariantNode {
 	selectedOptions: ShopifySelectedOption[]
 }
 
+interface ShopifyMetafieldNode {
+	value: string
+}
+
 interface ShopifyProductNode {
 	id: string
 	title: string
@@ -55,6 +59,8 @@ interface ShopifyProductNode {
 	category?: {
 		name: string
 	} | null
+	standardShipping?: ShopifyMetafieldNode | null
+	sizeInfo?: ShopifyMetafieldNode | null
 	priceRange: {
 		minVariantPrice: ShopifyPriceNode
 	}
@@ -133,6 +139,13 @@ export async function getProductsByCollection(
               category {
                 name
               }
+              standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+                value
+              }
+				sizeInfo: metafield(namespace: "custom", key: "sizeinfo") {
+  value
+}
+
               priceRange {
                 minVariantPrice {
                   amount
@@ -192,8 +205,8 @@ export async function getProductsByCollection(
 			description: collectionData.description
 		}
 
-		const products: Product[] = collectionData.products.edges.map(
-			(edge: ShopifyEdge<ShopifyProductNode>) => {
+		const products: Product[] = collectionData.products.edges
+			.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 				const node = edge.node
 				return {
 					id: node.id,
@@ -201,6 +214,8 @@ export async function getProductsByCollection(
 					handle: node.handle,
 					tags: node.tags,
 					category: node.category?.name || null,
+					standardShipping: node.standardShipping?.value || null,
+					sizeInfo: node.sizeInfo?.value || null,
 					description: node.description,
 					priceRange: {
 						minVariantPrice: {
@@ -227,8 +242,14 @@ export async function getProductsByCollection(
 						})
 					)
 				}
-			}
-		)
+			})
+			// Filter out products with NO available variants
+			.filter((product) => {
+				return (
+					product.variants &&
+					product.variants.some((variant) => variant.availableForSale)
+				)
+			})
 
 		return { collection, products }
 	} catch (error) {
@@ -247,6 +268,9 @@ export async function getProducts(): Promise<Product[]> {
             title
             handle
             description
+            standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+              value
+            }
             priceRange {
               minVariantPrice {
                 amount
@@ -289,14 +313,15 @@ export async function getProducts(): Promise<Product[]> {
 		console.log('Shopify Response:', response)
 
 		const products: Product[] =
-			response.data?.products.edges.map(
-				(edge: ShopifyEdge<ShopifyProductNode>) => {
+			response.data?.products.edges
+				.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 					const node = edge.node
 					return {
 						id: node.id,
 						title: node.title,
 						handle: node.handle,
 						description: node.description,
+						standardShipping: node.standardShipping?.value || null,
 						priceRange: {
 							minVariantPrice: {
 								amount: node.priceRange.minVariantPrice.amount,
@@ -322,8 +347,13 @@ export async function getProducts(): Promise<Product[]> {
 							})
 						)
 					}
-				}
-			) || []
+				})
+				.filter((product) => {
+					return (
+						product.variants &&
+						product.variants.some((variant) => variant.availableForSale)
+					)
+				}) || []
 
 		return products
 	} catch (error) {
@@ -340,6 +370,12 @@ export async function getProduct(id: string): Promise<Product | null> {
         title
         description
         handle
+        standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+          value
+        }
+		  sizeInfo: metafield(namespace: "custom", key: "standard_shipping") {
+          value
+        }
         priceRange {
           minVariantPrice {
             amount
@@ -391,6 +427,7 @@ export async function getProduct(id: string): Promise<Product | null> {
 			description: node.description || '',
 			handle: node.handle,
 			tags: node.tags,
+			standardShipping: node.standardShipping?.value || null,
 			priceRange: {
 				minVariantPrice: {
 					amount: node.priceRange.minVariantPrice.amount,
@@ -432,6 +469,12 @@ export async function getProductByHandle(
         title
         description
         handle
+        standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+          value
+        }
+		  sizeInfo: metafield(namespace: "custom", key: "sizeinfo") {
+  value
+}
         priceRange {
           minVariantPrice {
             amount
@@ -482,6 +525,8 @@ export async function getProductByHandle(
 			title: node.title,
 			description: node.description || '',
 			handle: node.handle,
+			standardShipping: node.standardShipping?.value || null,
+			sizeInfo: node.sizeInfo?.value || null,
 			priceRange: {
 				minVariantPrice: {
 					amount: node.priceRange.minVariantPrice.amount,
@@ -519,6 +564,8 @@ export async function createCheckout(cartItems: CartItem[]) {
 		merchandiseId: item.variantId,
 		quantity: item.quantity
 	}))
+
+	console.log('Creating checkout with lines:', lines)
 
 	// Step 1: Create cart
 	const createMutation = `
@@ -567,7 +614,17 @@ export async function createCheckout(cartItems: CartItem[]) {
 			variables: { cartId }
 		})
 
-		const checkoutUrl = cartResponse.data?.cart?.checkoutUrl
+		let checkoutUrl = cartResponse.data?.cart?.checkoutUrl
+
+		// Add return_to parameter to redirect back to your Vercel site
+		if (checkoutUrl) {
+			const url = new URL(checkoutUrl)
+			url.searchParams.append(
+				'return_to',
+				'https://skjesp.vercel.app/thank-you'
+			)
+			checkoutUrl = url.toString()
+		}
 
 		console.log('Final checkout URL:', checkoutUrl)
 		return checkoutUrl || null
@@ -593,6 +650,9 @@ export async function getProductsByTag(
             tags
             category {
               name
+            }
+            standardShipping: metafield(namespace: "custom", key: "standard_shipping") {
+              value
             }
             priceRange {
               minVariantPrice {
@@ -642,8 +702,8 @@ export async function getProductsByTag(
 		console.log('Products by Tag Response:', response)
 
 		const products: Product[] =
-			response.data?.products.edges.map(
-				(edge: ShopifyEdge<ShopifyProductNode>) => {
+			response.data?.products.edges
+				.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 					const node = edge.node
 					return {
 						id: node.id,
@@ -652,6 +712,7 @@ export async function getProductsByTag(
 						description: node.description,
 						tags: node.tags,
 						category: node.category?.name || null,
+						standardShipping: node.standardShipping?.value || null,
 						priceRange: {
 							minVariantPrice: {
 								amount: node.priceRange.minVariantPrice.amount,
@@ -677,8 +738,13 @@ export async function getProductsByTag(
 							})
 						)
 					}
-				}
-			) || []
+				})
+				.filter((product) => {
+					return (
+						product.variants &&
+						product.variants.some((variant) => variant.availableForSale)
+					)
+				}) || []
 
 		return products
 	} catch (error) {

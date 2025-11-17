@@ -1,0 +1,144 @@
+.wrapper {
+	width: 100%;
+	min-height: 100vh;
+	padding-bottom: 2rem;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 auto;
+	border: solid var(--foreground) var(--border-width);
+	border-top: 0;
+	width: 100%;
+	max-width: 40rem;
+	min-width: 30rem;
+}
+
+.emptyState {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 50vh;
+	text-align: center;
+}
+
+.emptyState h3 {
+	margin: 0;
+	font-size: var(--font-size-3xl);
+	font-family: var(--font-display);
+}
+
+.contentWrapper {
+	display: flex;
+	width: 100%;
+	gap: 1rem;
+	align-items: center;
+}
+
+.title {
+	display: flex;
+	gap: 0.5rem;
+	padding: 1rem;
+	width: 100%;
+	justify-content: center;
+	font-family: var(--font-display);
+	border-bottom: solid var(--border-width) var(--foreground);
+}
+
+.title h3 {
+	font-size: 1rem;
+}
+
+.favoriteItems {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.favoriteItems li {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.favoriteItems li:not(:last-child) {
+	border-bottom: solid var(--foreground) var(--border-width);
+}
+
+/* Image section */
+.imageSection {
+	width: 50%;
+	display: flex;
+	padding: 1rem;
+	aspect-ratio: 4/5;
+}
+
+.imageSection img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border: solid var(--foreground) var(--border-width);
+}
+
+/* Info section */
+.infoSection {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	justify-content: flex-start;
+	align-items: flex-start;
+	text-align: left;
+	padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.infoSection h3 {
+	font-size: 1rem;
+	font-family: var(--font-display);
+}
+
+.favoritesFooter {
+	padding: 1rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+	.container {
+		max-width: 100%;
+		min-width: 0;
+		border: 0;
+		border-bottom: solid var(--foreground) var(--border-width);
+	}
+
+	.favoriteItems li {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.contentWrapper {
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.imageSection {
+		width: 100%;
+		padding: 1rem;
+	}
+
+	.infoSection {
+		width: 100%;
+		padding: 0 1rem 1rem 1rem;
+	}
+}

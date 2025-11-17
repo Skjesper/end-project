@@ -4,8 +4,8 @@
 	align-items: center;
 	justify-content: center; /* Lägg till detta */
 	overflow: hidden;
-	height: calc(100svh - 5rem);
-	min-height: calc(100svh - 5rem - 1px);
+	height: calc(100svh - var(--header-height));
+	min-height: calc(100svh - var(--header-height) - 1px);
 	position: relative; /* Viktigt för absolute positioning inuti */
 }
 
