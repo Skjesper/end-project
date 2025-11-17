@@ -7,18 +7,20 @@ import Button from '@/components/ui/button/Button'
 import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
 import { getProductsByCollection } from '@/lib/shopify'
 import { extractUniqueCategories } from '@/utils/categoryFilter'
+import { useModalState } from '@/hooks/useModalState'
 
 const CATEGORY_TYPES = ['men', 'women', 'accessories'] as const
 type CategoryType = (typeof CATEGORY_TYPES)[number]
 
 export default function Footer() {
+	const { activeModal, openModal, closeModal, isOpen } =
+		useModalState<CategoryType>()
+
 	const [categories, setCategories] = useState<Record<CategoryType, string[]>>({
 		men: [],
 		women: [],
 		accessories: []
 	})
-
-	const [activeModal, setActiveModal] = useState<CategoryType | null>(null)
 
 	useEffect(() => {
 		async function loadCategories() {
@@ -39,14 +41,6 @@ export default function Footer() {
 		}
 		loadCategories()
 	}, [])
-
-	const openModal = (categoryType: CategoryType) => {
-		setActiveModal(categoryType)
-	}
-
-	const closeModal = () => {
-		setActiveModal(null)
-	}
 
 	return (
 		<>
@@ -131,7 +125,7 @@ export default function Footer() {
 			{CATEGORY_TYPES.map((categoryType) => (
 				<CategoryDropdown
 					key={categoryType}
-					open={activeModal === categoryType}
+					open={isOpen(categoryType)}
 					onClose={closeModal}
 					categories={categories[categoryType]}
 					categoryType={categoryType}

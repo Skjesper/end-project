@@ -11,6 +11,7 @@ import { extractUniqueCategories } from '@/utils/categoryFilter'
 import CategoryDropdown from '@/components/ui/categoryDropDown/CategoryDropDown'
 import MobileMenu from '@/components/ui/mobileMenu/MobileMenu'
 import { useHoverDelay } from '@/hooks/useHoverDelay'
+import { useModalState } from '@/hooks/useModalState'
 
 import SearchIcon from '@mui/icons-material/Search'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
@@ -21,14 +22,15 @@ type CategoryType = (typeof CATEGORY_TYPES)[number]
 export default function Header() {
 	const { getTotalItems } = useCart()
 
+	const { activeModal, openModal, closeModal, isOpen } =
+		useModalState<CategoryType>()
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
 	const [categories, setCategories] = useState<Record<CategoryType, string[]>>({
 		men: [],
 		women: [],
 		accessories: []
 	})
-
-	const [activeModal, setActiveModal] = useState<CategoryType | null>(null)
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
 	useEffect(() => {
 		async function loadCategories() {
@@ -49,14 +51,6 @@ export default function Header() {
 		}
 		loadCategories()
 	}, [])
-
-	const openModal = (categoryType: CategoryType) => {
-		setActiveModal(categoryType)
-	}
-
-	const closeModal = () => {
-		setActiveModal(null)
-	}
 
 	const menHover = useHoverDelay({
 		onHoverStart: () => openModal('men'),

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
@@ -8,27 +8,56 @@ import { useGSAP } from '@gsap/react'
 import styles from './CategorySideScroll.module.css'
 import Image from 'next/image'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import { getProductsByCollection } from '@/lib/shopify'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
-const images = [
-	{ src: '/assets/images/testimg1.png', alt: 'Product 1', number: '01' },
-	{ src: '/assets/images/testimg2.png', alt: 'Product 2', number: '02' },
-	{ src: '/assets/images/testimg1.png', alt: 'Product 3', number: '03' },
-	{ src: '/assets/images/testimg2.png', alt: 'Product 4', number: '04' },
-	{ src: '/assets/images/testimg1.png', alt: 'Product 5', number: '05' },
-	{ src: '/assets/images/testimg2.png', alt: 'Product 6', number: '06' }
-]
+// Collections from 2020-2025
+const FEATURED_COLLECTIONS = ['aw20', 'aw21', 'aw22', 'aw23', 'aw24', 'aw25']
 
 export default function CategorySideScroll() {
 	const isMobile = useIsMobile()
+	const [images, setImages] = useState<
+		Array<{ src: string; alt: string; number: string; collection: string }>
+	>([])
+	const [loading, setLoading] = useState(true)
 	const sectionRef = useRef<HTMLDivElement>(null)
 	const imagesRef = useRef<(HTMLDivElement | null)[]>([])
 	const bottomTextRef = useRef<HTMLDivElement>(null)
 	const categoryContainerRef = useRef<HTMLDivElement>(null)
 
+	useEffect(() => {
+		async function loadCollectionImages() {
+			setLoading(true)
+			const imagePromises = FEATURED_COLLECTIONS.map(
+				async (collectionHandle, index) => {
+					const data = await getProductsByCollection(collectionHandle)
+
+					// Get a random product from the collection
+					const randomProduct =
+						data.products[Math.floor(Math.random() * data.products.length)]
+
+					return {
+						src: randomProduct?.images[0]?.url || '/placeholder.png',
+						alt: `${data.collection?.title || collectionHandle} collection`,
+						number: `0${index + 1}`,
+						collection: data.collection?.title || collectionHandle.toUpperCase()
+					}
+				}
+			)
+
+			const collectionImages = await Promise.all(imagePromises)
+			setImages(collectionImages)
+			setLoading(false)
+		}
+
+		loadCollectionImages()
+	}, [])
+
 	useGSAP(
 		() => {
+			if (images.length === 0) return
+
 			const tl = gsap.timeline({
 				scrollTrigger: {
 					trigger: categoryContainerRef.current,
@@ -64,8 +93,14 @@ export default function CategorySideScroll() {
 				})
 			}
 		},
-		{ dependencies: [isMobile], revertOnUpdate: true }
+		{ dependencies: [isMobile, images], revertOnUpdate: true }
 	)
+
+	if (loading) {
+		return (
+			<div className={styles.categoryContainer}>Loading collections...</div>
+		)
+	}
 
 	return (
 		<div ref={categoryContainerRef} className={styles.categoryContainer}>
@@ -80,12 +115,12 @@ export default function CategorySideScroll() {
 						className={styles.imageWrapper}
 					>
 						<Image src={image.src} alt={image.alt} width={400} height={500} />
-						<span className={styles.imageNumber}>{image.number}.</span>
+						<span className={styles.imageNumber}>{image.collection}.</span>
 					</div>
 				))}
 			</section>
 			<div ref={bottomTextRef} className={styles.bottomText}>
-				<h2>COLLECTIONS 17-25</h2>
+				<h2>COLLECTIONS 20-25</h2>
 			</div>
 		</div>
 	)
