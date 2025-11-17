@@ -17,8 +17,9 @@ interface AddToCartButtonProps {
 	currency: string
 	variant?: 'primary' | 'secondary' | 'filter'
 	children?: React.ReactNode
-	selectedSize?: string // Add this
-	selectedColor?: string // Add this
+	selectedSize?: string
+	selectedColor?: string
+	availableForSale?: boolean // Add this prop
 }
 
 export default function AddToCartButton({
@@ -32,14 +33,21 @@ export default function AddToCartButton({
 	currency,
 	variant = 'primary',
 	children,
-	selectedSize, // Add this
-	selectedColor // Add this
+	selectedSize,
+	selectedColor,
+	availableForSale = true // Default to true for backwards compatibility
 }: AddToCartButtonProps) {
 	const { addToCart } = useCart()
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [addedItem, setAddedItem] = useState<CartItem | null>(null)
 
 	const handleClick = () => {
+		// Check if item is available for sale
+		if (!availableForSale) {
+			alert('This item is currently out of stock')
+			return
+		}
+
 		const item = {
 			productId,
 			variantId,
@@ -56,12 +64,20 @@ export default function AddToCartButton({
 		addToCart(item)
 		setAddedItem(item)
 		setIsModalOpen(true)
+
+		if (onClick) {
+			onClick()
+		}
 	}
 
 	return (
 		<>
-			<Button onClick={handleClick} variant={variant}>
-				{children || 'Add to Cart'}
+			<Button
+				onClick={handleClick}
+				variant={variant}
+				disabled={!availableForSale} // Disable if not available
+			>
+				{!availableForSale ? 'Out of Stock' : children || 'Add to Cart'}
 			</Button>
 
 			<AddToCartModal

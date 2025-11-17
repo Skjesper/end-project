@@ -1,5 +1,5 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client'
-import { Product } from '@/types/product'
+import { Product, ProductVariant } from '@/types/product'
 
 const client = createStorefrontApiClient({
 	storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!,
@@ -208,6 +208,21 @@ export async function getProductsByCollection(
 		const products: Product[] = collectionData.products.edges
 			.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 				const node = edge.node
+
+				// Map variants with proper typing
+				const mappedVariants: ProductVariant[] = node.variants.edges.map(
+					(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+						id: variantEdge.node.id,
+						title: variantEdge.node.title,
+						availableForSale: variantEdge.node.availableForSale,
+						price: {
+							amount: variantEdge.node.price.amount,
+							currencyCode: variantEdge.node.price.currencyCode
+						},
+						selectedOptions: variantEdge.node.selectedOptions
+					})
+				)
+
 				return {
 					id: node.id,
 					title: node.title,
@@ -229,24 +244,15 @@ export async function getProductsByCollection(
 							altText: imgEdge.node.altText
 						})
 					),
-					variants: node.variants.edges.map(
-						(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
-							id: variantEdge.node.id,
-							title: variantEdge.node.title,
-							availableForSale: variantEdge.node.availableForSale,
-							price: {
-								amount: variantEdge.node.price.amount,
-								currencyCode: variantEdge.node.price.currencyCode
-							},
-							selectedOptions: variantEdge.node.selectedOptions
-						})
-					)
+					variants: mappedVariants,
+					availableForSale: mappedVariants.some((v) => v.availableForSale)
 				}
 			})
 			// Filter out products with NO available variants
-			.filter((product) => {
+			.filter((product: Product) => {
 				return (
 					product.variants &&
+					product.variants.length > 0 &&
 					product.variants.some((variant) => variant.availableForSale)
 				)
 			})
@@ -316,6 +322,21 @@ export async function getProducts(): Promise<Product[]> {
 			response.data?.products.edges
 				.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 					const node = edge.node
+
+					// Map variants with proper typing
+					const mappedVariants: ProductVariant[] = node.variants.edges.map(
+						(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+							id: variantEdge.node.id,
+							title: variantEdge.node.title,
+							availableForSale: variantEdge.node.availableForSale,
+							price: {
+								amount: variantEdge.node.price.amount,
+								currencyCode: variantEdge.node.price.currencyCode
+							},
+							selectedOptions: variantEdge.node.selectedOptions
+						})
+					)
+
 					return {
 						id: node.id,
 						title: node.title,
@@ -334,23 +355,14 @@ export async function getProducts(): Promise<Product[]> {
 								altText: imgEdge.node.altText
 							})
 						),
-						variants: node.variants.edges.map(
-							(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
-								id: variantEdge.node.id,
-								title: variantEdge.node.title,
-								availableForSale: variantEdge.node.availableForSale,
-								price: {
-									amount: variantEdge.node.price.amount,
-									currencyCode: variantEdge.node.price.currencyCode
-								},
-								selectedOptions: variantEdge.node.selectedOptions
-							})
-						)
+						variants: mappedVariants,
+						availableForSale: mappedVariants.some((v) => v.availableForSale)
 					}
 				})
-				.filter((product) => {
+				.filter((product: Product) => {
 					return (
 						product.variants &&
+						product.variants.length > 0 &&
 						product.variants.some((variant) => variant.availableForSale)
 					)
 				}) || []
@@ -421,6 +433,21 @@ export async function getProduct(id: string): Promise<Product | null> {
 		}
 
 		const node = response.data.product as ShopifyProductNode
+
+		// Map variants with proper typing
+		const mappedVariants: ProductVariant[] = node.variants.edges.map(
+			(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+				id: variantEdge.node.id,
+				title: variantEdge.node.title,
+				availableForSale: variantEdge.node.availableForSale,
+				price: {
+					amount: variantEdge.node.price.amount,
+					currencyCode: variantEdge.node.price.currencyCode
+				},
+				selectedOptions: variantEdge.node.selectedOptions
+			})
+		)
+
 		return {
 			id: node.id,
 			title: node.title,
@@ -440,18 +467,8 @@ export async function getProduct(id: string): Promise<Product | null> {
 					altText: imgEdge.node.altText
 				})
 			),
-			variants: node.variants.edges.map(
-				(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
-					id: variantEdge.node.id,
-					title: variantEdge.node.title,
-					availableForSale: variantEdge.node.availableForSale,
-					price: {
-						amount: variantEdge.node.price.amount,
-						currencyCode: variantEdge.node.price.currencyCode
-					},
-					selectedOptions: variantEdge.node.selectedOptions
-				})
-			)
+			variants: mappedVariants,
+			availableForSale: mappedVariants.some((v) => v.availableForSale)
 		}
 	} catch (error) {
 		console.error('Error fetching product:', error)
@@ -520,6 +537,21 @@ export async function getProductByHandle(
 		}
 
 		const node = response.data.product as ShopifyProductNode
+
+		// Map variants with proper typing
+		const mappedVariants: ProductVariant[] = node.variants.edges.map(
+			(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+				id: variantEdge.node.id,
+				title: variantEdge.node.title,
+				availableForSale: variantEdge.node.availableForSale,
+				price: {
+					amount: variantEdge.node.price.amount,
+					currencyCode: variantEdge.node.price.currencyCode
+				},
+				selectedOptions: variantEdge.node.selectedOptions
+			})
+		)
+
 		return {
 			id: node.id,
 			title: node.title,
@@ -539,18 +571,8 @@ export async function getProductByHandle(
 					altText: imgEdge.node.altText
 				})
 			),
-			variants: node.variants.edges.map(
-				(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
-					id: variantEdge.node.id,
-					title: variantEdge.node.title,
-					availableForSale: variantEdge.node.availableForSale,
-					price: {
-						amount: variantEdge.node.price.amount,
-						currencyCode: variantEdge.node.price.currencyCode
-					},
-					selectedOptions: variantEdge.node.selectedOptions
-				})
-			),
+			variants: mappedVariants,
+			availableForSale: mappedVariants.some((v) => v.availableForSale),
 			variantId: node.variants.edges[0]?.node.id || node.id
 		}
 	} catch (error) {
@@ -705,6 +727,21 @@ export async function getProductsByTag(
 			response.data?.products.edges
 				.map((edge: ShopifyEdge<ShopifyProductNode>) => {
 					const node = edge.node
+
+					// Map variants with proper typing
+					const mappedVariants: ProductVariant[] = node.variants.edges.map(
+						(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
+							id: variantEdge.node.id,
+							title: variantEdge.node.title,
+							availableForSale: variantEdge.node.availableForSale,
+							price: {
+								amount: variantEdge.node.price.amount,
+								currencyCode: variantEdge.node.price.currencyCode
+							},
+							selectedOptions: variantEdge.node.selectedOptions
+						})
+					)
+
 					return {
 						id: node.id,
 						title: node.title,
@@ -725,23 +762,14 @@ export async function getProductsByTag(
 								altText: imgEdge.node.altText
 							})
 						),
-						variants: node.variants.edges.map(
-							(variantEdge: ShopifyEdge<ShopifyVariantNode>) => ({
-								id: variantEdge.node.id,
-								title: variantEdge.node.title,
-								availableForSale: variantEdge.node.availableForSale,
-								price: {
-									amount: variantEdge.node.price.amount,
-									currencyCode: variantEdge.node.price.currencyCode
-								},
-								selectedOptions: variantEdge.node.selectedOptions
-							})
-						)
+						variants: mappedVariants,
+						availableForSale: mappedVariants.some((v) => v.availableForSale)
 					}
 				})
-				.filter((product) => {
+				.filter((product: Product) => {
 					return (
 						product.variants &&
+						product.variants.length > 0 &&
 						product.variants.some((variant) => variant.availableForSale)
 					)
 				}) || []

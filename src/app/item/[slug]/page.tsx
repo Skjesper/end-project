@@ -30,6 +30,7 @@ export default function ProductDetailPage({
 	const [selectedSize, setSelectedSize] = useState<string>('')
 	const [selectedColor, setSelectedColor] = useState<string>('')
 	const [selectedVariantId, setSelectedVariantId] = useState<string>('')
+	const [isAvailableForSale, setIsAvailableForSale] = useState<boolean>(true) // Add this
 
 	useEffect(() => {
 		async function loadProduct() {
@@ -37,10 +38,11 @@ export default function ProductDetailPage({
 			const productData = await getProductByHandle(resolvedParams.slug)
 			setProduct(productData)
 
-			// IMPORTANT: Set default variant immediately when product loads
+			// Set default variant immediately when product loads
 			if (productData?.variants && productData.variants.length > 0) {
 				const firstVariant = productData.variants[0]
-				setSelectedVariantId(firstVariant.id) // Set the variant ID right away
+				setSelectedVariantId(firstVariant.id)
+				setIsAvailableForSale(firstVariant.availableForSale) // Set availability
 
 				// Also set the default size and color based on first variant
 				const sizeOption = firstVariant.selectedOptions.find(
@@ -79,7 +81,9 @@ export default function ProductDetailPage({
 
 		if (matchingVariant) {
 			setSelectedVariantId(matchingVariant.id)
-			console.log('Selected variant ID:', matchingVariant.id) // Debug log
+			setIsAvailableForSale(matchingVariant.availableForSale) // Update availability
+			console.log('Selected variant ID:', matchingVariant.id)
+			console.log('Available for sale:', matchingVariant.availableForSale)
 		}
 	}, [selectedSize, selectedColor, product])
 
@@ -140,7 +144,7 @@ export default function ProductDetailPage({
 	const price = parseFloat(product.priceRange.minVariantPrice.amount)
 	const currency = product.priceRange.minVariantPrice.currencyCode
 
-	console.log('Current selectedVariantId:', selectedVariantId) // Debug log
+	console.log('Current selectedVariantId:', selectedVariantId)
 
 	return (
 		<div>
@@ -230,8 +234,16 @@ export default function ProductDetailPage({
 								variant="primary"
 								selectedSize={selectedSize}
 								selectedColor={selectedColor}
+								availableForSale={isAvailableForSale}
 							/>
 						</div>
+
+						{/* Show out of stock message */}
+						{!isAvailableForSale && (
+							<p style={{ color: 'var(--accent)', fontWeight: 'bold' }}>
+								This variant is currently out of stock
+							</p>
+						)}
 
 						<ProductAccordions
 							description={product.description}
