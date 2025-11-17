@@ -16,8 +16,7 @@ Next.js 15 (App Router), TypeScript, React 19, CSS Modules, Shopify Storefront A
 
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/yourusername/ecommerce-shopify-nextjs.git
-cd ecommerce-shopify-nextjs
+git clone 
 npm install
 ```
 
