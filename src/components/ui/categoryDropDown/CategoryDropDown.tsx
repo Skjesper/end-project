@@ -1,4 +1,3 @@
-// components/ui/categoryDropDown/CategoryDropDown.tsx
 'use client'
 
 import SlideOutModal from '@/components/ui/slideOutModal/SlideOutModal'
@@ -25,12 +24,18 @@ export default function CategoryDropdown({
 			? `${categoryType.charAt(0).toUpperCase() + categoryType.slice(1)}`
 			: 'Categories')
 
+	const handleClose = () => {
+		onClose()
+
+		window.scrollTo({ top: 0, behavior: 'smooth' })
+	}
+
 	return (
-		<SlideOutModal open={open} onClose={onClose} title={displayTitle}>
+		<SlideOutModal open={open} onClose={handleClose} title={displayTitle}>
 			<CategoryList
 				categories={categories}
 				categoryType={categoryType}
-				onCategoryClick={onClose}
+				onCategoryClick={handleClose}
 			/>
 		</SlideOutModal>
 	)

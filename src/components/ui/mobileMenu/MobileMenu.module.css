@@ -51,9 +51,9 @@
 	border: none;
 	text-align: left;
 	font-size: 0.95rem;
-	color: #666;
+
 	cursor: pointer;
-	border-radius: 4px;
+
 	transition: background-color 0.2s;
 }
 

@@ -14,7 +14,7 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
-import { getProductsByTag } from '@/lib/shopify'
+import { getProductsByCollection } from '@/lib/shopify'
 import { Product } from '@/types/product'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
@@ -35,8 +35,8 @@ export default function MySwiper() {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			setLoading(true)
-			const highlightedProducts = await getProductsByTag('Highlight', 10)
-			setProducts(highlightedProducts)
+			const data = await getProductsByCollection('aw25')
+			setProducts(data.products)
 			setLoading(false)
 		}
 

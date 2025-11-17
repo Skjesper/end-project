@@ -88,9 +88,13 @@ export default function MobileMenu({
 				</nav>
 			) : (
 				<div className={styles.categoryView}>
-					<button onClick={goBack} className={styles.backButton}>
+					<Button
+						variant="filter"
+						onClick={goBack}
+						className={styles.backButton}
+					>
 						← Back to Menu
-					</button>
+					</Button>
 
 					<CategoryList
 						categories={
