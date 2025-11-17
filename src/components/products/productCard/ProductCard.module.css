@@ -32,8 +32,8 @@
 }
 
 .favoriteIcon {
-	width: 24px;
-	height: 24px;
+	width: var(--favorite-button-size);
+	height: var(--favorite-button-size);
 	transition: filter 0.2s ease;
 }
 
@@ -98,8 +98,8 @@
 .productCardSwiper :global(.swiper-pagination-bullet) {
 	background: #fff !important;
 	opacity: 0.5 !important;
-	width: 8px !important;
-	height: 8px !important;
+	width: var(--indicator-dot-size) !important;
+	height: var(--indicator-dot-size) !important;
 	border: 1px solid #000;
 	margin: 0 4px !important;
 }
@@ -120,7 +120,7 @@
 
 .productCardSwiper :global(.swiper-button-next)::after,
 .productCardSwiper :global(.swiper-button-prev)::after {
-	font-size: 16px !important;
+	font-size: 1rem !important;
 	font-weight: bold;
 }
 

@@ -5,7 +5,7 @@
 
 .headerContainer {
 	display: grid;
-	height: 6rem;
+	height: var(--header-height);
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	gap: 1rem;
@@ -18,7 +18,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--accent);
-	height: 20px;
+	height: var(--cart-badge-size);
 }
 
 .titleContainer {

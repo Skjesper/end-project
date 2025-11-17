@@ -140,6 +140,27 @@
 	--z-overlay: 300;
 	--z-modal: 400;
 	--z-toast: 500;
+
+	/* Modal & Overlay Z-indices */
+	--z-modal-backdrop: 200;
+	--z-modal-content: 300;
+
+	/* Heights */
+	--header-height: 6rem;
+	--min-page-height: calc(100vh - var(--header-height));
+
+	/* Loading States */
+	--loading-spinner-size: 60px;
+
+	/* Favorite Button */
+	--favorite-button-size: 24px;
+
+	/* Cart Badge */
+	--cart-badge-size: 20px;
+
+	/* Image Indicators */
+	--indicator-dot-size: 8px;
+	--indicator-dot-active-scale: 1.2;
 }
 
 /* ============================================

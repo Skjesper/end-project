@@ -9,8 +9,8 @@
 }
 
 .dot {
-	width: 8px;
-	height: 8px;
+	width: var(--indicator-dot-size);
+	height: var(--indicator-dot-size);
 	border-radius: 50%;
 	background-color: rgba(255, 255, 255, 0.5);
 	border: 1px solid rgba(0, 0, 0, 0.2);
