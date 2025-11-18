@@ -28,8 +28,8 @@ export default function FavoriteButton({
 	const { toggleFavorite, isFavorite } = useFavorites()
 
 	const handleClick = (e: React.MouseEvent) => {
-		e.preventDefault() // Prevents link navigation
-		e.stopPropagation() // Stops event from bubbling to parent elements
+		e.preventDefault()
+		e.stopPropagation()
 
 		toggleFavorite({
 			productId,

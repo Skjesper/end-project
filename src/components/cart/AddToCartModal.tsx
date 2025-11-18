@@ -17,7 +17,6 @@ interface AddToCartModalProps {
 	addedItem: CartItem | null
 }
 
-// Slide transition component (moved outside)
 const SlideTransition = React.forwardRef(function Transition(
 	props: TransitionProps & {
 		children: React.ReactElement
@@ -37,12 +36,11 @@ export default function AddToCartModal({
 		null
 	)
 
-	// Auto-close after 5 seconds
 	useEffect(() => {
 		if (isOpen) {
 			const timer = setTimeout(() => {
 				onClose()
-			}, 500000) // Changed back to 5 seconds
+			}, 5000)
 			setAutoCloseTimer(timer)
 
 			return () => {
@@ -92,7 +90,6 @@ export default function AddToCartModal({
 			}}
 		>
 			<div className={styles.modalContent}>
-				{/* Header */}
 				<div className={styles.header}>
 					<h2 className={styles.title}>CART</h2>
 					<IconButton

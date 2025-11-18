@@ -31,7 +31,6 @@ export default function MySwiper() {
 	const subtitleRef = useRef<HTMLHeadingElement>(null)
 	const titleRef = useRef<HTMLHeadingElement>(null)
 
-	// Fetch products on mount
 	useEffect(() => {
 		const fetchProducts = async () => {
 			setLoading(true)

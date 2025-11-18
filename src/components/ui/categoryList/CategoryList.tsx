@@ -1,4 +1,3 @@
-// components/ui/categoryList/CategoryList.tsx
 'use client'
 
 import Link from 'next/link'

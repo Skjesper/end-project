@@ -1,4 +1,3 @@
-// src/components/collection/collection-content/CollectionContent.tsx
 'use client'
 
 import { useState, useEffect } from 'react'

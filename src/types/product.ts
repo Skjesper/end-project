@@ -34,5 +34,5 @@ export interface Product {
 	images: ProductImage[]
 	variants?: ProductVariant[]
 	variantId?: string
-	availableForSale?: boolean // Add this!
+	availableForSale?: boolean
 }
