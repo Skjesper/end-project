@@ -62,27 +62,22 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 		loadData()
 	}, [slug])
 
-	// Set selected category from URL
 	useEffect(() => {
 		if (categoryFromUrl) {
 			setSelectedCategory(categoryFromUrl)
 		}
 	}, [categoryFromUrl])
 
-	// First filter: by category (from URL)
 	useEffect(() => {
 		const filtered = filterProductsByCategory(products, selectedCategory)
 		setCategoryFilteredProducts(filtered)
 
-		// Update available tags based on category-filtered products
 		const tags = extractUniqueTags(filtered)
 		setAvailableTags(tags)
 
-		// Reset tag selection when category changes
 		setSelectedTag(null)
 	}, [selectedCategory, products])
 
-	// Second filter: by tag (from page filter)
 	useEffect(() => {
 		const filtered = filterProductsByTag(categoryFilteredProducts, selectedTag)
 		setFinalFilteredProducts(filtered)
