@@ -113,13 +113,27 @@
 		width: 80%;
 	}
 
+	.mainSlide {
+		padding: 0;
+		display: flex !important;
+		justify-content: center !important;
+		align-items: center !important;
+	}
+
+	.mainSlide a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
 	.mainSlideImage {
 		width: auto;
-		max-width: 280px; /* Adjust this value to control mobile size */
-		height: 400px; /* Fixed height on mobile */
-		aspect-ratio: auto; /* Override desktop ratio */
+		max-width: 280px;
+		height: 400px;
+		aspect-ratio: auto;
 		object-fit: cover;
 		border: solid black var(--border-width);
-		margin: 0 auto; /* Additional centering */
+		display: block;
 	}
 }
