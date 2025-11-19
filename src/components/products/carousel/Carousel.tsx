@@ -165,11 +165,9 @@ export default function MySwiper() {
 						{products.map((product) => (
 							<SwiperSlide key={product.id} className={styles.mainSlide}>
 								<Link href={`/item/${product.handle}`}>
-									<Image
+									<img
 										src={product.images[0]?.url || '/placeholder.png'}
 										alt={product.images[0]?.altText || product.title}
-										width={320}
-										height={400}
 										className={styles.mainSlideImage}
 									/>
 								</Link>
