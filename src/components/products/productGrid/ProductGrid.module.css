@@ -73,6 +73,6 @@
 	}
 
 	.gridWrapper {
-		padding: 0 var(--container-padding);
+		padding: 0 var(--container-padding) var(--container-padding);
 	}
 }
