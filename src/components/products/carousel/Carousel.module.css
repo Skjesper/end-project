@@ -55,7 +55,9 @@
 
 .mainSlideImage {
 	width: 100%;
+	max-width: 320px;
 	height: auto;
+	aspect-ratio: 4 / 5; /* Maintains 320/400 ratio */
 	object-fit: cover;
 	border: solid black var(--border-width);
 }
@@ -109,5 +111,18 @@
 
 	.thumbSwiper {
 		width: 80%;
+	}
+
+	.mainSlide {
+		padding: 0 4rem;
+	}
+
+	.mainSlideImage {
+		width: auto;
+		max-width: 280px;
+		height: 400px;
+		aspect-ratio: auto;
+		object-fit: cover;
+		border: solid black var(--border-width);
 	}
 }
