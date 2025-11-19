@@ -115,14 +115,18 @@
 
 	.mainSlide {
 		padding: 0 4rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.mainSlideImage {
 		width: auto;
-		max-width: 280px;
-		height: 400px;
-		aspect-ratio: auto;
+		max-width: 280px; /* Adjust this value to control mobile size */
+		height: 400px; /* Fixed height on mobile */
+		aspect-ratio: auto; /* Override desktop ratio */
 		object-fit: cover;
 		border: solid black var(--border-width);
+		margin: 0 auto; /* Additional centering */
 	}
 }
