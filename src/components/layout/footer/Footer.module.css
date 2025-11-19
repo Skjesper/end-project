@@ -1,9 +1,12 @@
 .footer {
-	padding: 0 var(--container-padding);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: var(--container-padding);
 	border: solid var(--primary) var(--border-width);
 	border-left: 0;
 	border-right: 0;
-	height: 20rem;
+	height: 100vh;
 
 	width: 100vw;
 }
