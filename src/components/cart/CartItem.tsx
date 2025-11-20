@@ -7,7 +7,6 @@ import styles from './CartItem.module.css'
 import Button from '../ui/button/Button'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import Image from 'next/image'
 
 interface CartItemProps {
 	item: CartItemType
@@ -36,7 +35,7 @@ export default function CartItem({ item }: CartItemProps) {
 					href={`/item/${item.handle}`}
 					aria-label={`View ${item.title} details`}
 				>
-					<Image src={item.image} alt={item.title} width={200} height={200} />
+					<img src={item.image} alt={item.title} />
 				</Link>
 			</div>
 
@@ -103,7 +102,6 @@ export default function CartItem({ item }: CartItemProps) {
 							<AddIcon />
 						</Button>
 					</div>
-					{/* ... rest of your code */}
 
 					<Button
 						variant="filter"
