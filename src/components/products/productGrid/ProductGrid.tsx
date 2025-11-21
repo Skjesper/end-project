@@ -15,7 +15,7 @@ interface ProductGridProps {
 
 export default function ProductGrid({
 	products,
-	itemsPerPage = 12
+	itemsPerPage = 8
 }: ProductGridProps) {
 	const [currentPage, setCurrentPage] = useState(1)
 
