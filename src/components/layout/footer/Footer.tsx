@@ -110,7 +110,7 @@ export default function Footer() {
 						<h3 className={styles.heading}>CONTACT</h3>
 						<ul className={styles.list}>
 							<li>Student Project</li>
-							<li>Built with Next.js & Shopify</li>
+							<li>Built with Next.js, React.js & Shopify</li>
 						</ul>
 					</div>
 				</div>
