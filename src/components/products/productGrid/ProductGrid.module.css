@@ -7,7 +7,6 @@
 .gridWrapper {
 	padding: var(--container-padding);
 	width: 100vw;
-	min-height: 50vh;
 }
 
 .grid {
@@ -74,6 +73,6 @@
 	}
 
 	.gridWrapper {
-		padding: 0 var(--container-padding) var(--container-padding);
+		padding: 0 var(--container-padding);
 	}
 }
